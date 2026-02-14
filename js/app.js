@@ -1,4 +1,3 @@
-// --- Существующий код темы (оставляем как есть) ---
 const themeSwitch = document.getElementById('themeSwitch');
 const htmlElement = document.documentElement;
 
@@ -30,38 +29,25 @@ function handleSystemThemeChange(e) {
   }
 }
 mediaQuery.addEventListener('change', handleSystemThemeChange);
-// --- Конец кода темы ---
 
 
-// --- НОВАЯ ЛОГИКА ПРИЛОЖЕНИЯ ---
-
-// Проверяем, загрузилась ли база данных
 if (typeof itemsDatabase === 'undefined') {
   console.error('Ошибка: База данных itemsDatabase не найдена! Убедись, что файл items-db.js подключен.');
 } else {
   console.log(`База данных загружена. Всего предметов: ${itemsDatabase.length}`);
 }
 
-// --- Константы ---
-const TOTAL_ITEMS_IN_GAME = 960; // Всего предметов в игре
+const TOTAL_ITEMS_IN_GAME = 960; 
 
-// --- Глобальные переменные ---
 let currentCategory = 'Все предметы';
 let currentSearchTerm = '';
-// Используем оригинальную базу данных без изменений
 let itemsData = itemsDatabase || [];
 
-// --- Элементы DOM ---
 const sidebarNav = document.querySelector('.nav-sidebar');
 const itemsGrid = document.querySelector('.items-tab-grid');
 const searchInput = document.querySelector('.ph-search .form-control');
 const placeholderText = document.querySelector('.ph-placeholder');
 
-// --- Функции ---
-
-/**
- * Находит отсутствующие ID в базе данных
- */
 function findMissingIds() {
   const existingIds = new Set(itemsData.map(item => item.id));
   const missingIds = [];
@@ -75,14 +61,9 @@ function findMissingIds() {
   return missingIds;
 }
 
-/**
- * Добавляет информацию о статистике под категории
- */
 function addStatsToSidebar() {
   const sidebar = document.querySelector('.sidebar');
   if (!sidebar) return;
-  
-  // Удаляем старую статистику, если есть
   const oldStats = document.querySelector('.sidebar-stats');
   if (oldStats) oldStats.remove();
   
@@ -106,7 +87,6 @@ function addStatsToSidebar() {
   `;
   
   if (missingCount > 0) {
-    // Показываем только первые 10 отсутствующих ID, чтобы не засорять сайдбар
     const displayedIds = missingIds.slice(0, 15);
     const remainingCount = missingCount - displayedIds.length;
     
@@ -134,15 +114,11 @@ function addStatsToSidebar() {
   statsDiv.innerHTML = statsHtml;
   sidebar.appendChild(statsDiv);
   
-  // Обновляем иконки Lucide в статистике
   if (typeof lucide !== 'undefined') {
     lucide.createIcons();
   }
 }
 
-/**
- * Создает и возвращает массив уникальных категорий (type) из базы данных.
- */
 function getCategoriesFromItems() {
   if (!itemsData.length) return ['Все предметы'];
 
@@ -152,9 +128,6 @@ function getCategoriesFromItems() {
   return ['Все предметы', ...uniqueTypes];
 }
 
-/**
- * Строит меню категорий в сайдбаре.
- */
 function buildCategoriesMenu() {
   if (!sidebarNav || !itemsData.length) return;
 
@@ -185,40 +158,27 @@ function buildCategoriesMenu() {
       button.classList.add('active');
       currentCategory = category;
       filterAndRenderItems();
-      
-      // Закрываем все popover при смене категории
       closeAllPopovers();
     });
 
     sidebarNav.appendChild(button);
   });
-  
-  // Добавляем статистику после категорий
+
   addStatsToSidebar();
 }
 
-/**
- * Получает правильный путь к иконке для предмета
- */
 function getItemIconPath(item) {
-  // Если есть badgeImage - используем его (для винилов и подобных)
   if (item.badgeImage) {
-    // У badgeImage уже есть путь, например "Винилы/hlw_2023_2.png"
     if (item.badgeImage.startsWith('Винилы/')) {
       return `icons/${item.badgeImage}`;
     }
     return `icons/${item.badgeImage}`;
   }
-  
-  // Для обычных предметов используем ID
+ 
   return `icons/${item.id}.png`;
 }
 
-/**
- * Закрывает все открытые popover
- */
 function closeAllPopovers() {
-  // Удаляем все инстансы Popover
   document.querySelectorAll('[data-bs-toggle="popover"]').forEach(el => {
     const pop = bootstrap.Popover.getInstance(el);
     if (pop) {
@@ -226,13 +186,9 @@ function closeAllPopovers() {
     }
   });
   
-  // Удаляем все DOM-элементы popover'ов
   document.querySelectorAll('.popover').forEach(popover => popover.remove());
 }
 
-/**
- * Фильтрует предметы на основе категории и поиска.
- */
 function getFilteredItems() {
   if (!itemsData.length) return [];
 
@@ -254,9 +210,6 @@ function getFilteredItems() {
   return filtered;
 }
 
-/**
- * Отрисовывает предметы в сетке.
- */
 function renderItemsGrid(itemsToRender) {
   if (!itemsGrid) return;
 
@@ -275,7 +228,6 @@ function renderItemsGrid(itemsToRender) {
       itemButton.dataset.badgeImage = item.badgeImage;
     }
 
-    // Создаём контейнер для относительного позиционирования
     const container = document.createElement('div');
     container.style.position = 'relative';
     container.style.width = '100%';
@@ -300,20 +252,9 @@ function renderItemsGrid(itemsToRender) {
     };
 
     container.appendChild(img);
-
-    // Добавляем иконку щита для защищённых предметов
     if (item.protected === true) {
       const shieldIcon = document.createElement('i');
       shieldIcon.setAttribute('data-lucide', 'shield');
-      // shieldIcon.style.position = 'absolute';
-      // shieldIcon.style.top = '4px';
-      // shieldIcon.style.right = '4px';
-      // shieldIcon.style.width = '20px';
-      // shieldIcon.style.height = '20px';
-      // shieldIcon.style.color = '#ffc107';
-      // shieldIcon.style.fill = '#ffc107';
-      // shieldIcon.style.strokeWidth = '2';
-      // shieldIcon.style.filter = 'drop-shadow(0 2px 2px rgba(0,0,0,0.2))';
       container.appendChild(shieldIcon);
     }
 
@@ -323,15 +264,11 @@ function renderItemsGrid(itemsToRender) {
     itemsGrid.appendChild(itemButton);
   });
 
-  // Обновляем иконки Lucide
   if (typeof lucide !== 'undefined') {
     lucide.createIcons();
   }
 }
 
-/**
- * Главная функция фильтрации и отрисовки.
- */
 function filterAndRenderItems() {
   const filteredItems = getFilteredItems();
   renderItemsGrid(filteredItems);
@@ -344,27 +281,20 @@ function filterAndRenderItems() {
   }
 }
 
-/**
- * Показывает Popover с информацией о предмете.
- */
 function showItemPopover(event, item) {
-  event.stopPropagation(); // Предотвращаем всплытие события
+  event.stopPropagation(); 
   
   const currentButton = event.currentTarget;
   
-  // Проверяем, есть ли уже открытый popover на этом элементе
   const existingPopover = bootstrap.Popover.getInstance(currentButton);
   
   if (existingPopover) {
-    // Если popover уже открыт на этом элементе - закрываем его и выходим
     existingPopover.dispose();
     return;
   }
   
-  // Закрываем ВСЕ другие popover перед открытием нового
   closeAllPopovers();
 
-  // Собираем HTML для поповера (ПРОСТОЙ СТИЛЬ)
   let contentHtml = `
     <div style="text-align: left; font-size: 0.9rem; min-width: 200px;">
       <strong>${item.name}</strong><br>
@@ -372,7 +302,6 @@ function showItemPopover(event, item) {
       <hr class="my-1">
   `;
 
-  // Добавляем характеристики, если они есть
   if (item.health) contentHtml += `<div><span class="fw-semibold">Здоровье:</span> +${item.health}</div>`;
   if (item.food) contentHtml += `<div><span class="fw-semibold">Еда:</span> +${item.food}</div>`;
   if (item.weight) contentHtml += `<div><span class="fw-semibold">Вес:</span> ${item.weight} кг</div>`;
@@ -382,7 +311,6 @@ function showItemPopover(event, item) {
   contentHtml += `<hr class="my-1"><p class="mb-0 small">${item.description || 'Нет описания'}</p>`;
   contentHtml += `</div>`;
 
-  // Создаем новый Popover
   const popover = new bootstrap.Popover(currentButton, {
     content: contentHtml,
     html: true,
@@ -393,9 +321,7 @@ function showItemPopover(event, item) {
 
   popover.show();
 
-  // Функция для закрытия этого конкретного поповера при клике вне его
   function closeThisPopover(e) {
-    // Проверяем, кликнули ли вне поповера и не по кнопке, которая его вызвала
     if (!currentButton.contains(e.target) && !e.target.closest('.popover')) {
       const popoverInstance = bootstrap.Popover.getInstance(currentButton);
       if (popoverInstance) {
@@ -405,7 +331,6 @@ function showItemPopover(event, item) {
     }
   }
 
-  // Добавляем обработчик для закрытия при клике вне поповера
   setTimeout(() => {
     document.addEventListener('click', closeThisPopover);
   }, 100);
@@ -413,18 +338,12 @@ function showItemPopover(event, item) {
   popover.update();
 }
 
-/**
- * Закрывает все popover при клике на пустое место
- */
 document.addEventListener('click', function(e) {
-  // Если кликнули не на кнопке с предметом и не на popover'е
   if (!e.target.closest('.items-tab-box') && !e.target.closest('.popover')) {
     closeAllPopovers();
   }
 });
 
-
-// --- Инициализация приложения ---
 function initApp() {
   if (!itemsData.length) {
     console.error('Нет данных для отображения');
@@ -437,23 +356,21 @@ function initApp() {
     searchInput.addEventListener('input', (e) => {
       currentSearchTerm = e.target.value;
       filterAndRenderItems();
-      // Закрываем popover при поиске
       closeAllPopovers();
     });
   }
 
   filterAndRenderItems();
 
-  // Инициализируем тултипы Bootstrap
   const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
   if (tooltipTriggerList.length > 0) {
     [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
   }
 }
 
-// Запускаем приложение после полной загрузки DOM
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', initApp);
 } else {
   initApp();
 }
+
