@@ -89,18 +89,75 @@
         <div class="row">
           
           <div class="col-auto py-4">
-            <div class="board-wrapper">
-              <div id="itemBoard" class="board-grid"></div>
+            <div class="board-wrapper" id="boardWrapper">
+              <div id="itemBoard" class="board-grid" data-board-theme="light"></div>
             </div>
           </div>
 
           <div class="col py-4">
             <div class="card">
               <div class="card-header">
-                Сборка предметов
+                <i data-lucide="grid-3x3" class="me-3"></i>
+                <span>Сборка доски</span>
               </div>
               <div class="card-body">
-                <h6>Добавить предмет</h6>
+                <label class="form-label">Добавить предмет</label>
+                <div class="position-relative search-div mb-3">
+                  <input type="text" 
+                         id="itemSearchInput" 
+                         class="form-control" 
+                         placeholder="Название, ID или категория..."
+                         autocomplete="off">
+                  <i data-lucide="search"></i>
+                </div>
+                <div id="searchResults" class="custom-select-dropdown mb-2"></div>
+                <p class="small text-secondary" id="itemsCount">В базе: <span id="totalItemsCount">0</span> предметов</p>
+                
+                <div class="d-flex align-items-center justify-content-between my-3">
+                  <div class="d-flex align-items-center gap-2">
+                    <div class="bg-primary bg-opacity-10 p-2 rounded-3">
+                      <i data-lucide="layers"></i>
+                    </div>
+                    <div>
+                      <label class="fw-medium mb-0" for="stackingCheckbox">Объединять одинаковые</label>
+                      <div class="small text-secondary">одна карточка = стак предметов</div>
+                    </div>
+                  </div>
+                  <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="stackingCheckbox" checked>
+                  </div>
+                </div>
+
+                <div class="d-flex align-items-center mb-2">
+                  <label class="me-auto">Текст для продажи</label>
+                  <button type="button" class="btn btn-sm d-flex align-items-center" id="copyTextBtn">
+                    <i data-lucide="clipboard" style="width: 16px; height: 16px;"></i>
+                  </button>
+                </div>
+                <div class="generated-text mb-3" id="generatedTextBlock"></div>
+
+                <div class="d-flex">
+                  <div class="btn-group dropup me-3">
+                    <button type="button" class="btn btn-primary" id="downloadBtn">Скачать PNG</button>
+                    <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                      <span class="visually-hidden">Toggle Dropdown</span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end w-100" id="downloadDropdown">
+                      <li><a class="dropdown-item" href="#" data-format="png">Скачать .PNG</a></li>
+                      <li><a class="dropdown-item" href="#" data-format="jpeg">Скачать .JPEG</a></li>
+                      <li><a class="dropdown-item" href="#" data-format="webp">Скачать .WebP</a></li>
+                    </ul>
+                  </div>
+                  <button type="button" class="btn btn-outline-secondary" id="toggleBoardTheme">
+                    <i data-lucide="palette" class="me-2"></i>
+                    Сменить тему доски
+                  </button>
+                </div>
+
+                <p class="text-muted mt-4 mb-0 small">
+                  <i data-lucide="move" class="me-2" style="width: 20px; height: 20px;"></i>
+                  Перетаскивайте предметы — <span class="fw-medium" id="boardItemsCounter">0/25</span> карточек
+                </p>
               </div>
             </div>
           </div>
