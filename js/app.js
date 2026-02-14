@@ -704,7 +704,7 @@ async function downloadBoard(format = 'png') {
     card.className = 'board-item';
     card.style.width = cardSize + 'px';
     card.style.height = cardSize + 'px';
-    card.style.backgroundColor = 'var(--bs-body-bg)';
+    card.style.backgroundColor = boardTheme === 'light' ? '#ffffff' : '#2b3035';
     card.style.borderRadius = '16px';
     card.style.display = 'flex';
     card.style.flexDirection = 'column';
@@ -712,7 +712,7 @@ async function downloadBoard(format = 'png') {
     card.style.justifyContent = 'center';
     card.style.position = 'relative';
     card.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
-    card.style.border = '1px solid #dee2e6';
+    card.style.border = boardTheme === 'light' ? '1px solid #dee2e6' : '1px solid #495057';
     card.style.margin = '0';
     card.style.padding = '0';
     card.style.boxSizing = 'border-box';
@@ -768,6 +768,7 @@ async function downloadBoard(format = 'png') {
       shieldSpan.style.top = '4px';
       shieldSpan.style.left = '4px';
       shieldSpan.style.fontSize = '16px';
+      shieldSpan.style.color = boardTheme === 'light' ? '#ffc107' : '#ffd700';
       card.appendChild(shieldSpan);
     }
     
