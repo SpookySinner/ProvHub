@@ -1,4 +1,5 @@
 /* ===== data/items-db.js ===== */
+/* База предметов (без изменений) */
 
 const itemsDatabase = [
     {
@@ -833,7 +834,7 @@ const itemsDatabase = [
     },
     {
         id:               409,
-        badgeImage:       "vinyls/hlw_2023_2.png",
+        badgeImage:       "../icons/vinyls/hlw_2023_2.png",
         name:             "«Тыквенный бум»",
         type:             "Винил",
         weight:           1,
@@ -842,7 +843,7 @@ const itemsDatabase = [
     },
     {
         id:               409,
-        badgeImage:       "vinyls/hlw_2023_1.png",
+        badgeImage:       "../icons/vinyls/hlw_2023_1.png",
         name:             "«Сумрачный лес»",
         type:             "Винил",
         weight:           1,
@@ -851,7 +852,7 @@ const itemsDatabase = [
     },
     {
         id:               409,
-        badgeImage:       "vinyls/pattern_1.png",
+        badgeImage:       "../icons/vinyls/pattern_1.png",
         name:             "«Полоса черная»",
         type:             "Винил",
         weight:           1,
@@ -860,7 +861,7 @@ const itemsDatabase = [
     },
     {
         id:               409,
-        badgeImage:       "vinyls/pattern_2.png",
+        badgeImage:       "../icons/vinyls/pattern_2.png",
         name:             "«Полоса белая",
         type:             "Винил",
         weight:           1,
@@ -869,7 +870,7 @@ const itemsDatabase = [
     },
     {
         id:               409,
-        badgeImage:       "vinyls/pattern_3.png",
+        badgeImage:       "../icons/vinyls/pattern_3.png",
         name:             "«Две черные полосы»",
         type:             "Винил",
         weight:           1,
@@ -878,7 +879,7 @@ const itemsDatabase = [
     },
     {
         id:               409,
-        badgeImage:       "vinyls/pattern_4.png",
+        badgeImage:       "../icons/vinyls/pattern_4.png",
         name:             "«Две белые полосы»",
         type:             "Винил",
         weight:           1,
@@ -887,7 +888,7 @@ const itemsDatabase = [
     },
     {
         id:               409,
-        badgeImage:       "vinyls/pattern_5.png",
+        badgeImage:       "../icons/vinyls/pattern_5.png",
         name:             "«Полоса двухцветная»",
         type:             "Винил",
         weight:           1,
@@ -896,7 +897,7 @@ const itemsDatabase = [
     },
     {
         id:               409,
-        badgeImage:       "vinyls/pattern_6.png",
+        badgeImage:       "../icons/vinyls/pattern_6.png",
         name:             "«Полоса Martini Racing»",
         type:             "Винил",
         weight:           1,
@@ -905,7 +906,7 @@ const itemsDatabase = [
     },
     {
         id:               409,
-        badgeImage:       "vinyls/pattern_16.png",
+        badgeImage:       "../icons/vinyls/pattern_16.png",
         name:             "Камуфляж «Живопись 2»",
         type:             "Винил",
         weight:           1,
@@ -914,7 +915,7 @@ const itemsDatabase = [
     },
     {
         id:               409,
-        badgeImage:       "vinyls/pattern_7.png",
+        badgeImage:       "../icons/vinyls/pattern_7.png",
         name:             "Камуфляж «Ржавчина»",
         type:             "Винил",
         weight:           1,
@@ -923,7 +924,7 @@ const itemsDatabase = [
     },
     {
         id:               409,
-        badgeImage:       "vinyls/pattern_15.png",
+        badgeImage:       "../icons/vinyls/pattern_15.png",
         name:             "Камуфляж «Стихия асфальта»",
         type:             "Винил",
         weight:           1,
@@ -932,7 +933,7 @@ const itemsDatabase = [
     },
     {
         id:               409,
-        badgeImage:       "vinyls/pattern_8.png",
+        badgeImage:       "../icons/vinyls/pattern_8.png",
         name:             "Камуфляж «Преступление»",
         type:             "Винил",
         weight:           1,
@@ -941,7 +942,7 @@ const itemsDatabase = [
     },
     {
         id:               409,
-        badgeImage:       "vinyls/pattern_14.png",
+        badgeImage:       "../icons/vinyls/pattern_14.png",
         name:             "Камуфляж «Осенний лес»",
         type:             "Винил",
         weight:           1,
@@ -950,7 +951,7 @@ const itemsDatabase = [
     },
     {
         id:               409,
-        badgeImage:       "vinyls/pattern_12.png",
+        badgeImage:       "../icons/vinyls/pattern_12.png",
         name:             "Камуфляж «Живопись 1»",
         type:             "Винил",
         weight:           1,
@@ -959,7 +960,7 @@ const itemsDatabase = [
     },
     {
         id:               409,
-        badgeImage:       "vinyls/pattern_9.png",
+        badgeImage:       "../icons/vinyls/pattern_9.png",
         name:             "Камуфляж «Леопард»",
         type:             "Винил",
         weight:           1,
@@ -968,7 +969,7 @@ const itemsDatabase = [
     },
     {
         id:               409,
-        badgeImage:       "vinyls/pattern_10.png",
+        badgeImage:       "../icons/vinyls/pattern_10.png",
         name:             "Камуфляж «Louis Vuitton»",
         type:             "Винил",
         weight:           1,
@@ -977,7 +978,7 @@ const itemsDatabase = [
     },
     {
         id:               409,
-        badgeImage:       "vinyls/pattern_13.png",
+        badgeImage:       "../icons/vinyls/pattern_13.png",
         name:             "Камуфляж «Большая волна»",
         type:             "Винил",
         weight:           1,
@@ -986,7 +987,7 @@ const itemsDatabase = [
     },
     {
         id:               409,
-        badgeImage:       "vinyls/pattern_11.png",
+        badgeImage:       "../icons/vinyls/pattern_11.png",
         name:             "Камуфляж «Off-White»",
         type:             "Винил",
         weight:           1,
@@ -995,7 +996,7 @@ const itemsDatabase = [
     },
     {
         id:               409,
-        badgeImage:       "vinyls/newyear_2024_3.png",
+        badgeImage:       "../icons/vinyls/newyear_2024_3.png",
         name:             "«Свитер»",
         type:             "Винил",
         weight:           1,
@@ -1004,7 +1005,7 @@ const itemsDatabase = [
     },
     {
         id:               409,
-        badgeImage:       "vinyls/newyear_2024_2.png",
+        badgeImage:       "../icons/vinyls/newyear_2024_2.png",
         name:             "«Полосы и ёлки»",
         type:             "Винил",
         weight:           1,
@@ -1013,7 +1014,7 @@ const itemsDatabase = [
     },
     {
         id:               409,
-        badgeImage:       "vinyls/newyear_2024_1.png",
+        badgeImage:       "../icons/vinyls/newyear_2024_1.png",
         name:             "«Новогодний камуфляж»",
         type:             "Винил",
         weight:           1,
@@ -1022,7 +1023,7 @@ const itemsDatabase = [
     },
     {
         id:               409,
-        badgeImage:       "vinyls/october_spirits.png",
+        badgeImage:       "../icons/vinyls/october_spirits.png",
         name:             "«Октябрьские духи»",
         type:             "Винил",
         weight:           1,
@@ -1031,7 +1032,7 @@ const itemsDatabase = [
     },
     {
         id:               409,
-        badgeImage:       "vinyls/ethmidnight.png",
+        badgeImage:       "../icons/vinyls/ethmidnight.png",
         name:             "«Эфирная полночь»",
         type:             "Винил",
         weight:           1,
@@ -1040,7 +1041,7 @@ const itemsDatabase = [
     },
     {
         id:               409,
-        badgeImage:       "vinyls/blood.png",
+        badgeImage:       "../icons/vinyls/blood.png",
         name:             "«Алые следы»",
         type:             "Винил",
         weight:           1,
@@ -1049,7 +1050,7 @@ const itemsDatabase = [
     },
     {
         id:               409,
-        badgeImage:       "vinyls/2025_13.png",
+        badgeImage:       "../icons/vinyls/2025_13.png",
         name:             "«Карбон»",
         type:             "Винил",
         weight:           1,
@@ -1058,7 +1059,7 @@ const itemsDatabase = [
     },
     {
         id:               409,
-        badgeImage:       "vinyls/2025_15.png",
+        badgeImage:       "../icons/vinyls/2025_15.png",
         name:             "Камуфляж «Абстракция»",
         type:             "Винил",
         weight:           1,
@@ -1067,7 +1068,7 @@ const itemsDatabase = [
     },
     {
         id:               409,
-        badgeImage:       "vinyls/2025_08.png",
+        badgeImage:       "../icons/vinyls/2025_08.png",
         name:             "«Снеговики 2025»",
         type:             "Винил",
         weight:           1,
@@ -1076,7 +1077,7 @@ const itemsDatabase = [
     },
     {
         id:               409,
-        badgeImage:       "vinyls/2025_05.png",
+        badgeImage:       "../icons/vinyls/2025_05.png",
         name:             "«Радиоактивность»",
         type:             "Винил",
         weight:           1,
@@ -1085,7 +1086,7 @@ const itemsDatabase = [
     },
     {
         id:               409,
-        badgeImage:       "vinyls/2025_10.png",
+        badgeImage:       "../icons/vinyls/2025_10.png",
         name:             "«Мороз»",
         type:             "Винил",
         weight:           1,
@@ -1094,7 +1095,7 @@ const itemsDatabase = [
     },
     {
         id:               409,
-        badgeImage:       "vinyls/2025_03.png",
+        badgeImage:       "../icons/vinyls/2025_03.png",
         name:             "Половина «Белая каллиграфия»",
         type:             "Винил",
         weight:           1,
@@ -1103,7 +1104,7 @@ const itemsDatabase = [
     },
     {
         id:               409,
-        badgeImage:       "vinyls/2025_04.png",
+        badgeImage:       "../icons/vinyls/2025_04.png",
         name:             "Половина «Черная каллиграфия»",
         type:             "Винил",
         weight:           1,
@@ -1112,7 +1113,7 @@ const itemsDatabase = [
     },
     {
         id:               409,
-        badgeImage:       "vinyls/2025_12.png",
+        badgeImage:       "../icons/vinyls/2025_12.png",
         name:             "«Тысяча порезов»",
         type:             "Винил",
         weight:           1,
@@ -1121,7 +1122,7 @@ const itemsDatabase = [
     },
     {
         id:               409,
-        badgeImage:       "vinyls/2025_02.png",
+        badgeImage:       "../icons/vinyls/2025_02.png",
         name:             "Полоса «Германия»",
         type:             "Винил",
         weight:           1,
@@ -1130,7 +1131,7 @@ const itemsDatabase = [
     },
     {
         id:               409,
-        badgeImage:       "vinyls/2025_01.png",
+        badgeImage:       "../icons/vinyls/2025_01.png",
         name:             "Полоса «Италия»",
         type:             "Винил",
         weight:           1,
@@ -1139,7 +1140,7 @@ const itemsDatabase = [
     },
     {
         id:               409,
-        badgeImage:       "vinyls/2025_14.png",
+        badgeImage:       "../icons/vinyls/2025_14.png",
         name:             "«Gucci»",
         type:             "Винил",
         weight:           1,
@@ -1148,7 +1149,7 @@ const itemsDatabase = [
     },
     {
         id:               409,
-        badgeImage:       "vinyls/2025_06.png",
+        badgeImage:       "../icons/vinyls/2025_06.png",
         name:             "«Burberry 1»",
         type:             "Винил",
         weight:           1,
@@ -1157,7 +1158,7 @@ const itemsDatabase = [
     },
     {
         id:               409,
-        badgeImage:       "vinyls/2025_07.png",
+        badgeImage:       "../icons/vinyls/2025_07.png",
         name:             "«Burberry 2»",
         type:             "Винил",
         weight:           1,
@@ -1166,7 +1167,7 @@ const itemsDatabase = [
     },
     {
         id:               409,
-        badgeImage:       "vinyls/2025_09.png",
+        badgeImage:       "../icons/vinyls/2025_09.png",
         name:             "«Год Змеи 2025»",
         type:             "Винил",
         weight:           1,
@@ -1175,7 +1176,7 @@ const itemsDatabase = [
     },
     {
         id:               409,
-        badgeImage:       "vinyls/2025_11.png",
+        badgeImage:       "../icons/vinyls/2025_11.png",
         name:             "«Черный океан»",
         type:             "Винил",
         weight:           1,
@@ -1184,7 +1185,7 @@ const itemsDatabase = [
     },
     {
         id:               409,
-        badgeImage:       "vinyls/admin_team_1.png",
+        badgeImage:       "../icons/vinyls/admin_team_1.png",
         name:             "Винил «Admin Team»",
         type:             "Винил",
         weight:           1,
@@ -1192,7 +1193,7 @@ const itemsDatabase = [
     },
     {
         id:               409,
-        badgeImage:       "vinyls/10years.png",
+        badgeImage:       "../icons/vinyls/10years.png",
         name:             "Винил «10 лет вместе»",
         type:             "Винил",
         weight:           1,
@@ -1201,7 +1202,7 @@ const itemsDatabase = [
     },
     {
         id:               409,
-        badgeImage:       "vinyls/hellokitty.png",
+        badgeImage:       "../icons/vinyls/hellokitty.png",
         name:             "Винил «Hello Kitty»",
         type:             "Винил",
         weight:           1,
@@ -1210,7 +1211,7 @@ const itemsDatabase = [
     },
     {
         id:               409,
-        badgeImage:       "vinyls/2025_18.png",
+        badgeImage:       "../icons/vinyls/2025_18.png",
         name:             "Камуфляж «Розовая пантера»",
         type:             "Винил",
         weight:           1,
@@ -1219,7 +1220,7 @@ const itemsDatabase = [
     },
     {
         id:               409,
-        badgeImage:       "vinyls/2025_16.png",
+        badgeImage:       "../icons/vinyls/2025_16.png",
         name:             "Камуфляж «Полярный призрак»",
         type:             "Винил",
         weight:           1,
@@ -1228,7 +1229,7 @@ const itemsDatabase = [
     },
     {
         id:               409,
-        badgeImage:       "vinyls/2025_17.png",
+        badgeImage:       "../icons/vinyls/2025_17.png",
         name:             "Камуфляж «Вулканический пепел»",
         type:             "Винил",
         weight:           1,
@@ -1237,7 +1238,7 @@ const itemsDatabase = [
     },
     {
         id:               409,
-        badgeImage:       "vinyls/mixtape_vinyl.png",
+        badgeImage:       "../icons/vinyls/mixtape_vinyl.png",
         name:             "Винил «Микстейп»",
         type:             "Винил",
         weight:           1,
@@ -1246,7 +1247,7 @@ const itemsDatabase = [
     },
     {
         id:               409,
-        badgeImage:       "vinyls/retrowave_vinyl.png",
+        badgeImage:       "../icons/vinyls/retrowave_vinyl.png",
         name:             "Винил «Ретровейв»",
         type:             "Винил",
         weight:           1,
@@ -1255,7 +1256,7 @@ const itemsDatabase = [
     },
     {
         id:               409,
-        badgeImage:       "vinyls/starry_surf_vinyl.png",
+        badgeImage:       "../icons/vinyls/starry_surf_vinyl.png",
         name:             "Винил «Звёздный прибой»",
         type:             "Винил",
         weight:           1,
