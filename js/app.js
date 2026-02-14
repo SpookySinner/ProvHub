@@ -821,6 +821,8 @@ function toggleBoardThemeHandler() {
   const icon = toggleBoardTheme.querySelector('[data-lucide]');
   if (icon) {
     icon.setAttribute('data-lucide', boardTheme === 'light' ? 'moon' : 'sun');
+    icon.style.width = '20px';
+    icon.style.height = '20px';
     if (typeof lucide !== 'undefined') lucide.createIcons();
   }
 }
