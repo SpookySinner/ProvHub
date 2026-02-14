@@ -1,5 +1,4 @@
 /* ===== data/items-db.js ===== */
-/* База предметов (без изменений) */
 
 const itemsDatabase = [
     {
