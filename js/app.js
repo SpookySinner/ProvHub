@@ -30,14 +30,13 @@ function handleSystemThemeChange(e) {
 }
 mediaQuery.addEventListener('change', handleSystemThemeChange);
 
-
 if (typeof itemsDatabase === 'undefined') {
-  console.error('Ошибка: База данных itemsDatabase не найдена! Убедись, что файл items-db.js подключен.');
+  console.error('Ошибка: База данных itemsDatabase не найдена!');
 } else {
   console.log(`База данных загружена. Всего предметов: ${itemsDatabase.length}`);
 }
 
-const TOTAL_ITEMS_IN_GAME = 960; 
+const TOTAL_ITEMS_IN_GAME = 960;
 
 let currentCategory = 'Все предметы';
 let currentSearchTerm = '';
@@ -64,6 +63,8 @@ function findMissingIds() {
 function addStatsToSidebar() {
   const sidebar = document.querySelector('.sidebar');
   if (!sidebar) return;
+  
+  // Удаляем старую статистику, если есть
   const oldStats = document.querySelector('.sidebar-stats');
   if (oldStats) oldStats.remove();
   
@@ -158,12 +159,13 @@ function buildCategoriesMenu() {
       button.classList.add('active');
       currentCategory = category;
       filterAndRenderItems();
+      
       closeAllPopovers();
     });
 
     sidebarNav.appendChild(button);
   });
-
+  
   addStatsToSidebar();
 }
 
@@ -174,7 +176,7 @@ function getItemIconPath(item) {
     }
     return `icons/${item.badgeImage}`;
   }
- 
+  
   return `icons/${item.id}.png`;
 }
 
@@ -252,6 +254,8 @@ function renderItemsGrid(itemsToRender) {
     };
 
     container.appendChild(img);
+
+    // Добавляем иконку щита для защищённых предметов
     if (item.protected === true) {
       const shieldIcon = document.createElement('i');
       shieldIcon.setAttribute('data-lucide', 'shield');
@@ -264,6 +268,7 @@ function renderItemsGrid(itemsToRender) {
     itemsGrid.appendChild(itemButton);
   });
 
+  // Обновляем иконки Lucide
   if (typeof lucide !== 'undefined') {
     lucide.createIcons();
   }
@@ -282,7 +287,6 @@ function filterAndRenderItems() {
 }
 
 function showItemPopover(event, item) {
-  event.stopPropagation(); 
   
   const currentButton = event.currentTarget;
   
@@ -344,6 +348,7 @@ document.addEventListener('click', function(e) {
   }
 });
 
+
 function initApp() {
   if (!itemsData.length) {
     console.error('Нет данных для отображения');
@@ -356,6 +361,7 @@ function initApp() {
     searchInput.addEventListener('input', (e) => {
       currentSearchTerm = e.target.value;
       filterAndRenderItems();
+      // Закрываем popover при поиске
       closeAllPopovers();
     });
   }
@@ -374,3 +380,436 @@ if (document.readyState === 'loading') {
   initApp();
 }
 
+const itemBoard = document.getElementById('itemBoard');
+const boardWrapper = document.getElementById('boardWrapper');
+const itemSearchInput = document.getElementById('itemSearchInput');
+const searchResults = document.getElementById('searchResults');
+const stackingCheckbox = document.getElementById('stackingCheckbox');
+const generatedTextBlock = document.getElementById('generatedTextBlock');
+const copyTextBtn = document.getElementById('copyTextBtn');
+const downloadBtn = document.getElementById('downloadBtn');
+const downloadDropdown = document.getElementById('downloadDropdown');
+const toggleBoardTheme = document.getElementById('toggleBoardTheme');
+const boardItemsCounter = document.getElementById('boardItemsCounter');
+const totalItemsCount = document.getElementById('totalItemsCount');
+
+let boardItems = []; // { item: объект предмета, count: количество }
+let draggingElement = null;
+let dragStartX = 0, dragStartY = 0;
+let dragStartLeft = 0, dragStartTop = 0;
+let boardTheme = 'light';
+
+const MAX_BOARD_ITEMS = 25;
+const BOARD_CELL_SIZE = 128; // размер карточки в пикселях для экспорта
+const BOARD_GAP = 16;
+const BOARD_PADDING = 70;
+
+function initBoard() {
+  if (!itemBoard || !itemSearchInput) return;
+  
+  if (totalItemsCount) {
+    totalItemsCount.textContent = itemsData.length;
+  }
+  
+  updateSearchResults('');
+  
+  itemSearchInput.addEventListener('input', debounce((e) => {
+    updateSearchResults(e.target.value);
+  }, 300));
+  
+  stackingCheckbox.addEventListener('change', updateBoard);
+  
+  copyTextBtn.addEventListener('click', copyGeneratedText);
+  
+  downloadBtn.addEventListener('click', () => downloadBoard('png'));
+  
+  downloadDropdown.addEventListener('click', (e) => {
+    const format = e.target.dataset.format;
+    if (format) {
+      downloadBoard(format);
+    }
+  });
+  
+  toggleBoardTheme.addEventListener('click', toggleBoardThemeHandler);
+  
+  renderBoard();
+}
+
+function debounce(func, wait) {
+  let timeout;
+  return function executedFunction(...args) {
+    const later = () => {
+      clearTimeout(timeout);
+      func(...args);
+    };
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+  };
+}
+
+function updateSearchResults(query) {
+  if (!searchResults) return;
+  
+  let filtered = itemsData;
+  
+  if (query.trim() !== '') {
+    const searchLower = query.toLowerCase();
+    filtered = itemsData.filter(item => {
+      return (item.name && item.name.toLowerCase().includes(searchLower)) ||
+             (item.id && item.id.toString().includes(searchLower)) ||
+             (item.type && item.type.toLowerCase().includes(searchLower));
+    });
+  }
+  
+  const results = filtered.slice(0, 10);
+  
+  searchResults.innerHTML = '';
+  
+  if (results.length === 0) {
+    searchResults.innerHTML = '<div class="text-center text-secondary p-3">Ничего не найдено</div>';
+    return;
+  }
+  
+  results.forEach(item => {
+    const resultItem = createSearchResultItem(item);
+    searchResults.appendChild(resultItem);
+  });
+  
+  if (typeof lucide !== 'undefined') {
+    lucide.createIcons();
+  }
+}
+
+function createSearchResultItem(item) {
+  const container = document.createElement('div');
+  container.className = 'search-result-item';
+  
+  const iconPath = getItemIconPath(item);
+  
+  container.innerHTML = `
+    <img src="${iconPath}" alt="${item.name || 'Предмет'}" onerror="this.src='icons/placeholder.png'">
+    <div class="item-info">
+      <div class="fw-semibold">${item.name}</div>
+      <div class="smaller text-secondary">#${item.id} · ${item.type}</div>
+    </div>
+    <div class="item-actions">
+      <button class="btn btn-sm btn-outline-primary add-btn" data-item-id="${item.id}">
+        <i data-lucide="plus" style="width: 16px; height: 16px;"></i>
+      </button>
+    </div>
+  `;
+  
+  const addBtn = container.querySelector('.add-btn');
+  addBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    addItemToBoard(item);
+  });
+  
+  return container;
+}
+
+function addItemToBoard(item) {
+  if (!item) return;
+  
+  const isStacking = stackingCheckbox.checked;
+  
+  if (isStacking) {
+    const existingIndex = boardItems.findIndex(bi => bi.item.id === item.id);
+    
+    if (existingIndex !== -1) {
+      boardItems[existingIndex].count++;
+    } else {
+      if (boardItems.length >= MAX_BOARD_ITEMS) {
+        alert(`Достигнут лимит карточек (максимум ${MAX_BOARD_ITEMS})`);
+        return;
+      }
+      boardItems.push({ item, count: 1 });
+    }
+  } else {
+    if (boardItems.length >= MAX_BOARD_ITEMS) {
+      alert(`Достигнут лимит карточек (максимум ${MAX_BOARD_ITEMS})`);
+      return;
+    }
+    boardItems.push({ item, count: 1 });
+  }
+  
+  renderBoard();
+  updateGeneratedText();
+}
+
+function removeItemFromBoard(index) {
+  if (index >= 0 && index < boardItems.length) {
+    boardItems.splice(index, 1);
+    renderBoard();
+    updateGeneratedText();
+  }
+}
+
+function renderBoard() {
+  if (!itemBoard) return;
+  
+  itemBoard.innerHTML = '';
+  
+  boardItems.forEach((boardItem, index) => {
+    const item = boardItem.item;
+    const count = boardItem.count;
+    
+    const card = document.createElement('div');
+    card.className = 'board-item';
+    card.dataset.index = index;
+    card.draggable = true;
+    
+    const iconPath = getItemIconPath(item);
+    
+    const img = document.createElement('img');
+    img.src = iconPath;
+    img.alt = item.name || 'Предмет';
+    img.onerror = () => {
+      img.src = 'icons/placeholder.png';
+    };
+    
+    card.appendChild(img);
+    
+    if (stackingCheckbox.checked && count > 1) {
+      const countSpan = document.createElement('span');
+      countSpan.className = 'item-count';
+      countSpan.textContent = count;
+      card.appendChild(countSpan);
+    }
+    
+    if (item.protected === true) {
+      const shieldIcon = document.createElement('i');
+      shieldIcon.setAttribute('data-lucide', 'shield');
+      shieldIcon.className = 'item-protected';
+      card.appendChild(shieldIcon);
+    }
+    
+    const removeBtn = document.createElement('button');
+    removeBtn.className = 'remove-item';
+    removeBtn.innerHTML = '×';
+    removeBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      removeItemFromBoard(index);
+    });
+    card.appendChild(removeBtn);
+    
+    card.addEventListener('dragstart', handleDragStart);
+    card.addEventListener('dragend', handleDragEnd);
+    card.addEventListener('dragover', handleDragOver);
+    card.addEventListener('drop', handleDrop);
+    
+    itemBoard.appendChild(card);
+  });
+  
+  if (typeof lucide !== 'undefined') {
+    lucide.createIcons();
+  }
+  
+  if (boardItemsCounter) {
+    boardItemsCounter.textContent = `${boardItems.length}/${MAX_BOARD_ITEMS}`;
+  }
+}
+
+function handleDragStart(e) {
+  draggingElement = this;
+  this.classList.add('dragging');
+  e.dataTransfer.setData('text/plain', this.dataset.index);
+}
+
+function handleDragEnd(e) {
+  this.classList.remove('dragging');
+  draggingElement = null;
+}
+
+function handleDragOver(e) {
+  e.preventDefault();
+}
+
+function handleDrop(e) {
+  e.preventDefault();
+  
+  const fromIndex = parseInt(e.dataTransfer.getData('text/plain'));
+  const toIndex = parseInt(this.dataset.index);
+  
+  if (fromIndex !== toIndex) {
+    const [movedItem] = boardItems.splice(fromIndex, 1);
+    boardItems.splice(toIndex, 0, movedItem);
+    
+    renderBoard();
+  }
+}
+
+function updateGeneratedText() {
+  if (!generatedTextBlock) return;
+  
+  if (boardItems.length === 0) {
+    generatedTextBlock.textContent = 'Доска пуста';
+    return;
+  }
+  
+  let text = 'ПРОДАМ:\n';
+  
+  boardItems.forEach(boardItem => {
+    const item = boardItem.item;
+    const count = boardItem.count;
+    text += `- ${item.name} — ${count} шт\n`;
+  });
+  
+  generatedTextBlock.textContent = text;
+}
+
+// Копирование текста
+function copyGeneratedText() {
+  if (!generatedTextBlock || !generatedTextBlock.textContent) return;
+  
+  navigator.clipboard.writeText(generatedTextBlock.textContent).then(() => {
+    const originalText = copyTextBtn.innerHTML;
+    copyTextBtn.innerHTML = '<i data-lucide="check" style="width: 16px; height: 16px;"></i>';
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+    
+    setTimeout(() => {
+      copyTextBtn.innerHTML = originalText;
+      if (typeof lucide !== 'undefined') lucide.createIcons();
+    }, 2000);
+  }).catch(err => {
+    console.error('Ошибка копирования:', err);
+  });
+}
+
+// Скачивание доски
+async function downloadBoard(format = 'png') {
+  if (!boardWrapper) return;
+  
+  const originalGrid = itemBoard;
+  const originalItems = [...boardItems];
+  
+  const exportBoard = document.createElement('div');
+  exportBoard.className = 'board-grid';
+  exportBoard.style.width = '692px';
+  exportBoard.style.height = '692px';
+  exportBoard.style.padding = BOARD_PADDING + 'px';
+  exportBoard.style.gap = BOARD_GAP + 'px';
+  exportBoard.style.backgroundColor = boardTheme === 'light' ? '#f8f9fa' : '#212529';
+  exportBoard.style.position = 'absolute';
+  exportBoard.style.left = '-9999px';
+  exportBoard.style.top = '-9999px';
+  
+  originalItems.forEach(boardItem => {
+    const item = boardItem.item;
+    const count = boardItem.count;
+    
+    const card = document.createElement('div');
+    card.className = 'board-item';
+    card.style.width = BOARD_CELL_SIZE + 'px';
+    card.style.height = BOARD_CELL_SIZE + 'px';
+    card.style.cursor = 'default';
+    
+    const iconPath = getItemIconPath(item);
+    
+    const img = document.createElement('img');
+    img.src = iconPath;
+    img.alt = item.name || 'Предмет';
+    img.style.width = '80px';
+    img.style.height = '80px';
+    img.onerror = () => {
+      img.src = 'icons/placeholder.png';
+    };
+    
+    card.appendChild(img);
+    
+    if (stackingCheckbox.checked && count > 1) {
+      const countSpan = document.createElement('span');
+      countSpan.className = 'item-count';
+      countSpan.textContent = count;
+      card.appendChild(countSpan);
+    }
+    
+    if (item.protected === true) {
+      const shieldIcon = document.createElement('i');
+      shieldIcon.setAttribute('data-lucide', 'shield');
+      shieldIcon.className = 'item-protected';
+      shieldIcon.style.width = '20px';
+      shieldIcon.style.height = '20px';
+      card.appendChild(shieldIcon);
+    }
+    
+    exportBoard.appendChild(card);
+  });
+  
+  document.body.appendChild(exportBoard);
+  
+  if (typeof lucide !== 'undefined') {
+    lucide.createIcons();
+  }
+  
+  await new Promise(resolve => setTimeout(resolve, 500));
+  
+  try {
+    const canvas = await html2canvas(exportBoard, {
+      scale: 2,
+      backgroundColor: boardTheme === 'light' ? '#f8f9fa' : '#212529',
+      allowTaint: false,
+      useCORS: true,
+      logging: false
+    });
+    
+    const link = document.createElement('a');
+    link.download = `board.${format}`;
+    link.href = canvas.toDataURL(`image/${format === 'jpeg' ? 'jpeg' : format}`);
+    link.click();
+  } catch (error) {
+    console.error('Ошибка при создании изображения:', error);
+    alert('Ошибка при создании изображения');
+  } finally {
+    document.body.removeChild(exportBoard);
+  }
+}
+
+function toggleBoardThemeHandler() {
+  boardTheme = boardTheme === 'light' ? 'dark' : 'light';
+  itemBoard.setAttribute('data-board-theme', boardTheme);
+  
+  // Обновляем иконку
+  const icon = toggleBoardTheme.querySelector('[data-lucide]');
+  if (icon) {
+    icon.setAttribute('data-lucide', boardTheme === 'light' ? 'moon' : 'sun');
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+  }
+}
+
+function updateBoard() {
+  if (!stackingCheckbox.checked) {
+    const newBoardItems = [];
+    boardItems.forEach(boardItem => {
+      for (let i = 0; i < boardItem.count; i++) {
+        if (newBoardItems.length < MAX_BOARD_ITEMS) {
+          newBoardItems.push({ item: boardItem.item, count: 1 });
+        }
+      }
+    });
+    boardItems = newBoardItems;
+  } else {
+    const itemMap = new Map();
+    boardItems.forEach(boardItem => {
+      const key = boardItem.item.id;
+      if (itemMap.has(key)) {
+        itemMap.get(key).count += boardItem.count;
+      } else {
+        itemMap.set(key, { item: boardItem.item, count: boardItem.count });
+      }
+    });
+    boardItems = Array.from(itemMap.values());
+  }
+  
+  renderBoard();
+  updateGeneratedText();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  if (!itemsData || itemsData.length === 0) {
+    console.error('Нет данных для отображения');
+    return;
+  }
+  
+  initBoard();
+});
