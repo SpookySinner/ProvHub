@@ -451,6 +451,14 @@ body {
   text-align: right;
 }
 
+.board-grid[data-board-theme="light"] .item-count {
+  color: #212529;
+}
+
+.board-grid[data-board-theme="dark"] .item-count {
+  color: #dee2e6;
+}
+
 .board-item .item-protected {
   position: absolute;
   top: 4px;
