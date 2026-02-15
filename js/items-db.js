@@ -828,7 +828,6 @@ const itemsDatabase = [
         description:      "Фиксирует государственный номер транспортного средства.",
         event:            "Хэллоуин 2024"
     },
-
     // Зима 2025
     // 13 из 13
     {
@@ -948,6 +947,427 @@ const itemsDatabase = [
         description:      "Фиксирует государственный номер транспортного средства.",
         event:            "Зима 2025"
     },
+    // Осень 2023
+    // 19 шт + 24 шт
+    {
+        id:               403,
+        badgeImage:       "../icons/frames/frame_color_brown.png",
+        name:             "Цветная «Коричневый»",
+        type:             "Номерная рамка",
+        weight:           0.25,
+        description:      "Фиксирует государственный номер транспортного средства.",
+        event:            "Осень 2023"
+    },
+    {
+        id:               403,
+        badgeImage:       "../icons/frames/frame_color_biruz.png",
+        name:             "Цветная «Бирюзовый»",
+        type:             "Номерная рамка",
+        weight:           0.25,
+        description:      "Фиксирует государственный номер транспортного средства.",
+        event:            "Осень 2023"
+    },
+    {
+        id:               403,
+        badgeImage:       "../icons/frames/frame_color_mint.png",
+        name:             "Цветная «Мятный»",
+        type:             "Номерная рамка",
+        weight:           0.25,
+        description:      "Фиксирует государственный номер транспортного средства.",
+        event:            "Осень 2023"
+    },
+    {
+        id:               403,
+        badgeImage:       "../icons/frames/frame_color_haki.png",
+        name:             "Цветная «Хаки»",
+        type:             "Номерная рамка",
+        weight:           0.25,
+        description:      "Фиксирует государственный номер транспортного средства.",
+        event:            "Осень 2023"
+    },
+    {
+        id:               403,
+        badgeImage:       "../icons/frames/frame_color_viol.png",
+        name:             "Цветная «Сиреневый»",
+        type:             "Номерная рамка",
+        weight:           0.25,
+        description:      "Фиксирует государственный номер транспортного средства.",
+        event:            "Осень 2023"
+    },
+    {
+        id:               403,
+        badgeImage:       "../icons/frames/frame_color_cycl.png",
+        name:             "Цветная «Цикломеновый»",
+        type:             "Номерная рамка",
+        weight:           0.25,
+        description:      "Фиксирует государственный номер транспортного средства.",
+        event:            "Осень 2023"
+    },
+    {
+        id:               403,
+        badgeImage:       "../icons/frames/frame_color_peach.png",
+        name:             "Цветная «Персиковый»",
+        type:             "Номерная рамка",
+        weight:           0.25,
+        description:      "Фиксирует государственный номер транспортного средства.",
+        event:            "Осень 2023"
+    },
+    {
+        id:               403,
+        badgeImage:       "../icons/frames/frame_color_red.png",
+        name:             "Цветная «Красный»",
+        type:             "Номерная рамка",
+        weight:           0.25,
+        description:      "Фиксирует государственный номер транспортного средства.",
+        event:            "Осень 2023"
+    },
+    {
+        id:               403,
+        badgeImage:       "../icons/frames/frame_color_orange.png",
+        name:             "Цветная «Оранжевый»",
+        type:             "Номерная рамка",
+        weight:           0.25,
+        description:      "Фиксирует государственный номер транспортного средства.",
+        event:            "Осень 2023"
+    },
+    {
+        id:               403,
+        badgeImage:       "../icons/frames/frame_color_terracot.png",
+        name:             "Цветная «Терракотовый»",
+        type:             "Номерная рамка",
+        weight:           0.25,
+        description:      "Фиксирует государственный номер транспортного средства.",
+        event:            "Осень 2023"
+    },
+    {
+        id:               403,
+        badgeImage:       "../icons/frames/frame_color_yellow.png",
+        name:             "Цветная «Жёлтый»",
+        type:             "Номерная рамка",
+        weight:           0.25,
+        description:      "Фиксирует государственный номер транспортного средства.",
+        event:            "Осень 2023"
+    },
+    {
+        id:               403,
+        badgeImage:       "../icons/frames/frame_color_acid.png",
+        name:             "Цветная «Кислотный»",
+        type:             "Номерная рамка",
+        weight:           0.25,
+        description:      "Фиксирует государственный номер транспортного средства.",
+        event:            "Осень 2023"
+    },
+    {
+        id:               403,
+        badgeImage:       "../icons/frames/frame_color_lime.png",
+        name:             "Цветная «Лаймовый»",
+        type:             "Номерная рамка",
+        weight:           0.25,
+        description:      "Фиксирует государственный номер транспортного средства.",
+        event:            "Осень 2023"
+    },
+    {
+        id:               403,
+        badgeImage:       "../icons/frames/frame_color_grn.png",
+        name:             "Цветная «Зелёный»",
+        type:             "Номерная рамка",
+        weight:           0.25,
+        description:      "Фиксирует государственный номер транспортного средства.",
+        event:            "Осень 2023"
+    },
+    {
+        id:               403,
+        badgeImage:       "../icons/frames/frame_color_uv.png",
+        name:             "Цветная «Фиолетовый неон»",
+        type:             "Номерная рамка",
+        weight:           0.25,
+        description:      "Фиксирует государственный номер транспортного средства.",
+        event:            "Осень 2023"
+    },
+    {
+        id:               403,
+        badgeImage:       "../icons/frames/frame_color_lghtblu.png",
+        name:             "Цветная «Голубой»",
+        type:             "Номерная рамка",
+        weight:           0.25,
+        description:      "Фиксирует государственный номер транспортного средства.",
+        event:            "Осень 2023"
+    },
+    {
+        id:               403,
+        badgeImage:       "../icons/frames/frame_color_blue.png",
+        name:             "Цветная «Синий»",
+        type:             "Номерная рамка",
+        weight:           0.25,
+        description:      "Фиксирует государственный номер транспортного средства.",
+        event:            "Осень 2023"
+    },
+    {
+        id:               403,
+        badgeImage:       "../icons/frames/frame_color_pink.png",
+        name:             "Цветная «Розовый»",
+        type:             "Номерная рамка",
+        weight:           0.25,
+        description:      "Фиксирует государственный номер транспортного средства.",
+        event:            "Осень 2023"
+    },
+    {
+        id:               403,
+        badgeImage:       "../icons/frames/frame_color_ultrav.png",
+        name:             "Цветная «Фиолетовый»",
+        type:             "Номерная рамка",
+        weight:           0.25,
+        description:      "Фиксирует государственный номер транспортного средства.",
+        event:            "Осень 2023"
+    },
+    {
+        id:               403,
+        badgeImage:       "../icons/frames/prov_camo_1.png",
+        name:             "Камуфляж «Лесная маскировка»",
+        type:             "Номерная рамка",
+        weight:           0.25,
+        description:      "Фиксирует государственный номер транспортного средства.",
+        event:            "Осень 2023"
+    },
+    {
+        id:               403,
+        badgeImage:       "../icons/frames/prov_numberframe_54.png",
+        name:             "Камуфляж «Азиатский лес»",
+        type:             "Номерная рамка",
+        weight:           0.25,
+        description:      "Фиксирует государственный номер транспортного средства.",
+        event:            "Осень 2023"
+    },
+    {
+        id:               403,
+        badgeImage:       "../icons/frames/prov_camo_13.png",
+        name:             "Камуфляж «Ночной дозор»",
+        type:             "Номерная рамка",
+        weight:           0.25,
+        description:      "Фиксирует государственный номер транспортного средства.",
+        event:            "Осень 2023"
+    },
+    {
+        id:               403,
+        badgeImage:       "../icons/frames/prov_camo_8.png",
+        name:             "Камуфляж «Рэмбо»",
+        type:             "Номерная рамка",
+        weight:           0.25,
+        description:      "Фиксирует государственный номер транспортного средства.",
+        event:            "Осень 2023"
+    },
+    {
+        id:               403,
+        badgeImage:       "../icons/frames/prov_camo_2.png",
+        name:             "Камуфляж «Холодный океан»",
+        type:             "Номерная рамка",
+        weight:           0.25,
+        description:      "Фиксирует государственный номер транспортного средства.",
+        event:            "Осень 2023"
+    },
+    {
+        id:               403,
+        badgeImage:       "../icons/frames/prov_numberframe_55.png",
+        name:             "Камуфляж «Песчаные бури»",
+        type:             "Номерная рамка",
+        weight:           0.25,
+        description:      "Фиксирует государственный номер транспортного средства.",
+        event:            "Осень 2023"
+    },
+    {
+        id:               403,
+        badgeImage:       "../icons/frames/prov_camo_9.png",
+        name:             "Камуфляж «Асфальт»",
+        type:             "Номерная рамка",
+        weight:           0.25,
+        description:      "Фиксирует государственный номер транспортного средства.",
+        event:            "Осень 2023"
+    },
+    {
+        id:               403,
+        badgeImage:       "../icons/frames/prov_camo_15.png",
+        name:             "Камуфляж «Лесопосадка»",
+        type:             "Номерная рамка",
+        weight:           0.25,
+        description:      "Фиксирует государственный номер транспортного средства.",
+        event:            "Осень 2023"
+    },
+    {
+        id:               403,
+        badgeImage:       "../icons/frames/prov_numberframe_53.png",
+        name:             "Камуфляж «Лесистая местность»",
+        type:             "Номерная рамка",
+        weight:           0.25,
+        description:      "Фиксирует государственный номер транспортного средства.",
+        event:            "Осень 2023"
+    },
+    {
+        id:               403,
+        badgeImage:       "../icons/frames/prov_camo_4.png",
+        name:             "Камуфляж «Пустырная трава»",
+        type:             "Номерная рамка",
+        weight:           0.25,
+        description:      "Фиксирует государственный номер транспортного средства.",
+        event:            "Осень 2023"
+    },
+    {
+        id:               403,
+        badgeImage:       "../icons/frames/prov_camo_10.png",
+        name:             "Камуфляж «Покушение»",
+        type:             "Номерная рамка",
+        weight:           0.25,
+        description:      "Фиксирует государственный номер транспортного средства.",
+        event:            "Осень 2023"
+    },
+    {
+        id:               403,
+        badgeImage:       "../icons/frames/prov_camo_16.png",
+        name:             "Камуфляж «Настенные иероглифы»",
+        type:             "Номерная рамка",
+        weight:           0.25,
+        description:      "Фиксирует государственный номер транспортного средства.",
+        event:            "Осень 2023"
+    },
+    {
+        id:               403,
+        badgeImage:       "../icons/frames/prov_numberframe_57.png",
+        name:             "Камуфляж «Следы пешеходов»",
+        type:             "Номерная рамка",
+        weight:           0.25,
+        description:      "Фиксирует государственный номер транспортного средства.",
+        event:            "Осень 2023"
+    },
+    {
+        id:               403,
+        badgeImage:       "../icons/frames/prov_camo_5.png",
+        name:             "Камуфляж «Озарённый лес»",
+        type:             "Номерная рамка",
+        weight:           0.25,
+        description:      "Фиксирует государственный номер транспортного средства.",
+        event:            "Осень 2023"
+    },
+    {
+        id:               403,
+        badgeImage:       "../icons/frames/prov_camo_11.png",
+        name:             "Камуфляж «Вепрь»",
+        type:             "Номерная рамка",
+        weight:           0.25,
+        description:      "Фиксирует государственный номер транспортного средства.",
+        event:            "Осень 2023"
+    },
+    {
+        id:               403,
+        badgeImage:       "../icons/frames/prov_camo_17.png",
+        name:             "Камуфляж «Снежный барс»",
+        type:             "Номерная рамка",
+        weight:           0.25,
+        description:      "Фиксирует государственный номер транспортного средства.",
+        event:            "Осень 2023"
+    },
+    {
+        id:               403,
+        badgeImage:       "../icons/frames/prov_numberframe_58.png",
+        name:             "Камуфляж «Шоковый бум»",
+        type:             "Номерная рамка",
+        weight:           0.25,
+        description:      "Фиксирует государственный номер транспортного средства.",
+        event:            "Осень 2023"
+    },
+    {
+        id:               403,
+        badgeImage:       "../icons/frames/prov_camo_6.png",
+        name:             "Камуфляж «Безмятежность»",
+        type:             "Номерная рамка",
+        weight:           0.25,
+        description:      "Фиксирует государственный номер транспортного средства.",
+        event:            "Осень 2023"
+    },
+    {
+        id:               403,
+        badgeImage:       "../icons/frames/prov_camo_12.png",
+        name:             "Камуфляж «Водоросли»",
+        type:             "Номерная рамка",
+        weight:           0.25,
+        description:      "Фиксирует государственный номер транспортного средства.",
+        event:            "Осень 2023"
+    },
+    {
+        id:               403,
+        badgeImage:       "../icons/frames/prov_camo_18.png",
+        name:             "Камуфляж «Лесная глушь»",
+        type:             "Номерная рамка",
+        weight:           0.25,
+        description:      "Фиксирует государственный номер транспортного средства.",
+        event:            "Осень 2023"
+    },
+    {
+        id:               403,
+        badgeImage:       "../icons/frames/prov_numberframe_56.png",
+        name:             "Камуфляж «Гламурный»",
+        type:             "Номерная рамка",
+        weight:           0.25,
+        description:      "Фиксирует государственный номер транспортного средства.",
+        event:            "Осень 2023"
+    },
+    // Хэллоуин 2023
+    // 3 шт
+    {
+        id:               403,
+        badgeImage:       "../icons/frames/frame_hl23_1.png",
+        name:             "Рамка «Spooky skeletons»",
+        type:             "Номерная рамка",
+        weight:           0.25,
+        description:      "Фиксирует государственный номер транспортного средства.",
+        event:            "Хэллоуин 2023"
+    },
+    {
+        id:               403,
+        badgeImage:       "../icons/frames/frame_hl23_2.png",
+        name:             "Рамка «Happy Halloween»",
+        type:             "Номерная рамка",
+        weight:           0.25,
+        description:      "Фиксирует государственный номер транспортного средства.",
+        event:            "Хэллоуин 2023"
+    },
+    {
+        id:               403,
+        badgeImage:       "../icons/frames/frame_hl23_3.png",
+        name:             "Рамка «Dia de los Muertos»",
+        type:             "Номерная рамка",
+        weight:           0.25,
+        description:      "Фиксирует государственный номер транспортного средства.",
+        event:            "Хэллоуин 2023"
+    },
+    // Зимний ивент 2024
+    // 3 шт
+    {
+        id:               403,
+        badgeImage:       "../icons/frames/frame_newyear_2024_1.png",
+        name:             "Рамка «Winter Drift»",
+        type:             "Номерная рамка",
+        weight:           0.25,
+        description:      "Фиксирует государственный номер транспортного средства.",
+        event:            "Зимний ивент 2024"
+    },
+    {
+        id:               403,
+        badgeImage:       "../icons/frames/frame_newyear_2024_2.png",
+        name:             "Рамка «Мафия»",
+        type:             "Номерная рамка",
+        weight:           0.25,
+        description:      "Фиксирует государственный номер транспортного средства.",
+        event:            "Зимний ивент 2024"
+    },
+    {
+        id:               403,
+        badgeImage:       "../icons/frames/frame_newyear_2024_3.png",
+        name:             "Рамка «С Новым годом»",
+        type:             "Номерная рамка",
+        weight:           0.25,
+        description:      "Фиксирует государственный номер транспортного средства.",
+        event:            "Зимний ивент 2024"
+    },
+
 
 
     {
