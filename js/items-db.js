@@ -804,6 +804,16 @@ const itemsDatabase = [
     },
     {
         id:               403,
+        badgeImage:       "../icons/frames/prov_number_hall2024_1.png",
+        name:             "Рамка «Halloween 2024»",
+        type:             "Номерная рамка",
+        weight:           0.25,
+        description:      "Фиксирует государственный номер транспортного средства.",
+        event:            "Хэллоуин 2024"
+    },
+    {
+        id:               403,
+        badgeImage:       "../icons/frames/prov_number_hall2024_2.png",
         name:             "Рамка «Кровавая заря»",
         type:             "Номерная рамка",
         weight:           0.25,
@@ -812,11 +822,12 @@ const itemsDatabase = [
     },
     {
         id:               403,
-        name:             "Камуфляж «Асфальт»",
+        badgeImage:       "../icons/frames/prov_number_hall2024_3.png",
+        name:             "Рамка «Праздник на костях»",
         type:             "Номерная рамка",
         weight:           0.25,
         description:      "Фиксирует государственный номер транспортного средства.",
-        event:            "Осень 2023"
+        event:            "Хэллоуин 2024"
     },
     {
         id:               407,
@@ -1187,6 +1198,14 @@ const itemsDatabase = [
         id:               409,
         badgeImage:       "../icons/vinyls/admin_team_1.png",
         name:             "Винил «Admin Team»",
+        type:             "Винил",
+        weight:           1,
+        description:      "Создаёт привлекающий образ для транспорта. В тюнинг-ателье должны уметь обращаться с такими вещами."
+    },
+    {
+        id:               409,
+        badgeImage:       "../icons/vinyls/player_001.png",
+        name:             "Винил «Player 001»",
         type:             "Винил",
         weight:           1,
         description:      "Создаёт привлекающий образ для транспорта. В тюнинг-ателье должны уметь обращаться с такими вещами."
