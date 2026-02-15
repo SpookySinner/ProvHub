@@ -1,5 +1,5 @@
 const themeSwitch = document.getElementById('themeSwitch');
-const htmlElement = documentElement;
+const htmlElement = document.documentElement;
 
 function setTheme(theme) {
   htmlElement.setAttribute('data-bs-theme', theme);
