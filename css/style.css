@@ -31,6 +31,11 @@ body {
   --bs-btn-font-size: 0.9rem;
 }
 
+.row > * {
+  padding-right: var(--bs-gutter-x);
+  padding-left: var(--bs-gutter-x);
+}
+
 
 
 /*
