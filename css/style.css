@@ -164,8 +164,27 @@ body {
 .sidebar {
   width: calc(var(--bs-gutter-x) + 280px);
   position: sticky;
+  top: 4.8125rem;
   height: calc(100vh - 4.8125rem);
   overflow-y: auto;
+  padding-bottom: 1rem;
+}
+
+.sidebar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: var(--bs-border-color);
+  border-radius: 4px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background: var(--bs-secondary);
 }
 
 .nav-sidebar .nav-link {
