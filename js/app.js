@@ -45,10 +45,12 @@ if (typeof itemsDatabase === 'undefined') {
 const TOTAL_ITEMS_IN_GAME = 960+49+173;
 
 let currentCategory = 'Все предметы';
+let currentEvent = 'Все ивенты';
 let currentSearchTerm = '';
 let itemsData = itemsDatabase || [];
 
-const sidebarNav = document.querySelector('.nav-sidebar');
+const categoriesNav = document.getElementById('categoriesNav');
+const eventsNav = document.getElementById('eventsNav');
 const itemsGrid = document.querySelector('.items-tab-grid');
 const searchInput = document.querySelector('.ph-search .form-control');
 const placeholderText = document.querySelector('.ph-placeholder');
@@ -134,11 +136,29 @@ function getCategoriesFromItems() {
   return ['Все предметы', ...uniqueTypes];
 }
 
+function getEventsFromItems() {
+  if (!itemsData.length) return ['Все ивенты'];
+
+  const events = itemsData
+    .map(item => item.event)
+    .filter(event => event && event.trim() !== '');
+  const uniqueEvents = [...new Set(events)];
+  uniqueEvents.sort((a, b) => {
+    const dateMatchA = a.match(/\d{4}/);
+    const dateMatchB = b.match(/\d{4}/);
+    if (dateMatchA && dateMatchB) {
+      return parseInt(dateMatchB[0]) - parseInt(dateMatchA[0]);
+    }
+    return a.localeCompare(b);
+  });
+  return ['Все ивенты', ...uniqueEvents];
+}
+
 function buildCategoriesMenu() {
-  if (!sidebarNav || !itemsData.length) return;
+  if (!categoriesNav || !itemsData.length) return;
 
   const categories = getCategoriesFromItems();
-  sidebarNav.innerHTML = '';
+  categoriesNav.innerHTML = '';
 
   categories.forEach(category => {
     const button = document.createElement('button');
@@ -160,18 +180,52 @@ function buildCategoriesMenu() {
     `;
 
     button.addEventListener('click', () => {
-      document.querySelectorAll('.nav-sidebar .nav-link').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('#categoriesNav .nav-link').forEach(btn => btn.classList.remove('active'));
       button.classList.add('active');
       currentCategory = category;
       filterAndRenderItems();
-      
       closeAllPopovers();
     });
 
-    sidebarNav.appendChild(button);
+    categoriesNav.appendChild(button);
   });
-  
-  addStatsToSidebar();
+}
+
+function buildEventsMenu() {
+  if (!eventsNav || !itemsData.length) return;
+
+  const events = getEventsFromItems();
+  eventsNav.innerHTML = '';
+
+  events.forEach(event => {
+    const button = document.createElement('button');
+    button.className = 'nav-link';
+    if (event === currentEvent) {
+      button.classList.add('active');
+    }
+
+    let itemCount;
+    if (event === 'Все ивенты') {
+      itemCount = itemsData.length;
+    } else {
+      itemCount = itemsData.filter(item => item.event === event).length;
+    }
+
+    button.innerHTML = `
+      <span>${event}</span>
+      <span class="ms-auto">${itemCount}</span>
+    `;
+
+    button.addEventListener('click', () => {
+      document.querySelectorAll('#eventsNav .nav-link').forEach(btn => btn.classList.remove('active'));
+      button.classList.add('active');
+      currentEvent = event;
+      filterAndRenderItems();
+      closeAllPopovers();
+    });
+
+    eventsNav.appendChild(button);
+  });
 }
 
 function getItemIconPath(item) {
@@ -203,6 +257,10 @@ function getFilteredItems() {
 
   if (currentCategory !== 'Все предметы') {
     filtered = filtered.filter(item => item.type === currentCategory);
+  }
+
+  if (currentEvent !== 'Все ивенты') {
+    filtered = filtered.filter(item => item.event === currentEvent);
   }
 
   if (currentSearchTerm.trim() !== '') {
@@ -282,17 +340,20 @@ function filterAndRenderItems() {
   renderItemsGrid(filteredItems);
   
   if (placeholderText) {
-    const totalInCategory = (currentCategory === 'Все предметы') 
-      ? itemsData.length 
-      : itemsData.filter(i => i.type === currentCategory).length;
-    placeholderText.placeholder = `Поиск ${filteredItems.length} из ${totalInCategory} предметов...`;
+    let totalInFilters = itemsData.length;
+    if (currentCategory !== 'Все предметы') {
+      totalInFilters = itemsData.filter(i => i.type === currentCategory).length;
+    }
+    if (currentEvent !== 'Все ивенты') {
+      const eventFiltered = itemsData.filter(i => i.event === currentEvent);
+      totalInFilters = eventFiltered.length;
+    }
+    placeholderText.placeholder = `Поиск ${filteredItems.length} из ${totalInFilters} предметов...`;
   }
 }
 
 function showItemPopover(event, item) {
-  
   const currentButton = event.currentTarget;
-  
   const existingPopover = bootstrap.Popover.getInstance(currentButton);
   
   if (existingPopover) {
@@ -358,6 +419,8 @@ function initApp() {
   }
 
   buildCategoriesMenu();
+  buildEventsMenu();
+  addStatsToSidebar();
   
   if (searchInput) {
     searchInput.addEventListener('input', (e) => {
