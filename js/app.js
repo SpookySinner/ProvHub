@@ -468,6 +468,8 @@ const BOARD_CELL_SIZE = 128;
 const BOARD_GAP = 16;
 const BOARD_PADDING = 70;
 
+const BOARD_CELL_ORDER = [12,7,8,13,18,17,16,11,6,1,2,3,4,9,14,19,24,23,22,21,20,15,10,5,0];
+
 function syncBoardThemeWithPageTheme() {
     const currentPageTheme = htmlElement.getAttribute('data-bs-theme') || 'light';
     boardTheme = currentPageTheme;
@@ -638,19 +640,42 @@ function addItemToBoard(item) {
     
     if (existingIndex !== -1) {
       boardItems[existingIndex].count++;
-    } else {
-      if (boardItems.length >= MAX_BOARD_ITEMS) {
-        alert(`Достигнут лимит карточек (максимум ${MAX_BOARD_ITEMS})`);
-        return;
-      }
-      boardItems.push({ item, count: 1 });
-    }
-  } else {
-    if (boardItems.length >= MAX_BOARD_ITEMS) {
-      alert(`Достигнут лимит карточек (максимум ${MAX_BOARD_ITEMS})`);
+      renderBoard();
+      updateGeneratedText();
       return;
     }
-    boardItems.push({ item, count: 1 });
+  }
+  
+  if (boardItems.length >= MAX_BOARD_ITEMS) {
+    alert(`Достигнут лимит карточек (максимум ${MAX_BOARD_ITEMS})`);
+    return;
+  }
+  
+  const newItem = { item, count: 1 };
+  
+  if (boardItems.length === 0) {
+    boardItems.push(newItem);
+  } else {
+    const filledIndices = new Set();
+    boardItems.forEach((_, index) => {
+      filledIndices.add(index);
+    });
+    
+    let targetIndex = -1;
+    for (const cellIndex of BOARD_CELL_ORDER) {
+      if (!filledIndices.has(cellIndex)) {
+        targetIndex = cellIndex;
+        break;
+      }
+    }
+    
+    if (targetIndex !== -1) {
+      const tempItems = [...boardItems];
+      tempItems.splice(targetIndex, 0, newItem);
+      boardItems = tempItems;
+    } else {
+      boardItems.push(newItem);
+    }
   }
   
   renderBoard();
@@ -670,56 +695,61 @@ function renderBoard() {
   
   itemBoard.innerHTML = '';
   
-  boardItems.forEach((boardItem, index) => {
-    const item = boardItem.item;
-    const count = boardItem.count;
+  for (let i = 0; i < MAX_BOARD_ITEMS; i++) {
+    const boardItem = boardItems[i];
     
     const card = document.createElement('div');
     card.className = 'board-item';
-    card.dataset.index = index;
-    card.draggable = true;
     
-    const iconPath = getItemIconPath(item);
-    
-    const img = document.createElement('img');
-    img.src = iconPath;
-    img.alt = item.name || 'Предмет';
-    img.onerror = () => {
-      img.src = 'icons/placeholder.png';
-    };
-    
-    card.appendChild(img);
-    
-    if (stackingCheckbox.checked && count > 1) {
-      const countSpan = document.createElement('span');
-      countSpan.className = 'item-count';
-      countSpan.textContent = count + ' шт';
-      card.appendChild(countSpan);
+    if (boardItem) {
+      card.dataset.index = i;
+      card.draggable = true;
+      
+      const item = boardItem.item;
+      const count = boardItem.count;
+      
+      const iconPath = getItemIconPath(item);
+      
+      const img = document.createElement('img');
+      img.src = iconPath;
+      img.alt = item.name || 'Предмет';
+      img.onerror = () => {
+        img.src = 'icons/placeholder.png';
+      };
+      
+      card.appendChild(img);
+      
+      if (stackingCheckbox.checked && count > 1) {
+        const countSpan = document.createElement('span');
+        countSpan.className = 'item-count';
+        countSpan.textContent = count + ' шт';
+        card.appendChild(countSpan);
+      }
+      
+      if (item.protected === true) {
+        const shieldIcon = document.createElement('i');
+        shieldIcon.setAttribute('data-lucide', 'shield');
+        shieldIcon.className = 'item-protected';
+        card.appendChild(shieldIcon);
+      }
+      
+      const removeBtn = document.createElement('button');
+      removeBtn.className = 'remove-item';
+      removeBtn.innerHTML = '×';
+      removeBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        removeItemFromBoard(i);
+      });
+      card.appendChild(removeBtn);
+      
+      card.addEventListener('dragstart', handleDragStart);
+      card.addEventListener('dragend', handleDragEnd);
+      card.addEventListener('dragover', handleDragOver);
+      card.addEventListener('drop', handleDrop);
     }
-    
-    if (item.protected === true) {
-      const shieldIcon = document.createElement('i');
-      shieldIcon.setAttribute('data-lucide', 'shield');
-      shieldIcon.className = 'item-protected';
-      card.appendChild(shieldIcon);
-    }
-    
-    const removeBtn = document.createElement('button');
-    removeBtn.className = 'remove-item';
-    removeBtn.innerHTML = '×';
-    removeBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      removeItemFromBoard(index);
-    });
-    card.appendChild(removeBtn);
-    
-    card.addEventListener('dragstart', handleDragStart);
-    card.addEventListener('dragend', handleDragEnd);
-    card.addEventListener('dragover', handleDragOver);
-    card.addEventListener('drop', handleDrop);
     
     itemBoard.appendChild(card);
-  });
+  }
   
   if (typeof lucide !== 'undefined') {
     lucide.createIcons();
@@ -751,7 +781,7 @@ function handleDrop(e) {
   const fromIndex = parseInt(e.dataTransfer.getData('text/plain'));
   const toIndex = parseInt(this.dataset.index);
   
-  if (fromIndex !== toIndex) {
+  if (fromIndex !== toIndex && !isNaN(fromIndex) && !isNaN(toIndex)) {
     const [movedItem] = boardItems.splice(fromIndex, 1);
     boardItems.splice(toIndex, 0, movedItem);
     
@@ -770,9 +800,11 @@ function updateGeneratedText() {
   let text = 'ПРОДАМ:\n';
   
   boardItems.forEach(boardItem => {
-    const item = boardItem.item;
-    const count = boardItem.count;
-    text += `- ${item.name} — ${count} шт\n`;
+    if (boardItem) {
+      const item = boardItem.item;
+      const count = boardItem.count;
+      text += `- ${item.name} — ${count} шт\n`;
+    }
   });
   
   generatedTextBlock.textContent = text;
@@ -823,53 +855,57 @@ async function downloadBoard(format = 'png') {
   
   const loadImagePromises = [];
   
-  for (const boardItem of boardItems) {
-    const item = boardItem.item;
-    const count = boardItem.count;
+  for (let i = 0; i < MAX_BOARD_ITEMS; i++) {
+    const boardItem = boardItems[i];
     
     const card = document.createElement('div');
     card.className = 'board-item';
     card.style.width = cardSize + 'px';
     card.style.height = cardSize + 'px';
     
-    const iconPath = getItemIconPath(item);
-    
-    const imgPromise = new Promise((resolve) => {
-      const img = new Image();
-      img.crossOrigin = 'anonymous';
-      img.src = iconPath;
-      img.style.width = '48px';
-      img.style.height = '48px';
-      img.style.objectFit = 'contain';
+    if (boardItem) {
+      const item = boardItem.item;
+      const count = boardItem.count;
       
-      img.onload = () => {
-        card.appendChild(img);
-        resolve();
-      };
+      const iconPath = getItemIconPath(item);
       
-      img.onerror = () => {
-        img.src = 'icons/placeholder.png';
+      const imgPromise = new Promise((resolve) => {
+        const img = new Image();
+        img.crossOrigin = 'anonymous';
+        img.src = iconPath;
+        img.style.width = '48px';
+        img.style.height = '48px';
+        img.style.objectFit = 'contain';
+        
         img.onload = () => {
           card.appendChild(img);
           resolve();
         };
-      };
-    });
-    
-    loadImagePromises.push(imgPromise);
-    
-    if (stackingCheckbox.checked && count > 1) {
-      const countSpan = document.createElement('span');
-      countSpan.className = 'item-count';
-      countSpan.textContent = count + ' шт';
-      card.appendChild(countSpan);
-    }
-    
-    if (item.protected === true) {
-      const shieldIcon = document.createElement('i');
-      shieldIcon.setAttribute('data-lucide', 'shield');
-      shieldIcon.className = 'item-protected';
-      card.appendChild(shieldIcon);
+        
+        img.onerror = () => {
+          img.src = 'icons/placeholder.png';
+          img.onload = () => {
+            card.appendChild(img);
+            resolve();
+          };
+        };
+      });
+      
+      loadImagePromises.push(imgPromise);
+      
+      if (stackingCheckbox.checked && count > 1) {
+        const countSpan = document.createElement('span');
+        countSpan.className = 'item-count';
+        countSpan.textContent = count + ' шт';
+        card.appendChild(countSpan);
+      }
+      
+      if (item.protected === true) {
+        const shieldIcon = document.createElement('i');
+        shieldIcon.setAttribute('data-lucide', 'shield');
+        shieldIcon.className = 'item-protected';
+        card.appendChild(shieldIcon);
+      }
     }
     
     exportBoard.appendChild(card);
@@ -922,24 +958,38 @@ function updateBoard() {
   if (!stackingCheckbox.checked) {
     const newBoardItems = [];
     boardItems.forEach(boardItem => {
-      for (let i = 0; i < boardItem.count; i++) {
-        if (newBoardItems.length < MAX_BOARD_ITEMS) {
-          newBoardItems.push({ item: boardItem.item, count: 1 });
+      if (boardItem) {
+        for (let i = 0; i < boardItem.count; i++) {
+          if (newBoardItems.length < MAX_BOARD_ITEMS) {
+            newBoardItems.push({ item: boardItem.item, count: 1 });
+          }
         }
       }
     });
-    boardItems = newBoardItems;
+    
+    const tempItems = [];
+    newBoardItems.forEach((item, index) => {
+      tempItems[index] = item;
+    });
+    boardItems = tempItems;
   } else {
     const itemMap = new Map();
     boardItems.forEach(boardItem => {
-      const key = boardItem.item.id;
-      if (itemMap.has(key)) {
-        itemMap.get(key).count += boardItem.count;
-      } else {
-        itemMap.set(key, { item: boardItem.item, count: boardItem.count });
+      if (boardItem) {
+        const key = boardItem.item.id;
+        if (itemMap.has(key)) {
+          itemMap.get(key).count += boardItem.count;
+        } else {
+          itemMap.set(key, { item: boardItem.item, count: boardItem.count });
+        }
       }
     });
-    boardItems = Array.from(itemMap.values());
+    
+    const tempItems = [];
+    Array.from(itemMap.values()).forEach((item, index) => {
+      tempItems[index] = item;
+    });
+    boardItems = tempItems;
   }
   
   renderBoard();
