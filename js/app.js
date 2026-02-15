@@ -635,20 +635,18 @@ function addItemToBoard(item) {
     
     if (existingIndex !== -1) {
       boardItems[existingIndex].count++;
-    } else {
-      if (boardItems.length >= MAX_BOARD_ITEMS) {
-        alert(`Достигнут лимит карточек (максимум ${MAX_BOARD_ITEMS})`);
-        return;
-      }
-      boardItems.push({ item, count: 1 });
-    }
-  } else {
-    if (boardItems.length >= MAX_BOARD_ITEMS) {
-      alert(`Достигнут лимит карточек (максимум ${MAX_BOARD_ITEMS})`);
+      renderBoard();
+      updateGeneratedText();
       return;
     }
-    boardItems.push({ item, count: 1 });
   }
+  
+  if (boardItems.length >= MAX_BOARD_ITEMS) {
+    alert(`Достигнут лимит карточек (максимум ${MAX_BOARD_ITEMS})`);
+    return;
+  }
+  
+  boardItems.push({ item, count: 1 });
   
   renderBoard();
   updateGeneratedText();
@@ -748,10 +746,9 @@ function handleDrop(e) {
   const fromIndex = parseInt(e.dataTransfer.getData('text/plain'));
   const toIndex = parseInt(this.dataset.index);
   
-  if (fromIndex !== toIndex) {
+  if (fromIndex !== toIndex && !isNaN(fromIndex) && !isNaN(toIndex)) {
     const [movedItem] = boardItems.splice(fromIndex, 1);
     boardItems.splice(toIndex, 0, movedItem);
-    
     renderBoard();
   }
 }
@@ -820,7 +817,7 @@ async function downloadBoard(format = 'png') {
   
   const loadImagePromises = [];
   
-  for (const boardItem of boardItems) {
+  boardItems.forEach((boardItem, index) => {
     const item = boardItem.item;
     const count = boardItem.count;
     
@@ -870,7 +867,7 @@ async function downloadBoard(format = 'png') {
     }
     
     exportBoard.appendChild(card);
-  }
+  });
   
   document.body.appendChild(exportBoard);
   
