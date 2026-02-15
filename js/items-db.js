@@ -1367,6 +1367,68 @@ const itemsDatabase = [
         description:      "Фиксирует государственный номер транспортного средства.",
         event:            "Зимний ивент 2024"
     },
+    // Админ магазин
+    {
+        id:               403,
+        badgeImage:       "../icons/frames/prov_numberframe_75.png",
+        name:             "Рамка «Admin Team»",
+        type:             "Номерная рамка",
+        weight:           0.25,
+        description:      "Фиксирует государственный номер транспортного средства.",
+    },
+    // Дилеры
+    // 6 шт
+    {
+        id:               403,
+        badgeImage:       "../icons/frames/prov_numberframe_63.png",
+        name:             "Рамка «Mercury-Auto»",
+        type:             "Номерная рамка",
+        weight:           0.25,
+        description:      "Фиксирует государственный номер транспортного средства.",
+    },
+    {
+        id:               403,
+        badgeImage:       "../icons/frames/prov_numberframe_65.png",
+        name:             "Рамка «РОФЛ Невский»",
+        type:             "Номерная рамка",
+        weight:           0.25,
+        description:      "Фиксирует государственный номер транспортного средства.",
+    },
+    {
+        id:               403,
+        badgeImage:       "../icons/frames/prov_numberframe_67.png",
+        name:             "Рамка «Тихий огонек Центр Мирный»",
+        type:             "Номерная рамка",
+        weight:           0.25,
+        description:      "Фиксирует государственный номер транспортного средства.",
+    },
+    {
+        id:               403,
+        badgeImage:       "../icons/frames/prov_numberframe_64.png",
+        name:             "Рамка «Мир Авто»",
+        type:             "Номерная рамка",
+        weight:           0.25,
+        description:      "Фиксирует государственный номер транспортного средства.",
+    },
+    {
+        id:               403,
+        badgeImage:       "../icons/frames/prov_numberframe_66.png",
+        name:             "Рамка «АвтоМакс»",
+        type:             "Номерная рамка",
+        weight:           0.25,
+        description:      "Фиксирует государственный номер транспортного средства.",
+    },
+    {
+        id:               403,
+        badgeImage:       "../icons/frames/prov_numberframe_68.png",
+        name:             "Рамка «МирБус»",
+        type:             "Номерная рамка",
+        weight:           0.25,
+        description:      "Фиксирует государственный номер транспортного средства.",
+    },
+    // Тюнинг ателье
+    // 41 шт
+    
 
 
 
