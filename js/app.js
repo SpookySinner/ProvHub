@@ -285,15 +285,9 @@ function renderItemsGrid(itemsToRender) {
     return;
   }
 
-  const row = document.createElement('div');
-  row.className = 'row g-3';
-
   itemsToRender.forEach((item) => {
-    const col = document.createElement('div');
-    col.className = 'col-6 col-sm-4 col-md-3 col-lg-2 col-xl-2';
-
     const itemButton = document.createElement('button');
-    itemButton.className = 'items-tab-box w-100';
+    itemButton.className = 'items-tab-box';
     itemButton.dataset.itemId = item.id;
     if (item.badgeImage) {
       itemButton.dataset.badgeImage = item.badgeImage;
@@ -333,11 +327,8 @@ function renderItemsGrid(itemsToRender) {
     itemButton.appendChild(container);
     itemButton.addEventListener('click', (event) => showItemPopover(event, item));
 
-    col.appendChild(itemButton);
-    row.appendChild(col);
+    itemsGrid.appendChild(itemButton);
   });
-
-  itemsGrid.appendChild(row);
 
   if (typeof lucide !== 'undefined') {
     lucide.createIcons();
