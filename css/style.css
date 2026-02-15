@@ -332,7 +332,7 @@ body {
 }
 
 .board-grid[data-board-theme="light"] {
-  background-color: #F2F2F2;
+  background-color: var(--bs-tertiary-bg);
 }
 
 .board-grid[data-board-theme="light"] .board-item {
