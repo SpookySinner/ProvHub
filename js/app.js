@@ -883,18 +883,14 @@ async function downloadBoard(format = 'png') {
     if (stackingCheckbox.checked && count > 1) {
       const countSpan = document.createElement('span');
       countSpan.className = 'item-count';
-      countSpan.textContent = count;
+      countSpan.textContent = count + ' шт';
       countSpan.style.position = 'absolute';
-      countSpan.style.bottom = '4px';
-      countSpan.style.right = '4px';
-      countSpan.style.backgroundColor = '#0d6efd';
-      countSpan.style.color = 'white';
+      countSpan.style.bottom = '2px';
+      countSpan.style.right = '8px';
       countSpan.style.fontSize = '0.7rem';
       countSpan.style.fontWeight = '600';
-      countSpan.style.padding = '2px 6px';
-      countSpan.style.borderRadius = '12px';
       countSpan.style.minWidth = '20px';
-      countSpan.style.textAlign = 'center';
+      countSpan.style.textAlign = 'right';
       card.appendChild(countSpan);
     }
     
