@@ -649,18 +649,24 @@ function addItemToBoard(item) {
   }
   
   const newItem = { item, count: 1 };
-  const targetPosition = BOARD_CELL_ORDER[boardItems.length];
   
-  const tempItems = new Array(MAX_BOARD_ITEMS).fill(null);
+  const gridItems = new Array(25).fill(null);
   boardItems.forEach((boardItem, index) => {
-    tempItems[BOARD_CELL_ORDER[index]] = boardItem;
+    gridItems[BOARD_CELL_ORDER[index]] = boardItem;
   });
-  tempItems[targetPosition] = newItem;
+  
+  for (let i = 0; i < BOARD_CELL_ORDER.length; i++) {
+    const cellIndex = BOARD_CELL_ORDER[i];
+    if (gridItems[cellIndex] === null) {
+      gridItems[cellIndex] = newItem;
+      break;
+    }
+  }
   
   boardItems = [];
-  for (let i = 0; i < MAX_BOARD_ITEMS; i++) {
-    if (tempItems[i] !== null) {
-      boardItems.push(tempItems[i]);
+  for (let i = 0; i < 25; i++) {
+    if (gridItems[i] !== null) {
+      boardItems.push(gridItems[i]);
     }
   }
   
@@ -668,19 +674,19 @@ function addItemToBoard(item) {
   updateGeneratedText();
 }
 
-function removeItemFromBoard(index) {
-  if (index >= 0 && index < boardItems.length) {
-    boardItems.splice(index, 1);
+function removeItemFromBoard(visualIndex) {
+  if (visualIndex >= 0 && visualIndex < boardItems.length) {
+    boardItems.splice(visualIndex, 1);
     
-    const tempItems = new Array(MAX_BOARD_ITEMS).fill(null);
-    boardItems.forEach((boardItem, idx) => {
-      tempItems[BOARD_CELL_ORDER[idx]] = boardItem;
+    const gridItems = new Array(25).fill(null);
+    boardItems.forEach((boardItem, index) => {
+      gridItems[BOARD_CELL_ORDER[index]] = boardItem;
     });
     
     boardItems = [];
-    for (let i = 0; i < MAX_BOARD_ITEMS; i++) {
-      if (tempItems[i] !== null) {
-        boardItems.push(tempItems[i]);
+    for (let i = 0; i < 25; i++) {
+      if (gridItems[i] !== null) {
+        boardItems.push(gridItems[i]);
       }
     }
     
@@ -694,18 +700,18 @@ function renderBoard() {
   
   itemBoard.innerHTML = '';
   
-  const tempItems = new Array(MAX_BOARD_ITEMS).fill(null);
+  const gridItems = new Array(25).fill(null);
   boardItems.forEach((boardItem, index) => {
-    tempItems[BOARD_CELL_ORDER[index]] = boardItem;
+    gridItems[BOARD_CELL_ORDER[index]] = boardItem;
   });
   
-  for (let i = 0; i < MAX_BOARD_ITEMS; i++) {
-    const boardItem = tempItems[i];
+  for (let i = 0; i < 25; i++) {
+    const boardItem = gridItems[i];
     
     if (boardItem) {
       const card = document.createElement('div');
       card.className = 'board-item';
-      card.dataset.index = i;
+      card.dataset.visualIndex = boardItems.indexOf(boardItem);
       card.draggable = true;
       
       const item = boardItem.item;
@@ -741,9 +747,9 @@ function renderBoard() {
       removeBtn.innerHTML = '×';
       removeBtn.addEventListener('click', (e) => {
         e.stopPropagation();
-        const boardIndex = boardItems.findIndex(bi => bi.item.id === item.id && bi.count === count);
-        if (boardIndex !== -1) {
-          removeItemFromBoard(boardIndex);
+        const visualIndex = parseInt(card.dataset.visualIndex);
+        if (!isNaN(visualIndex)) {
+          removeItemFromBoard(visualIndex);
         }
       });
       card.appendChild(removeBtn);
@@ -769,7 +775,7 @@ function renderBoard() {
 function handleDragStart(e) {
   draggingElement = this;
   this.classList.add('dragging');
-  e.dataTransfer.setData('text/plain', this.dataset.index);
+  e.dataTransfer.setData('text/plain', this.dataset.visualIndex);
 }
 
 function handleDragEnd(e) {
@@ -784,23 +790,26 @@ function handleDragOver(e) {
 function handleDrop(e) {
   e.preventDefault();
   
-  const fromPosition = parseInt(e.dataTransfer.getData('text/plain'));
-  const toPosition = parseInt(this.dataset.index);
+  const fromVisualIndex = parseInt(e.dataTransfer.getData('text/plain'));
+  const toVisualIndex = parseInt(this.dataset.visualIndex);
   
-  if (fromPosition !== toPosition && !isNaN(fromPosition) && !isNaN(toPosition)) {
-    const tempItems = new Array(MAX_BOARD_ITEMS).fill(null);
+  if (fromVisualIndex !== toVisualIndex && !isNaN(fromVisualIndex) && !isNaN(toVisualIndex)) {
+    const gridItems = new Array(25).fill(null);
     boardItems.forEach((boardItem, index) => {
-      tempItems[BOARD_CELL_ORDER[index]] = boardItem;
+      gridItems[BOARD_CELL_ORDER[index]] = boardItem;
     });
     
-    if (tempItems[fromPosition] && !tempItems[toPosition]) {
-      tempItems[toPosition] = tempItems[fromPosition];
-      tempItems[fromPosition] = null;
+    const fromCellIndex = BOARD_CELL_ORDER[fromVisualIndex];
+    const toCellIndex = BOARD_CELL_ORDER[toVisualIndex];
+    
+    if (gridItems[fromCellIndex] && !gridItems[toCellIndex]) {
+      gridItems[toCellIndex] = gridItems[fromCellIndex];
+      gridItems[fromCellIndex] = null;
       
       boardItems = [];
-      for (let i = 0; i < MAX_BOARD_ITEMS; i++) {
-        if (tempItems[i] !== null) {
-          boardItems.push(tempItems[i]);
+      for (let i = 0; i < 25; i++) {
+        if (gridItems[i] !== null) {
+          boardItems.push(gridItems[i]);
         }
       }
       
@@ -871,15 +880,15 @@ async function downloadBoard(format = 'png') {
   const availableWidth = boardWidth - (2 * BOARD_PADDING) - (4 * BOARD_GAP);
   const cardSize = Math.floor(availableWidth / 5);
   
-  const tempItems = new Array(MAX_BOARD_ITEMS).fill(null);
+  const gridItems = new Array(25).fill(null);
   boardItems.forEach((boardItem, index) => {
-    tempItems[BOARD_CELL_ORDER[index]] = boardItem;
+    gridItems[BOARD_CELL_ORDER[index]] = boardItem;
   });
   
   const loadImagePromises = [];
   
-  for (let i = 0; i < MAX_BOARD_ITEMS; i++) {
-    const boardItem = tempItems[i];
+  for (let i = 0; i < 25; i++) {
+    const boardItem = gridItems[i];
     
     if (boardItem) {
       const card = document.createElement('div');
@@ -978,9 +987,11 @@ async function downloadBoard(format = 'png') {
 }
 
 function updateBoard() {
+  const currentItems = [...boardItems];
+  
   if (!stackingCheckbox.checked) {
     const newBoardItems = [];
-    boardItems.forEach(boardItem => {
+    currentItems.forEach(boardItem => {
       for (let i = 0; i < boardItem.count; i++) {
         if (newBoardItems.length < MAX_BOARD_ITEMS) {
           newBoardItems.push({ item: boardItem.item, count: 1 });
@@ -988,20 +999,20 @@ function updateBoard() {
       }
     });
     
-    const tempItems = new Array(MAX_BOARD_ITEMS).fill(null);
+    const gridItems = new Array(25).fill(null);
     newBoardItems.forEach((boardItem, index) => {
-      tempItems[BOARD_CELL_ORDER[index]] = boardItem;
+      gridItems[BOARD_CELL_ORDER[index]] = boardItem;
     });
     
     boardItems = [];
-    for (let i = 0; i < MAX_BOARD_ITEMS; i++) {
-      if (tempItems[i] !== null) {
-        boardItems.push(tempItems[i]);
+    for (let i = 0; i < 25; i++) {
+      if (gridItems[i] !== null) {
+        boardItems.push(gridItems[i]);
       }
     }
   } else {
     const itemMap = new Map();
-    boardItems.forEach(boardItem => {
+    currentItems.forEach(boardItem => {
       const key = boardItem.item.id;
       if (itemMap.has(key)) {
         itemMap.get(key).count += boardItem.count;
@@ -1011,15 +1022,15 @@ function updateBoard() {
     });
     
     const stackedItems = Array.from(itemMap.values());
-    const tempItems = new Array(MAX_BOARD_ITEMS).fill(null);
+    const gridItems = new Array(25).fill(null);
     stackedItems.forEach((boardItem, index) => {
-      tempItems[BOARD_CELL_ORDER[index]] = boardItem;
+      gridItems[BOARD_CELL_ORDER[index]] = boardItem;
     });
     
     boardItems = [];
-    for (let i = 0; i < MAX_BOARD_ITEMS; i++) {
-      if (tempItems[i] !== null) {
-        boardItems.push(tempItems[i]);
+    for (let i = 0; i < 25; i++) {
+      if (gridItems[i] !== null) {
+        boardItems.push(gridItems[i]);
       }
     }
   }
