@@ -1,7 +1,3 @@
-/*
-  Переписанные стили Bootstrap
-*/
-
 body {
   font-family: "Inter",system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans","Liberation Sans",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji" !important;
   font-size: 0.945rem;
@@ -31,10 +27,10 @@ body {
   --bs-btn-font-size: 0.9rem;
 }
 
-
-/*
-  Переключатель темы
-*/
+.row > * {
+  padding-right: var(--bs-gutter-x);
+  padding-left: var(--bs-gutter-x);
+}
 
 .theme-switch {
   position: relative;
@@ -114,12 +110,6 @@ body {
 #themeSwitch:checked + .switch-slider [data-lucide="moon"] {
   opacity: 1;
 }
-
-
-
-/*
-  Кастомные элементы
-*/
 
 .smaller {
   font-size: 0.75rem;
@@ -237,23 +227,14 @@ body {
   stroke-width: 1.5;
 }
 
-
-
-/* 
-
-*/
-
-.items-tab-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, 96px);
-  gap: 13px;
+.items-grid-container {
   width: 100%;
 }
 
 .items-tab-box {
   border: 0;
-  width: 96px;
-  height: 96px;
+  width: 100%;
+  aspect-ratio: 1;
   border-radius: var(--bs-border-radius);
   display: flex;
   align-items: center;
@@ -266,9 +247,18 @@ body {
   background-color: rgba(var(--bs-emphasis-color-rgb), .035);
 }
 
-.items-tab-box > img {
+.items-tab-box > div {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.items-tab-box img {
   width: 60px;
   height: 60px;
+  object-fit: contain;
 }
 
 .item-tooltip {
@@ -292,11 +282,19 @@ body {
   transform: scale(1.1);
 }
 
+@media (max-width: 576px) {
+  .items-tab-box img {
+    width: 50px;
+    height: 50px;
+  }
+}
 
-
-/*
-  Стили для кастомного Popover
-*/
+@media (max-width: 400px) {
+  .items-tab-box img {
+    width: 40px;
+    height: 40px;
+  }
+}
 
 .item-popover {
   --bs-popover-max-width: 300px;
@@ -316,12 +314,6 @@ body {
   opacity: 0.2;
   margin: 0.4rem 0;
 }
-
-
-
-/*
-
-*/
 
 .board-wrapper {
   width: 692px;
@@ -445,14 +437,6 @@ body {
   text-align: right;
 }
 
-.board-grid[data-board-theme="light"] .item-count {
-  color: #212529;
-}
-
-.board-grid[data-board-theme="dark"] .item-count {
-  color: #dee2e6;
-}
-
 .board-item .item-protected {
   position: absolute;
   top: 4px;
@@ -551,7 +535,6 @@ body {
   line-height: 1.5;
 }
 
-/* Результаты поиска */
 .search-result-item {
   display: flex;
   align-items: center;
