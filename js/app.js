@@ -64,6 +64,7 @@ function addStatsToSidebar() {
   const sidebar = document.querySelector('.sidebar');
   if (!sidebar) return;
   
+  // Удаляем старую статистику, если есть
   const oldStats = document.querySelector('.sidebar-stats');
   if (oldStats) oldStats.remove();
   
@@ -254,6 +255,7 @@ function renderItemsGrid(itemsToRender) {
 
     container.appendChild(img);
 
+    // Добавляем иконку щита для защищённых предметов
     if (item.protected === true) {
       const shieldIcon = document.createElement('i');
       shieldIcon.setAttribute('data-lucide', 'shield');
@@ -266,6 +268,7 @@ function renderItemsGrid(itemsToRender) {
     itemsGrid.appendChild(itemButton);
   });
 
+  // Обновляем иконки Lucide
   if (typeof lucide !== 'undefined') {
     lucide.createIcons();
   }
@@ -284,7 +287,6 @@ function filterAndRenderItems() {
 }
 
 function showItemPopover(event, item) {
-  event.stopPropagation();
   
   const currentButton = event.currentTarget;
   
@@ -346,6 +348,7 @@ document.addEventListener('click', function(e) {
   }
 });
 
+
 function initApp() {
   if (!itemsData.length) {
     console.error('Нет данных для отображения');
@@ -358,6 +361,7 @@ function initApp() {
     searchInput.addEventListener('input', (e) => {
       currentSearchTerm = e.target.value;
       filterAndRenderItems();
+      // Закрываем popover при поиске
       closeAllPopovers();
     });
   }
@@ -389,13 +393,15 @@ const toggleBoardTheme = document.getElementById('toggleBoardTheme');
 const boardItemsCounter = document.getElementById('boardItemsCounter');
 const totalItemsCount = document.getElementById('totalItemsCount');
 
-let boardItems = [];
+let boardItems = []; // { item: объект предмета, count: количество }
 let draggingElement = null;
+let dragStartX = 0, dragStartY = 0;
+let dragStartLeft = 0, dragStartTop = 0;
 let boardTheme = 'light';
 
 const MAX_BOARD_ITEMS = 25;
-const BOARD_CELL_SIZE = 128;
-const BOARD_GAP = 18;
+const BOARD_CELL_SIZE = 128; // размер карточки в пикселях для экспорта
+const BOARD_GAP = 16;
 const BOARD_PADDING = 70;
 
 function initBoard() {
@@ -652,6 +658,7 @@ function updateGeneratedText() {
   generatedTextBlock.textContent = text;
 }
 
+// Копирование текста
 function copyGeneratedText() {
   if (!generatedTextBlock || !generatedTextBlock.textContent) return;
   
@@ -669,6 +676,7 @@ function copyGeneratedText() {
   });
 }
 
+// Скачивание доски
 async function downloadBoard(format = 'png') {
   if (!boardWrapper) return;
   
@@ -685,7 +693,13 @@ async function downloadBoard(format = 'png') {
   exportBoard.style.display = 'grid';
   exportBoard.style.gridTemplateColumns = 'repeat(5, 1fr)';
   exportBoard.style.gridTemplateRows = 'repeat(5, 1fr)';
-  exportBoard.style.backgroundColor = boardTheme === 'light' ? '#f8f9fa' : '#212529';
+  
+  if (boardTheme === 'light') {
+    exportBoard.style.backgroundColor = '#E6E6E6';
+  } else {
+    exportBoard.style.backgroundColor = '#0D0D0D';
+  }
+  
   exportBoard.style.position = 'absolute';
   exportBoard.style.left = '-9999px';
   exportBoard.style.top = '-9999px';
@@ -704,18 +718,23 @@ async function downloadBoard(format = 'png') {
     card.className = 'board-item';
     card.style.width = cardSize + 'px';
     card.style.height = cardSize + 'px';
-    card.style.backgroundColor = boardTheme === 'light' ? '#ffffff' : '#2b3035';
     card.style.borderRadius = '16px';
     card.style.display = 'flex';
     card.style.flexDirection = 'column';
     card.style.alignItems = 'center';
     card.style.justifyContent = 'center';
     card.style.position = 'relative';
-    card.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
-    card.style.border = boardTheme === 'light' ? '1px solid #dee2e6' : '1px solid #495057';
     card.style.margin = '0';
     card.style.padding = '0';
     card.style.boxSizing = 'border-box';
+    
+    if (boardTheme === 'light') {
+      card.style.backgroundColor = '#F2F2F2';
+      card.style.border = '2px dotted #CCCCCC';
+    } else {
+      card.style.backgroundColor = '#121212';
+      card.style.border = '2px dotted #262626';
+    }
     
     const iconPath = getItemIconPath(item);
     
@@ -723,8 +742,8 @@ async function downloadBoard(format = 'png') {
       const img = new Image();
       img.crossOrigin = 'anonymous';
       img.src = iconPath;
-      img.style.width = '60px';
-      img.style.height = '60px';
+      img.style.width = '48px';
+      img.style.height = '48px';
       img.style.objectFit = 'contain';
       
       img.onload = () => {
@@ -768,7 +787,7 @@ async function downloadBoard(format = 'png') {
       shieldSpan.style.top = '4px';
       shieldSpan.style.left = '4px';
       shieldSpan.style.fontSize = '16px';
-      shieldSpan.style.color = boardTheme === 'light' ? '#ffc107' : '#ffd700';
+      shieldSpan.style.color = '#ffc107';
       card.appendChild(shieldSpan);
     }
     
@@ -783,7 +802,7 @@ async function downloadBoard(format = 'png') {
   try {
     const canvas = await html2canvas(exportBoard, {
       scale: 2,
-      backgroundColor: boardTheme === 'light' ? '#f8f9fa' : '#212529',
+      backgroundColor: boardTheme === 'light' ? '#E6E6E6' : '#0D0D0D',
       allowTaint: false,
       useCORS: true,
       logging: false,
@@ -818,11 +837,10 @@ function toggleBoardThemeHandler() {
   boardTheme = boardTheme === 'light' ? 'dark' : 'light';
   itemBoard.setAttribute('data-board-theme', boardTheme);
   
+  // Обновляем иконку
   const icon = toggleBoardTheme.querySelector('[data-lucide]');
   if (icon) {
     icon.setAttribute('data-lucide', boardTheme === 'light' ? 'moon' : 'sun');
-    icon.style.width = '20px';
-    icon.style.height = '20px';
     if (typeof lucide !== 'undefined') lucide.createIcons();
   }
 }
