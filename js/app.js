@@ -693,7 +693,7 @@ function renderBoard() {
     if (stackingCheckbox.checked && count > 1) {
       const countSpan = document.createElement('span');
       countSpan.className = 'item-count';
-      countSpan.textContent = count;
+      countSpan.textContent = count + ' шт';
       card.appendChild(countSpan);
     }
     
