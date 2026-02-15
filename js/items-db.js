@@ -1,5 +1,4 @@
 /* ===== data/items-db.js ===== */
-/* База предметов (без изменений) */
 
 const itemsDatabase = [
     {
@@ -829,6 +828,128 @@ const itemsDatabase = [
         description:      "Фиксирует государственный номер транспортного средства.",
         event:            "Хэллоуин 2024"
     },
+
+    // Зима 2025
+    // 13 из 13
+    {
+        id:               403,
+        badgeImage:       "../icons/frames/prov_numberframe_wbp_11.png",
+        name:             "Рамка «Directed by Robert B. Weide»",
+        type:             "Номерная рамка",
+        weight:           0.25,
+        description:      "Фиксирует государственный номер транспортного средства.",
+        event:            "Зима 2025"
+    },
+    {
+        id:               403,
+        badgeImage:       "../icons/frames/prov_numberframe_wbp_4.png",
+        name:             "Рамка «Тысяча порезов»",
+        type:             "Номерная рамка",
+        weight:           0.25,
+        description:      "Фиксирует государственный номер транспортного средства.",
+        event:            "Зима 2025"
+    },
+    {
+        id:               403,
+        badgeImage:       "../icons/frames/prov_numberframe_wbp_1.png",
+        name:             "Рамка «Снеговики 2025»",
+        type:             "Номерная рамка",
+        weight:           0.25,
+        description:      "Фиксирует государственный номер транспортного средства.",
+        event:            "Зима 2025"
+    },
+    {
+        id:               403,
+        badgeImage:       "../icons/frames/prov_numberframe_wbp_9.png",
+        name:             "Рамка «Зимний узор»",
+        type:             "Номерная рамка",
+        weight:           0.25,
+        description:      "Фиксирует государственный номер транспортного средства.",
+        event:            "Зима 2025"
+    },
+    {
+        id:               403,
+        badgeImage:       "../icons/frames/prov_numberframe_wbp_5.png",
+        name:             "Рамка «Радиоактивность»",
+        type:             "Номерная рамка",
+        weight:           0.25,
+        description:      "Фиксирует государственный номер транспортного средства.",
+        event:            "Зима 2025"
+    },
+    {
+        id:               403,
+        badgeImage:       "../icons/frames/prov_numberframe_wbp_2.png",
+        name:             "Рамка «Burberry 1»",
+        type:             "Номерная рамка",
+        weight:           0.25,
+        description:      "Фиксирует государственный номер транспортного средства.",
+        event:            "Зима 2025"
+    },
+    {
+        id:               403,
+        badgeImage:       "../icons/frames/prov_numberframe_wbp_13.png",
+        name:             "Рамка «Burberry 2»",
+        type:             "Номерная рамка",
+        weight:           0.25,
+        description:      "Фиксирует государственный номер транспортного средства.",
+        event:            "Зима 2025"
+    },
+    {
+        id:               403,
+        badgeImage:       "../icons/frames/prov_numberframe_wbp_10.png",
+        name:             "Рамка «Winter Drift Machine»",
+        type:             "Номерная рамка",
+        weight:           0.25,
+        description:      "Фиксирует государственный номер транспортного средства.",
+        event:            "Зима 2025"
+    },
+    {
+        id:               403,
+        badgeImage:       "../icons/frames/prov_numberframe_wbp_7.png",
+        name:             "Рамка «Циклон 1»",
+        type:             "Номерная рамка",
+        weight:           0.25,
+        description:      "Фиксирует государственный номер транспортного средства.",
+        event:            "Зима 2025"
+    },
+    {
+        id:               403,
+        badgeImage:       "../icons/frames/prov_numberframe_wbp_8.png",
+        name:             "Рамка «Циклон 2»",
+        type:             "Номерная рамка",
+        weight:           0.25,
+        description:      "Фиксирует государственный номер транспортного средства.",
+        event:            "Зима 2025"
+    },
+    {
+        id:               403,
+        badgeImage:       "../icons/frames/prov_numberframe_wbp_6.png",
+        name:             "Рамка «Год Змеи 2025»",
+        type:             "Номерная рамка",
+        weight:           0.25,
+        description:      "Фиксирует государственный номер транспортного средства.",
+        event:            "Зима 2025"
+    },
+    {
+        id:               403,
+        badgeImage:       "../icons/frames/prov_numberframe_wbp_3.png",
+        name:             "Рамка «Чёрный океан»",
+        type:             "Номерная рамка",
+        weight:           0.25,
+        description:      "Фиксирует государственный номер транспортного средства.",
+        event:            "Зима 2025"
+    },
+    {
+        id:               403,
+        badgeImage:       "../icons/frames/prov_numberframe_wbp_12.png",
+        name:             "Рамка «Sakura»",
+        type:             "Номерная рамка",
+        weight:           0.25,
+        description:      "Фиксирует государственный номер транспортного средства.",
+        event:            "Зима 2025"
+    },
+
+
     {
         id:               407,
         name:             "Колонка «JBL Boombox 2»",
@@ -1008,7 +1129,7 @@ const itemsDatabase = [
     {
         id:               409,
         badgeImage:       "../icons/vinyls/newyear_2024_3.png",
-        name:             "«Свитер»",
+        name:             "Винил «Свитер»",
         type:             "Винил",
         weight:           1,
         description:      "Создаёт привлекающий образ для транспорта. В тюнинг-ателье должны уметь обращаться с такими вещами.",
