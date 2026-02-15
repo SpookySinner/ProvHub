@@ -1,5 +1,5 @@
 const themeSwitch = document.getElementById('themeSwitch');
-const htmlElement = document.documentElement;
+const htmlElement = documentElement;
 
 function setTheme(theme) {
   htmlElement.setAttribute('data-bs-theme', theme);
@@ -313,7 +313,6 @@ function renderItemsGrid(itemsToRender) {
     img.onerror = () => {
       img.src = 'icons/placeholder.png';
       img.alt = 'Иконка не найдена';
-      console.warn(`Иконка не найдена: ${iconPath} для предмета "${item.name}" (ID: ${item.id})`);
     };
 
     container.appendChild(img);
@@ -457,10 +456,8 @@ const toggleBoardTheme = document.getElementById('toggleBoardTheme');
 const boardItemsCounter = document.getElementById('boardItemsCounter');
 const totalItemsCount = document.getElementById('totalItemsCount');
 
-let boardItems = [];
+let boardItems = new Array(25).fill(null);
 let draggingElement = null;
-let dragStartX = 0, dragStartY = 0;
-let dragStartLeft = 0, dragStartTop = 0;
 let boardTheme = 'light';
 
 const MAX_BOARD_ITEMS = 25;
@@ -636,7 +633,7 @@ function addItemToBoard(item) {
   const isStacking = stackingCheckbox.checked;
   
   if (isStacking) {
-    const existingIndex = boardItems.findIndex(bi => bi.item.id === item.id);
+    const existingIndex = boardItems.findIndex(bi => bi && bi.item.id === item.id);
     
     if (existingIndex !== -1) {
       boardItems[existingIndex].count++;
@@ -646,35 +643,18 @@ function addItemToBoard(item) {
     }
   }
   
-  if (boardItems.length >= MAX_BOARD_ITEMS) {
+  const filledCount = boardItems.filter(cell => cell !== null).length;
+  if (filledCount >= MAX_BOARD_ITEMS) {
     alert(`Достигнут лимит карточек (максимум ${MAX_BOARD_ITEMS})`);
     return;
   }
   
   const newItem = { item, count: 1 };
   
-  if (boardItems.length === 0) {
-    boardItems.push(newItem);
-  } else {
-    const filledIndices = new Set();
-    boardItems.forEach((_, index) => {
-      filledIndices.add(index);
-    });
-    
-    let targetIndex = -1;
-    for (const cellIndex of BOARD_CELL_ORDER) {
-      if (!filledIndices.has(cellIndex)) {
-        targetIndex = cellIndex;
-        break;
-      }
-    }
-    
-    if (targetIndex !== -1) {
-      const tempItems = [...boardItems];
-      tempItems.splice(targetIndex, 0, newItem);
-      boardItems = tempItems;
-    } else {
-      boardItems.push(newItem);
+  for (const cellIndex of BOARD_CELL_ORDER) {
+    if (boardItems[cellIndex] === null) {
+      boardItems[cellIndex] = newItem;
+      break;
     }
   }
   
@@ -683,8 +663,16 @@ function addItemToBoard(item) {
 }
 
 function removeItemFromBoard(index) {
-  if (index >= 0 && index < boardItems.length) {
-    boardItems.splice(index, 1);
+  if (index >= 0 && index < boardItems.length && boardItems[index] !== null) {
+    boardItems[index] = null;
+    
+    const compactedItems = boardItems.filter(cell => cell !== null);
+    boardItems = new Array(25).fill(null);
+    
+    for (let i = 0; i < compactedItems.length; i++) {
+      boardItems[BOARD_CELL_ORDER[i]] = compactedItems[i];
+    }
+    
     renderBoard();
     updateGeneratedText();
   }
@@ -756,7 +744,8 @@ function renderBoard() {
   }
   
   if (boardItemsCounter) {
-    boardItemsCounter.textContent = `${boardItems.length}/${MAX_BOARD_ITEMS}`;
+    const filledCount = boardItems.filter(cell => cell !== null).length;
+    boardItemsCounter.textContent = `${filledCount}/${MAX_BOARD_ITEMS}`;
   }
 }
 
@@ -782,29 +771,30 @@ function handleDrop(e) {
   const toIndex = parseInt(this.dataset.index);
   
   if (fromIndex !== toIndex && !isNaN(fromIndex) && !isNaN(toIndex)) {
-    const [movedItem] = boardItems.splice(fromIndex, 1);
-    boardItems.splice(toIndex, 0, movedItem);
-    
-    renderBoard();
+    if (boardItems[fromIndex] && !boardItems[toIndex]) {
+      boardItems[toIndex] = boardItems[fromIndex];
+      boardItems[fromIndex] = null;
+      renderBoard();
+    }
   }
 }
 
 function updateGeneratedText() {
   if (!generatedTextBlock) return;
   
-  if (boardItems.length === 0) {
+  const filledItems = boardItems.filter(cell => cell !== null);
+  
+  if (filledItems.length === 0) {
     generatedTextBlock.textContent = 'Доска пуста';
     return;
   }
   
   let text = 'ПРОДАМ:\n';
   
-  boardItems.forEach(boardItem => {
-    if (boardItem) {
-      const item = boardItem.item;
-      const count = boardItem.count;
-      text += `- ${item.name} — ${count} шт\n`;
-    }
+  filledItems.forEach(boardItem => {
+    const item = boardItem.item;
+    const count = boardItem.count;
+    text += `- ${item.name} — ${count} шт\n`;
   });
   
   generatedTextBlock.textContent = text;
@@ -955,41 +945,38 @@ async function downloadBoard(format = 'png') {
 }
 
 function updateBoard() {
+  const filledItems = boardItems.filter(cell => cell !== null);
+  
   if (!stackingCheckbox.checked) {
     const newBoardItems = [];
-    boardItems.forEach(boardItem => {
-      if (boardItem) {
-        for (let i = 0; i < boardItem.count; i++) {
-          if (newBoardItems.length < MAX_BOARD_ITEMS) {
-            newBoardItems.push({ item: boardItem.item, count: 1 });
-          }
+    filledItems.forEach(boardItem => {
+      for (let i = 0; i < boardItem.count; i++) {
+        if (newBoardItems.length < MAX_BOARD_ITEMS) {
+          newBoardItems.push({ item: boardItem.item, count: 1 });
         }
       }
     });
     
-    const tempItems = [];
-    newBoardItems.forEach((item, index) => {
-      tempItems[index] = item;
-    });
-    boardItems = tempItems;
+    boardItems = new Array(25).fill(null);
+    for (let i = 0; i < newBoardItems.length; i++) {
+      boardItems[BOARD_CELL_ORDER[i]] = newBoardItems[i];
+    }
   } else {
     const itemMap = new Map();
-    boardItems.forEach(boardItem => {
-      if (boardItem) {
-        const key = boardItem.item.id;
-        if (itemMap.has(key)) {
-          itemMap.get(key).count += boardItem.count;
-        } else {
-          itemMap.set(key, { item: boardItem.item, count: boardItem.count });
-        }
+    filledItems.forEach(boardItem => {
+      const key = boardItem.item.id;
+      if (itemMap.has(key)) {
+        itemMap.get(key).count += boardItem.count;
+      } else {
+        itemMap.set(key, { item: boardItem.item, count: boardItem.count });
       }
     });
     
-    const tempItems = [];
-    Array.from(itemMap.values()).forEach((item, index) => {
-      tempItems[index] = item;
-    });
-    boardItems = tempItems;
+    const stackedItems = Array.from(itemMap.values());
+    boardItems = new Array(25).fill(null);
+    for (let i = 0; i < stackedItems.length; i++) {
+      boardItems[BOARD_CELL_ORDER[i]] = stackedItems[i];
+    }
   }
   
   renderBoard();
