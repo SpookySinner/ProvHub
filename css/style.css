@@ -173,6 +173,7 @@ body {
   height: calc(100vh - 4.8125rem);
   overflow-y: auto;
   padding-bottom: 1rem;
+  padding-left: calc(var(--bs-gutter-x) * .5);
 }
 
 .sidebar::-webkit-scrollbar {
