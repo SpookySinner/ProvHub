@@ -51,7 +51,7 @@ let itemsData = itemsDatabase || [];
 
 const categoriesNav = document.getElementById('categoriesNav');
 const eventsNav = document.getElementById('eventsNav');
-const itemsGrid = document.querySelector('.items-grid-container');
+const itemsGrid = document.querySelector('.items-tab-grid');
 const searchInput = document.querySelector('.ph-search .form-control');
 const placeholderText = document.querySelector('.ph-placeholder');
 
