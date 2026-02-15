@@ -225,7 +225,7 @@ body {
 .items-tab-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, 96px);
-  gap: 13px;
+  gap: 16px;
   width: 100%;
 }
 
