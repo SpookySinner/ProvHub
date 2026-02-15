@@ -456,7 +456,7 @@ const toggleBoardTheme = document.getElementById('toggleBoardTheme');
 const boardItemsCounter = document.getElementById('boardItemsCounter');
 const totalItemsCount = document.getElementById('totalItemsCount');
 
-let boardItems = new Array(25).fill(null);
+let boardItems = [];
 let draggingElement = null;
 let boardTheme = 'light';
 
@@ -633,7 +633,7 @@ function addItemToBoard(item) {
   const isStacking = stackingCheckbox.checked;
   
   if (isStacking) {
-    const existingIndex = boardItems.findIndex(bi => bi && bi.item.id === item.id);
+    const existingIndex = boardItems.findIndex(bi => bi.item.id === item.id);
     
     if (existingIndex !== -1) {
       boardItems[existingIndex].count++;
@@ -643,18 +643,24 @@ function addItemToBoard(item) {
     }
   }
   
-  const filledCount = boardItems.filter(cell => cell !== null).length;
-  if (filledCount >= MAX_BOARD_ITEMS) {
+  if (boardItems.length >= MAX_BOARD_ITEMS) {
     alert(`Достигнут лимит карточек (максимум ${MAX_BOARD_ITEMS})`);
     return;
   }
   
   const newItem = { item, count: 1 };
+  const targetPosition = BOARD_CELL_ORDER[boardItems.length];
   
-  for (const cellIndex of BOARD_CELL_ORDER) {
-    if (boardItems[cellIndex] === null) {
-      boardItems[cellIndex] = newItem;
-      break;
+  const tempItems = new Array(MAX_BOARD_ITEMS).fill(null);
+  boardItems.forEach((boardItem, index) => {
+    tempItems[BOARD_CELL_ORDER[index]] = boardItem;
+  });
+  tempItems[targetPosition] = newItem;
+  
+  boardItems = [];
+  for (let i = 0; i < MAX_BOARD_ITEMS; i++) {
+    if (tempItems[i] !== null) {
+      boardItems.push(tempItems[i]);
     }
   }
   
@@ -663,14 +669,19 @@ function addItemToBoard(item) {
 }
 
 function removeItemFromBoard(index) {
-  if (index >= 0 && index < boardItems.length && boardItems[index] !== null) {
-    boardItems[index] = null;
+  if (index >= 0 && index < boardItems.length) {
+    boardItems.splice(index, 1);
     
-    const compactedItems = boardItems.filter(cell => cell !== null);
-    boardItems = new Array(25).fill(null);
+    const tempItems = new Array(MAX_BOARD_ITEMS).fill(null);
+    boardItems.forEach((boardItem, idx) => {
+      tempItems[BOARD_CELL_ORDER[idx]] = boardItem;
+    });
     
-    for (let i = 0; i < compactedItems.length; i++) {
-      boardItems[BOARD_CELL_ORDER[i]] = compactedItems[i];
+    boardItems = [];
+    for (let i = 0; i < MAX_BOARD_ITEMS; i++) {
+      if (tempItems[i] !== null) {
+        boardItems.push(tempItems[i]);
+      }
     }
     
     renderBoard();
@@ -683,13 +694,17 @@ function renderBoard() {
   
   itemBoard.innerHTML = '';
   
+  const tempItems = new Array(MAX_BOARD_ITEMS).fill(null);
+  boardItems.forEach((boardItem, index) => {
+    tempItems[BOARD_CELL_ORDER[index]] = boardItem;
+  });
+  
   for (let i = 0; i < MAX_BOARD_ITEMS; i++) {
-    const boardItem = boardItems[i];
-    
-    const card = document.createElement('div');
-    card.className = 'board-item';
+    const boardItem = tempItems[i];
     
     if (boardItem) {
+      const card = document.createElement('div');
+      card.className = 'board-item';
       card.dataset.index = i;
       card.draggable = true;
       
@@ -726,7 +741,10 @@ function renderBoard() {
       removeBtn.innerHTML = '×';
       removeBtn.addEventListener('click', (e) => {
         e.stopPropagation();
-        removeItemFromBoard(i);
+        const boardIndex = boardItems.findIndex(bi => bi.item.id === item.id && bi.count === count);
+        if (boardIndex !== -1) {
+          removeItemFromBoard(boardIndex);
+        }
       });
       card.appendChild(removeBtn);
       
@@ -734,9 +752,9 @@ function renderBoard() {
       card.addEventListener('dragend', handleDragEnd);
       card.addEventListener('dragover', handleDragOver);
       card.addEventListener('drop', handleDrop);
+      
+      itemBoard.appendChild(card);
     }
-    
-    itemBoard.appendChild(card);
   }
   
   if (typeof lucide !== 'undefined') {
@@ -744,8 +762,7 @@ function renderBoard() {
   }
   
   if (boardItemsCounter) {
-    const filledCount = boardItems.filter(cell => cell !== null).length;
-    boardItemsCounter.textContent = `${filledCount}/${MAX_BOARD_ITEMS}`;
+    boardItemsCounter.textContent = `${boardItems.length}/${MAX_BOARD_ITEMS}`;
   }
 }
 
@@ -767,13 +784,26 @@ function handleDragOver(e) {
 function handleDrop(e) {
   e.preventDefault();
   
-  const fromIndex = parseInt(e.dataTransfer.getData('text/plain'));
-  const toIndex = parseInt(this.dataset.index);
+  const fromPosition = parseInt(e.dataTransfer.getData('text/plain'));
+  const toPosition = parseInt(this.dataset.index);
   
-  if (fromIndex !== toIndex && !isNaN(fromIndex) && !isNaN(toIndex)) {
-    if (boardItems[fromIndex] && !boardItems[toIndex]) {
-      boardItems[toIndex] = boardItems[fromIndex];
-      boardItems[fromIndex] = null;
+  if (fromPosition !== toPosition && !isNaN(fromPosition) && !isNaN(toPosition)) {
+    const tempItems = new Array(MAX_BOARD_ITEMS).fill(null);
+    boardItems.forEach((boardItem, index) => {
+      tempItems[BOARD_CELL_ORDER[index]] = boardItem;
+    });
+    
+    if (tempItems[fromPosition] && !tempItems[toPosition]) {
+      tempItems[toPosition] = tempItems[fromPosition];
+      tempItems[fromPosition] = null;
+      
+      boardItems = [];
+      for (let i = 0; i < MAX_BOARD_ITEMS; i++) {
+        if (tempItems[i] !== null) {
+          boardItems.push(tempItems[i]);
+        }
+      }
+      
       renderBoard();
     }
   }
@@ -782,16 +812,14 @@ function handleDrop(e) {
 function updateGeneratedText() {
   if (!generatedTextBlock) return;
   
-  const filledItems = boardItems.filter(cell => cell !== null);
-  
-  if (filledItems.length === 0) {
+  if (boardItems.length === 0) {
     generatedTextBlock.textContent = 'Доска пуста';
     return;
   }
   
   let text = 'ПРОДАМ:\n';
   
-  filledItems.forEach(boardItem => {
+  boardItems.forEach(boardItem => {
     const item = boardItem.item;
     const count = boardItem.count;
     text += `- ${item.name} — ${count} шт\n`;
@@ -843,17 +871,22 @@ async function downloadBoard(format = 'png') {
   const availableWidth = boardWidth - (2 * BOARD_PADDING) - (4 * BOARD_GAP);
   const cardSize = Math.floor(availableWidth / 5);
   
+  const tempItems = new Array(MAX_BOARD_ITEMS).fill(null);
+  boardItems.forEach((boardItem, index) => {
+    tempItems[BOARD_CELL_ORDER[index]] = boardItem;
+  });
+  
   const loadImagePromises = [];
   
   for (let i = 0; i < MAX_BOARD_ITEMS; i++) {
-    const boardItem = boardItems[i];
-    
-    const card = document.createElement('div');
-    card.className = 'board-item';
-    card.style.width = cardSize + 'px';
-    card.style.height = cardSize + 'px';
+    const boardItem = tempItems[i];
     
     if (boardItem) {
+      const card = document.createElement('div');
+      card.className = 'board-item';
+      card.style.width = cardSize + 'px';
+      card.style.height = cardSize + 'px';
+      
       const item = boardItem.item;
       const count = boardItem.count;
       
@@ -896,9 +929,9 @@ async function downloadBoard(format = 'png') {
         shieldIcon.className = 'item-protected';
         card.appendChild(shieldIcon);
       }
+      
+      exportBoard.appendChild(card);
     }
-    
-    exportBoard.appendChild(card);
   }
   
   document.body.appendChild(exportBoard);
@@ -945,11 +978,9 @@ async function downloadBoard(format = 'png') {
 }
 
 function updateBoard() {
-  const filledItems = boardItems.filter(cell => cell !== null);
-  
   if (!stackingCheckbox.checked) {
     const newBoardItems = [];
-    filledItems.forEach(boardItem => {
+    boardItems.forEach(boardItem => {
       for (let i = 0; i < boardItem.count; i++) {
         if (newBoardItems.length < MAX_BOARD_ITEMS) {
           newBoardItems.push({ item: boardItem.item, count: 1 });
@@ -957,13 +988,20 @@ function updateBoard() {
       }
     });
     
-    boardItems = new Array(25).fill(null);
-    for (let i = 0; i < newBoardItems.length; i++) {
-      boardItems[BOARD_CELL_ORDER[i]] = newBoardItems[i];
+    const tempItems = new Array(MAX_BOARD_ITEMS).fill(null);
+    newBoardItems.forEach((boardItem, index) => {
+      tempItems[BOARD_CELL_ORDER[index]] = boardItem;
+    });
+    
+    boardItems = [];
+    for (let i = 0; i < MAX_BOARD_ITEMS; i++) {
+      if (tempItems[i] !== null) {
+        boardItems.push(tempItems[i]);
+      }
     }
   } else {
     const itemMap = new Map();
-    filledItems.forEach(boardItem => {
+    boardItems.forEach(boardItem => {
       const key = boardItem.item.id;
       if (itemMap.has(key)) {
         itemMap.get(key).count += boardItem.count;
@@ -973,9 +1011,16 @@ function updateBoard() {
     });
     
     const stackedItems = Array.from(itemMap.values());
-    boardItems = new Array(25).fill(null);
-    for (let i = 0; i < stackedItems.length; i++) {
-      boardItems[BOARD_CELL_ORDER[i]] = stackedItems[i];
+    const tempItems = new Array(MAX_BOARD_ITEMS).fill(null);
+    stackedItems.forEach((boardItem, index) => {
+      tempItems[BOARD_CELL_ORDER[index]] = boardItem;
+    });
+    
+    boardItems = [];
+    for (let i = 0; i < MAX_BOARD_ITEMS; i++) {
+      if (tempItems[i] !== null) {
+        boardItems.push(tempItems[i]);
+      }
     }
   }
   
