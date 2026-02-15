@@ -27,11 +27,6 @@ body {
   --bs-btn-font-size: 0.9rem;
 }
 
-.row > * {
-  padding-right: var(--bs-gutter-x);
-  padding-left: var(--bs-gutter-x);
-}
-
 .theme-switch {
   position: relative;
   display: inline-flex;
@@ -250,14 +245,6 @@ body {
   background-color: rgba(var(--bs-emphasis-color-rgb), .035);
 }
 
-.items-tab-box > div {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .items-tab-box img {
   width: 60px;
   height: 60px;
@@ -356,34 +343,6 @@ body {
   color: #dee2e6;
 }
 
-.board-grid .item-card[style*="display: none"],
-.board-grid .item-card:empty {
-  display: none;
-}
-
-.board-grid > * {
-  grid-column: auto;
-  grid-row: auto;
-}
-
-.board-grid .item-card {
-  width: 96px;
-  height: 96px;
-  background: #fefefe;
-  border-radius: 16px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.15s, box-shadow 0.2s, background 0.2s;
-  cursor: grab;
-  position: relative;
-}
-
-.board-grid .item-card:active {
-  cursor: grabbing;
-}
-
 .board-item {
   width: 96px;
   height: 96px;
@@ -419,7 +378,6 @@ body {
   position: absolute;
   bottom: 2px;
   right: 8px;
-  color: var(--bs-body-color);
   font-size: 0.7rem;
   font-weight: 600;
   min-width: 20px;
@@ -495,21 +453,6 @@ body {
   border: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color);
 }
 
-.custom-select-dropdown .list-group-item {
-  display: flex;
-  align-items: center;
-}
-
-.custom-select-dropdown .list-group-item > img {
-  width: 32px;
-  height: 32px;
-  margin-right: 1rem;
-}
-
-.custom-select-dropdown .list-group-item > main {
-  flex-grow: 1;
-}
-
 .generated-text {
   padding: 1rem;
   border: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color);
@@ -517,9 +460,9 @@ body {
   min-height: 120px;
   max-height: 180px;
   overflow-y: auto;
-  white-space: pre-line;  
-  word-break: break-word; 
-  font-family: monospace; 
+  white-space: pre-line;
+  word-break: break-word;
+  font-family: monospace;
   font-size: 0.875rem;
   line-height: 1.5;
 }
