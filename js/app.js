@@ -313,6 +313,7 @@ function renderItemsGrid(itemsToRender) {
     img.onerror = () => {
       img.src = 'icons/placeholder.png';
       img.alt = 'Иконка не найдена';
+      console.warn(`Иконка не найдена: ${iconPath} для предмета "${item.name}" (ID: ${item.id})`);
     };
 
     container.appendChild(img);
@@ -458,6 +459,8 @@ const totalItemsCount = document.getElementById('totalItemsCount');
 
 let boardItems = [];
 let draggingElement = null;
+let dragStartX = 0, dragStartY = 0;
+let dragStartLeft = 0, dragStartTop = 0;
 let boardTheme = 'light';
 
 const MAX_BOARD_ITEMS = 25;
@@ -635,18 +638,20 @@ function addItemToBoard(item) {
     
     if (existingIndex !== -1) {
       boardItems[existingIndex].count++;
-      renderBoard();
-      updateGeneratedText();
+    } else {
+      if (boardItems.length >= MAX_BOARD_ITEMS) {
+        alert(`Достигнут лимит карточек (максимум ${MAX_BOARD_ITEMS})`);
+        return;
+      }
+      boardItems.push({ item, count: 1 });
+    }
+  } else {
+    if (boardItems.length >= MAX_BOARD_ITEMS) {
+      alert(`Достигнут лимит карточек (максимум ${MAX_BOARD_ITEMS})`);
       return;
     }
+    boardItems.push({ item, count: 1 });
   }
-  
-  if (boardItems.length >= MAX_BOARD_ITEMS) {
-    alert(`Достигнут лимит карточек (максимум ${MAX_BOARD_ITEMS})`);
-    return;
-  }
-  
-  boardItems.push({ item, count: 1 });
   
   renderBoard();
   updateGeneratedText();
@@ -746,9 +751,10 @@ function handleDrop(e) {
   const fromIndex = parseInt(e.dataTransfer.getData('text/plain'));
   const toIndex = parseInt(this.dataset.index);
   
-  if (fromIndex !== toIndex && !isNaN(fromIndex) && !isNaN(toIndex)) {
+  if (fromIndex !== toIndex) {
     const [movedItem] = boardItems.splice(fromIndex, 1);
     boardItems.splice(toIndex, 0, movedItem);
+    
     renderBoard();
   }
 }
@@ -817,7 +823,7 @@ async function downloadBoard(format = 'png') {
   
   const loadImagePromises = [];
   
-  boardItems.forEach((boardItem, index) => {
+  for (const boardItem of boardItems) {
     const item = boardItem.item;
     const count = boardItem.count;
     
@@ -867,7 +873,7 @@ async function downloadBoard(format = 'png') {
     }
     
     exportBoard.appendChild(card);
-  });
+  }
   
   document.body.appendChild(exportBoard);
   
