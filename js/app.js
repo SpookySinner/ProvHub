@@ -456,7 +456,7 @@ const toggleBoardTheme = document.getElementById('toggleBoardTheme');
 const boardItemsCounter = document.getElementById('boardItemsCounter');
 const totalItemsCount = document.getElementById('totalItemsCount');
 
-let boardGrid = new Array(25).fill(null);
+let boardItems = [];
 let draggingElement = null;
 let boardTheme = 'light';
 
@@ -464,8 +464,6 @@ const MAX_BOARD_ITEMS = 25;
 const BOARD_CELL_SIZE = 128;
 const BOARD_GAP = 16;
 const BOARD_PADDING = 70;
-
-const BOARD_CELL_ORDER = [12,7,8,13,18,17,16,11,6,1,2,3,4,9,14,19,24,23,22,21,20,15,10,5,0];
 
 function syncBoardThemeWithPageTheme() {
     const currentPageTheme = htmlElement.getAttribute('data-bs-theme') || 'light';
@@ -633,48 +631,32 @@ function addItemToBoard(item) {
   const isStacking = stackingCheckbox.checked;
   
   if (isStacking) {
-    for (let i = 0; i < 25; i++) {
-      if (boardGrid[i] && boardGrid[i].item.id === item.id) {
-        boardGrid[i].count++;
-        renderBoard();
-        updateGeneratedText();
+    const existingIndex = boardItems.findIndex(bi => bi.item.id === item.id);
+    
+    if (existingIndex !== -1) {
+      boardItems[existingIndex].count++;
+    } else {
+      if (boardItems.length >= MAX_BOARD_ITEMS) {
+        alert(`Достигнут лимит карточек (максимум ${MAX_BOARD_ITEMS})`);
         return;
       }
+      boardItems.push({ item, count: 1 });
     }
-  }
-  
-  const filledCount = boardGrid.filter(cell => cell !== null).length;
-  if (filledCount >= MAX_BOARD_ITEMS) {
-    alert(`Достигнут лимит карточек (максимум ${MAX_BOARD_ITEMS})`);
-    return;
-  }
-  
-  for (const cellIndex of BOARD_CELL_ORDER) {
-    if (boardGrid[cellIndex] === null) {
-      boardGrid[cellIndex] = { item, count: 1 };
-      break;
+  } else {
+    if (boardItems.length >= MAX_BOARD_ITEMS) {
+      alert(`Достигнут лимит карточек (максимум ${MAX_BOARD_ITEMS})`);
+      return;
     }
+    boardItems.push({ item, count: 1 });
   }
   
   renderBoard();
   updateGeneratedText();
 }
 
-function removeItemFromBoard(cellIndex) {
-  if (cellIndex >= 0 && cellIndex < 25 && boardGrid[cellIndex] !== null) {
-    boardGrid[cellIndex] = null;
-    
-    const newGrid = new Array(25).fill(null);
-    let insertIndex = 0;
-    
-    for (const cellIndex of BOARD_CELL_ORDER) {
-      if (boardGrid[cellIndex] !== null) {
-        newGrid[cellIndex] = boardGrid[cellIndex];
-      }
-    }
-    
-    boardGrid = newGrid;
-    
+function removeItemFromBoard(index) {
+  if (index >= 0 && index < boardItems.length) {
+    boardItems.splice(index, 1);
     renderBoard();
     updateGeneratedText();
   }
@@ -685,78 +667,70 @@ function renderBoard() {
   
   itemBoard.innerHTML = '';
   
-  for (let i = 0; i < 25; i++) {
-    const boardItem = boardGrid[i];
+  boardItems.forEach((boardItem, index) => {
+    const item = boardItem.item;
+    const count = boardItem.count;
     
-    if (boardItem) {
-      const card = document.createElement('div');
-      card.className = 'board-item';
-      card.dataset.cellIndex = i;
-      card.draggable = true;
-      
-      const item = boardItem.item;
-      const count = boardItem.count;
-      
-      const iconPath = getItemIconPath(item);
-      
-      const img = document.createElement('img');
-      img.src = iconPath;
-      img.alt = item.name || 'Предмет';
-      img.onerror = () => {
-        img.src = 'icons/placeholder.png';
-      };
-      
-      card.appendChild(img);
-      
-      if (stackingCheckbox.checked && count > 1) {
-        const countSpan = document.createElement('span');
-        countSpan.className = 'item-count';
-        countSpan.textContent = count + ' шт';
-        card.appendChild(countSpan);
-      }
-      
-      if (item.protected === true) {
-        const shieldIcon = document.createElement('i');
-        shieldIcon.setAttribute('data-lucide', 'shield');
-        shieldIcon.className = 'item-protected';
-        card.appendChild(shieldIcon);
-      }
-      
-      const removeBtn = document.createElement('button');
-      removeBtn.className = 'remove-item';
-      removeBtn.innerHTML = '×';
-      removeBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const cellIndex = parseInt(card.dataset.cellIndex);
-        if (!isNaN(cellIndex)) {
-          removeItemFromBoard(cellIndex);
-        }
-      });
-      card.appendChild(removeBtn);
-      
-      card.addEventListener('dragstart', handleDragStart);
-      card.addEventListener('dragend', handleDragEnd);
-      card.addEventListener('dragover', handleDragOver);
-      card.addEventListener('drop', handleDrop);
-      
-      itemBoard.appendChild(card);
+    const card = document.createElement('div');
+    card.className = 'board-item';
+    card.dataset.index = index;
+    card.draggable = true;
+    
+    const iconPath = getItemIconPath(item);
+    
+    const img = document.createElement('img');
+    img.src = iconPath;
+    img.alt = item.name || 'Предмет';
+    img.onerror = () => {
+      img.src = 'icons/placeholder.png';
+    };
+    
+    card.appendChild(img);
+    
+    if (stackingCheckbox.checked && count > 1) {
+      const countSpan = document.createElement('span');
+      countSpan.className = 'item-count';
+      countSpan.textContent = count + ' шт';
+      card.appendChild(countSpan);
     }
-  }
+    
+    if (item.protected === true) {
+      const shieldIcon = document.createElement('i');
+      shieldIcon.setAttribute('data-lucide', 'shield');
+      shieldIcon.className = 'item-protected';
+      card.appendChild(shieldIcon);
+    }
+    
+    const removeBtn = document.createElement('button');
+    removeBtn.className = 'remove-item';
+    removeBtn.innerHTML = '×';
+    removeBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      removeItemFromBoard(index);
+    });
+    card.appendChild(removeBtn);
+    
+    card.addEventListener('dragstart', handleDragStart);
+    card.addEventListener('dragend', handleDragEnd);
+    card.addEventListener('dragover', handleDragOver);
+    card.addEventListener('drop', handleDrop);
+    
+    itemBoard.appendChild(card);
+  });
   
   if (typeof lucide !== 'undefined') {
     lucide.createIcons();
   }
   
   if (boardItemsCounter) {
-    const filledCount = boardGrid.filter(cell => cell !== null).length;
-    boardItemsCounter.textContent = `${filledCount}/${MAX_BOARD_ITEMS}`;
+    boardItemsCounter.textContent = `${boardItems.length}/${MAX_BOARD_ITEMS}`;
   }
 }
 
 function handleDragStart(e) {
   draggingElement = this;
   this.classList.add('dragging');
-  e.dataTransfer.setData('text/plain', this.dataset.cellIndex);
+  e.dataTransfer.setData('text/plain', this.dataset.index);
 }
 
 function handleDragEnd(e) {
@@ -771,31 +745,28 @@ function handleDragOver(e) {
 function handleDrop(e) {
   e.preventDefault();
   
-  const fromCellIndex = parseInt(e.dataTransfer.getData('text/plain'));
-  const toCellIndex = parseInt(this.dataset.cellIndex);
+  const fromIndex = parseInt(e.dataTransfer.getData('text/plain'));
+  const toIndex = parseInt(this.dataset.index);
   
-  if (fromCellIndex !== toCellIndex && !isNaN(fromCellIndex) && !isNaN(toCellIndex)) {
-    if (boardGrid[fromCellIndex] && !boardGrid[toCellIndex]) {
-      boardGrid[toCellIndex] = boardGrid[fromCellIndex];
-      boardGrid[fromCellIndex] = null;
-      renderBoard();
-    }
+  if (fromIndex !== toIndex) {
+    const [movedItem] = boardItems.splice(fromIndex, 1);
+    boardItems.splice(toIndex, 0, movedItem);
+    
+    renderBoard();
   }
 }
 
 function updateGeneratedText() {
   if (!generatedTextBlock) return;
   
-  const filledItems = boardGrid.filter(cell => cell !== null);
-  
-  if (filledItems.length === 0) {
+  if (boardItems.length === 0) {
     generatedTextBlock.textContent = 'Доска пуста';
     return;
   }
   
   let text = 'ПРОДАМ:\n';
   
-  filledItems.forEach(boardItem => {
+  boardItems.forEach(boardItem => {
     const item = boardItem.item;
     const count = boardItem.count;
     text += `- ${item.name} — ${count} шт\n`;
@@ -849,60 +820,56 @@ async function downloadBoard(format = 'png') {
   
   const loadImagePromises = [];
   
-  for (let i = 0; i < 25; i++) {
-    const boardItem = boardGrid[i];
+  for (const boardItem of boardItems) {
+    const item = boardItem.item;
+    const count = boardItem.count;
     
-    if (boardItem) {
-      const card = document.createElement('div');
-      card.className = 'board-item';
-      card.style.width = cardSize + 'px';
-      card.style.height = cardSize + 'px';
+    const card = document.createElement('div');
+    card.className = 'board-item';
+    card.style.width = cardSize + 'px';
+    card.style.height = cardSize + 'px';
+    
+    const iconPath = getItemIconPath(item);
+    
+    const imgPromise = new Promise((resolve) => {
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.src = iconPath;
+      img.style.width = '48px';
+      img.style.height = '48px';
+      img.style.objectFit = 'contain';
       
-      const item = boardItem.item;
-      const count = boardItem.count;
+      img.onload = () => {
+        card.appendChild(img);
+        resolve();
+      };
       
-      const iconPath = getItemIconPath(item);
-      
-      const imgPromise = new Promise((resolve) => {
-        const img = new Image();
-        img.crossOrigin = 'anonymous';
-        img.src = iconPath;
-        img.style.width = '48px';
-        img.style.height = '48px';
-        img.style.objectFit = 'contain';
-        
+      img.onerror = () => {
+        img.src = 'icons/placeholder.png';
         img.onload = () => {
           card.appendChild(img);
           resolve();
         };
-        
-        img.onerror = () => {
-          img.src = 'icons/placeholder.png';
-          img.onload = () => {
-            card.appendChild(img);
-            resolve();
-          };
-        };
-      });
-      
-      loadImagePromises.push(imgPromise);
-      
-      if (stackingCheckbox.checked && count > 1) {
-        const countSpan = document.createElement('span');
-        countSpan.className = 'item-count';
-        countSpan.textContent = count + ' шт';
-        card.appendChild(countSpan);
-      }
-      
-      if (item.protected === true) {
-        const shieldIcon = document.createElement('i');
-        shieldIcon.setAttribute('data-lucide', 'shield');
-        shieldIcon.className = 'item-protected';
-        card.appendChild(shieldIcon);
-      }
-      
-      exportBoard.appendChild(card);
+      };
+    });
+    
+    loadImagePromises.push(imgPromise);
+    
+    if (stackingCheckbox.checked && count > 1) {
+      const countSpan = document.createElement('span');
+      countSpan.className = 'item-count';
+      countSpan.textContent = count + ' шт';
+      card.appendChild(countSpan);
     }
+    
+    if (item.protected === true) {
+      const shieldIcon = document.createElement('i');
+      shieldIcon.setAttribute('data-lucide', 'shield');
+      shieldIcon.className = 'item-protected';
+      card.appendChild(shieldIcon);
+    }
+    
+    exportBoard.appendChild(card);
   }
   
   document.body.appendChild(exportBoard);
@@ -949,25 +916,19 @@ async function downloadBoard(format = 'png') {
 }
 
 function updateBoard() {
-  const currentItems = boardGrid.filter(cell => cell !== null);
-  
   if (!stackingCheckbox.checked) {
-    const newItems = [];
-    currentItems.forEach(boardItem => {
+    const newBoardItems = [];
+    boardItems.forEach(boardItem => {
       for (let i = 0; i < boardItem.count; i++) {
-        if (newItems.length < MAX_BOARD_ITEMS) {
-          newItems.push({ item: boardItem.item, count: 1 });
+        if (newBoardItems.length < MAX_BOARD_ITEMS) {
+          newBoardItems.push({ item: boardItem.item, count: 1 });
         }
       }
     });
-    
-    boardGrid = new Array(25).fill(null);
-    for (let i = 0; i < newItems.length; i++) {
-      boardGrid[BOARD_CELL_ORDER[i]] = newItems[i];
-    }
+    boardItems = newBoardItems;
   } else {
     const itemMap = new Map();
-    currentItems.forEach(boardItem => {
+    boardItems.forEach(boardItem => {
       const key = boardItem.item.id;
       if (itemMap.has(key)) {
         itemMap.get(key).count += boardItem.count;
@@ -975,12 +936,7 @@ function updateBoard() {
         itemMap.set(key, { item: boardItem.item, count: boardItem.count });
       }
     });
-    
-    const stackedItems = Array.from(itemMap.values());
-    boardGrid = new Array(25).fill(null);
-    for (let i = 0; i < stackedItems.length; i++) {
-      boardGrid[BOARD_CELL_ORDER[i]] = stackedItems[i];
-    }
+    boardItems = Array.from(itemMap.values());
   }
   
   renderBoard();
