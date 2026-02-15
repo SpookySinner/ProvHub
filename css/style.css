@@ -332,11 +332,11 @@ body {
 }
 
 .board-grid[data-board-theme="light"] {
-  background-color: #E6E6E6;
+  background-color: #F2F2F2;
 }
 
 .board-grid[data-board-theme="light"] .board-item {
-  background-color: #F2F2F2;
+  background-color: #fff;
   border-color: #CCCCCC;
 }
 
