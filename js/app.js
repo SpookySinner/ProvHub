@@ -20,12 +20,18 @@ if (savedTheme === 'dark') {
 themeSwitch.addEventListener('change', function(e) {
   const newTheme = this.checked ? 'dark' : 'light';
   setTheme(newTheme);
+  if (!localStorage.getItem('boardTheme')) {
+    syncBoardThemeWithPageTheme();
+  }
 });
 
 const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
 function handleSystemThemeChange(e) {
   if (!localStorage.getItem('theme')) {
     setTheme(e.matches ? 'dark' : 'light');
+    if (!localStorage.getItem('boardTheme')) {
+      syncBoardThemeWithPageTheme();
+    }
   }
 }
 mediaQuery.addEventListener('change', handleSystemThemeChange);
@@ -64,7 +70,6 @@ function addStatsToSidebar() {
   const sidebar = document.querySelector('.sidebar');
   if (!sidebar) return;
   
-  // Удаляем старую статистику, если есть
   const oldStats = document.querySelector('.sidebar-stats');
   if (oldStats) oldStats.remove();
   
@@ -255,7 +260,6 @@ function renderItemsGrid(itemsToRender) {
 
     container.appendChild(img);
 
-    // Добавляем иконку щита для защищённых предметов
     if (item.protected === true) {
       const shieldIcon = document.createElement('i');
       shieldIcon.setAttribute('data-lucide', 'shield');
@@ -268,7 +272,6 @@ function renderItemsGrid(itemsToRender) {
     itemsGrid.appendChild(itemButton);
   });
 
-  // Обновляем иконки Lucide
   if (typeof lucide !== 'undefined') {
     lucide.createIcons();
   }
@@ -348,7 +351,6 @@ document.addEventListener('click', function(e) {
   }
 });
 
-
 function initApp() {
   if (!itemsData.length) {
     console.error('Нет данных для отображения');
@@ -361,7 +363,6 @@ function initApp() {
     searchInput.addEventListener('input', (e) => {
       currentSearchTerm = e.target.value;
       filterAndRenderItems();
-      // Закрываем popover при поиске
       closeAllPopovers();
     });
   }
@@ -393,22 +394,78 @@ const toggleBoardTheme = document.getElementById('toggleBoardTheme');
 const boardItemsCounter = document.getElementById('boardItemsCounter');
 const totalItemsCount = document.getElementById('totalItemsCount');
 
-let boardItems = []; // { item: объект предмета, count: количество }
+let boardItems = [];
 let draggingElement = null;
 let dragStartX = 0, dragStartY = 0;
 let dragStartLeft = 0, dragStartTop = 0;
 let boardTheme = 'light';
 
 const MAX_BOARD_ITEMS = 25;
-const BOARD_CELL_SIZE = 128; // размер карточки в пикселях для экспорта
+const BOARD_CELL_SIZE = 128;
 const BOARD_GAP = 16;
 const BOARD_PADDING = 70;
+
+function syncBoardThemeWithPageTheme() {
+    const currentPageTheme = htmlElement.getAttribute('data-bs-theme') || 'light';
+    boardTheme = currentPageTheme;
+    
+    if (itemBoard) {
+        itemBoard.setAttribute('data-board-theme', boardTheme);
+    }
+    
+    updateBoardThemeButtonIcon();
+}
+
+function updateBoardThemeButtonIcon() {
+    if (!toggleBoardTheme) return;
+    
+    const icon = toggleBoardTheme.querySelector('[data-lucide]');
+    if (icon) {
+        const iconName = boardTheme === 'light' ? 'moon' : 'sun';
+        icon.setAttribute('data-lucide', iconName);
+        
+        const buttonText = boardTheme === 'light' ? 'Тёмная тема доски' : 'Светлая тема доски';
+        const textNode = Array.from(toggleBoardTheme.childNodes).find(node => 
+            node.nodeType === Node.TEXT_NODE && node.textContent.trim()
+        );
+        
+        if (textNode) {
+            textNode.textContent = buttonText;
+        }
+        
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+    }
+}
+
+function toggleBoardThemeHandler() {
+    boardTheme = boardTheme === 'light' ? 'dark' : 'light';
+    
+    if (itemBoard) {
+        itemBoard.setAttribute('data-board-theme', boardTheme);
+    }
+    
+    updateBoardThemeButtonIcon();
+    localStorage.setItem('boardTheme', boardTheme);
+}
 
 function initBoard() {
   if (!itemBoard || !itemSearchInput) return;
   
   if (totalItemsCount) {
     totalItemsCount.textContent = itemsData.length;
+  }
+  
+  syncBoardThemeWithPageTheme();
+  
+  const savedBoardTheme = localStorage.getItem('boardTheme');
+  if (savedBoardTheme && (savedBoardTheme === 'light' || savedBoardTheme === 'dark')) {
+    boardTheme = savedBoardTheme;
+    if (itemBoard) {
+      itemBoard.setAttribute('data-board-theme', boardTheme);
+    }
+    updateBoardThemeButtonIcon();
   }
   
   updateSearchResults('');
@@ -658,7 +715,6 @@ function updateGeneratedText() {
   generatedTextBlock.textContent = text;
 }
 
-// Копирование текста
 function copyGeneratedText() {
   if (!generatedTextBlock || !generatedTextBlock.textContent) return;
   
@@ -676,7 +732,6 @@ function copyGeneratedText() {
   });
 }
 
-// Скачивание доски
 async function downloadBoard(format = 'png') {
   if (!boardWrapper) return;
   
@@ -833,18 +888,6 @@ async function downloadBoard(format = 'png') {
   }
 }
 
-function toggleBoardThemeHandler() {
-  boardTheme = boardTheme === 'light' ? 'dark' : 'light';
-  itemBoard.setAttribute('data-board-theme', boardTheme);
-  
-  // Обновляем иконку
-  const icon = toggleBoardTheme.querySelector('[data-lucide]');
-  if (icon) {
-    icon.setAttribute('data-lucide', boardTheme === 'light' ? 'moon' : 'sun');
-    if (typeof lucide !== 'undefined') lucide.createIcons();
-  }
-}
-
 function updateBoard() {
   if (!stackingCheckbox.checked) {
     const newBoardItems = [];
@@ -880,4 +923,9 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   
   initBoard();
+  setTimeout(() => {
+    if (typeof initBoard === 'function') {
+      syncBoardThemeWithPageTheme();
+    }
+  }, 100);
 });
