@@ -51,7 +51,7 @@ let itemsData = itemsDatabase || [];
 
 const categoriesNav = document.getElementById('categoriesNav');
 const eventsNav = document.getElementById('eventsNav');
-const itemsGrid = document.querySelector('.items-tab-grid');
+const itemsGrid = document.querySelector('.items-grid-container');
 const searchInput = document.querySelector('.ph-search .form-control');
 const placeholderText = document.querySelector('.ph-placeholder');
 
@@ -285,9 +285,15 @@ function renderItemsGrid(itemsToRender) {
     return;
   }
 
+  const row = document.createElement('div');
+  row.className = 'row g-3';
+
   itemsToRender.forEach((item) => {
+    const col = document.createElement('div');
+    col.className = 'col-6 col-sm-4 col-md-3 col-lg-2 col-xl-2';
+
     const itemButton = document.createElement('button');
-    itemButton.className = 'items-tab-box';
+    itemButton.className = 'items-tab-box w-100';
     itemButton.dataset.itemId = item.id;
     if (item.badgeImage) {
       itemButton.dataset.badgeImage = item.badgeImage;
@@ -327,8 +333,11 @@ function renderItemsGrid(itemsToRender) {
     itemButton.appendChild(container);
     itemButton.addEventListener('click', (event) => showItemPopover(event, item));
 
-    itemsGrid.appendChild(itemButton);
+    col.appendChild(itemButton);
+    row.appendChild(col);
   });
+
+  itemsGrid.appendChild(row);
 
   if (typeof lucide !== 'undefined') {
     lucide.createIcons();
