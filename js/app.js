@@ -456,7 +456,7 @@ const toggleBoardTheme = document.getElementById('toggleBoardTheme');
 const boardItemsCounter = document.getElementById('boardItemsCounter');
 const totalItemsCount = document.getElementById('totalItemsCount');
 
-let boardItems = [];
+let boardGrid = new Array(25).fill(null);
 let draggingElement = null;
 let boardTheme = 'light';
 
@@ -633,40 +633,26 @@ function addItemToBoard(item) {
   const isStacking = stackingCheckbox.checked;
   
   if (isStacking) {
-    const existingIndex = boardItems.findIndex(bi => bi.item.id === item.id);
-    
-    if (existingIndex !== -1) {
-      boardItems[existingIndex].count++;
-      renderBoard();
-      updateGeneratedText();
-      return;
+    for (let i = 0; i < 25; i++) {
+      if (boardGrid[i] && boardGrid[i].item.id === item.id) {
+        boardGrid[i].count++;
+        renderBoard();
+        updateGeneratedText();
+        return;
+      }
     }
   }
   
-  if (boardItems.length >= MAX_BOARD_ITEMS) {
+  const filledCount = boardGrid.filter(cell => cell !== null).length;
+  if (filledCount >= MAX_BOARD_ITEMS) {
     alert(`Достигнут лимит карточек (максимум ${MAX_BOARD_ITEMS})`);
     return;
   }
   
-  const newItem = { item, count: 1 };
-  
-  const gridItems = new Array(25).fill(null);
-  boardItems.forEach((boardItem, index) => {
-    gridItems[BOARD_CELL_ORDER[index]] = boardItem;
-  });
-  
-  for (let i = 0; i < BOARD_CELL_ORDER.length; i++) {
-    const cellIndex = BOARD_CELL_ORDER[i];
-    if (gridItems[cellIndex] === null) {
-      gridItems[cellIndex] = newItem;
+  for (const cellIndex of BOARD_CELL_ORDER) {
+    if (boardGrid[cellIndex] === null) {
+      boardGrid[cellIndex] = { item, count: 1 };
       break;
-    }
-  }
-  
-  boardItems = [];
-  for (let i = 0; i < 25; i++) {
-    if (gridItems[i] !== null) {
-      boardItems.push(gridItems[i]);
     }
   }
   
@@ -674,21 +660,20 @@ function addItemToBoard(item) {
   updateGeneratedText();
 }
 
-function removeItemFromBoard(visualIndex) {
-  if (visualIndex >= 0 && visualIndex < boardItems.length) {
-    boardItems.splice(visualIndex, 1);
+function removeItemFromBoard(cellIndex) {
+  if (cellIndex >= 0 && cellIndex < 25 && boardGrid[cellIndex] !== null) {
+    boardGrid[cellIndex] = null;
     
-    const gridItems = new Array(25).fill(null);
-    boardItems.forEach((boardItem, index) => {
-      gridItems[BOARD_CELL_ORDER[index]] = boardItem;
-    });
+    const newGrid = new Array(25).fill(null);
+    let insertIndex = 0;
     
-    boardItems = [];
-    for (let i = 0; i < 25; i++) {
-      if (gridItems[i] !== null) {
-        boardItems.push(gridItems[i]);
+    for (const cellIndex of BOARD_CELL_ORDER) {
+      if (boardGrid[cellIndex] !== null) {
+        newGrid[cellIndex] = boardGrid[cellIndex];
       }
     }
+    
+    boardGrid = newGrid;
     
     renderBoard();
     updateGeneratedText();
@@ -700,18 +685,13 @@ function renderBoard() {
   
   itemBoard.innerHTML = '';
   
-  const gridItems = new Array(25).fill(null);
-  boardItems.forEach((boardItem, index) => {
-    gridItems[BOARD_CELL_ORDER[index]] = boardItem;
-  });
-  
   for (let i = 0; i < 25; i++) {
-    const boardItem = gridItems[i];
+    const boardItem = boardGrid[i];
     
     if (boardItem) {
       const card = document.createElement('div');
       card.className = 'board-item';
-      card.dataset.visualIndex = boardItems.indexOf(boardItem);
+      card.dataset.cellIndex = i;
       card.draggable = true;
       
       const item = boardItem.item;
@@ -747,9 +727,9 @@ function renderBoard() {
       removeBtn.innerHTML = '×';
       removeBtn.addEventListener('click', (e) => {
         e.stopPropagation();
-        const visualIndex = parseInt(card.dataset.visualIndex);
-        if (!isNaN(visualIndex)) {
-          removeItemFromBoard(visualIndex);
+        const cellIndex = parseInt(card.dataset.cellIndex);
+        if (!isNaN(cellIndex)) {
+          removeItemFromBoard(cellIndex);
         }
       });
       card.appendChild(removeBtn);
@@ -768,14 +748,15 @@ function renderBoard() {
   }
   
   if (boardItemsCounter) {
-    boardItemsCounter.textContent = `${boardItems.length}/${MAX_BOARD_ITEMS}`;
+    const filledCount = boardGrid.filter(cell => cell !== null).length;
+    boardItemsCounter.textContent = `${filledCount}/${MAX_BOARD_ITEMS}`;
   }
 }
 
 function handleDragStart(e) {
   draggingElement = this;
   this.classList.add('dragging');
-  e.dataTransfer.setData('text/plain', this.dataset.visualIndex);
+  e.dataTransfer.setData('text/plain', this.dataset.cellIndex);
 }
 
 function handleDragEnd(e) {
@@ -790,29 +771,13 @@ function handleDragOver(e) {
 function handleDrop(e) {
   e.preventDefault();
   
-  const fromVisualIndex = parseInt(e.dataTransfer.getData('text/plain'));
-  const toVisualIndex = parseInt(this.dataset.visualIndex);
+  const fromCellIndex = parseInt(e.dataTransfer.getData('text/plain'));
+  const toCellIndex = parseInt(this.dataset.cellIndex);
   
-  if (fromVisualIndex !== toVisualIndex && !isNaN(fromVisualIndex) && !isNaN(toVisualIndex)) {
-    const gridItems = new Array(25).fill(null);
-    boardItems.forEach((boardItem, index) => {
-      gridItems[BOARD_CELL_ORDER[index]] = boardItem;
-    });
-    
-    const fromCellIndex = BOARD_CELL_ORDER[fromVisualIndex];
-    const toCellIndex = BOARD_CELL_ORDER[toVisualIndex];
-    
-    if (gridItems[fromCellIndex] && !gridItems[toCellIndex]) {
-      gridItems[toCellIndex] = gridItems[fromCellIndex];
-      gridItems[fromCellIndex] = null;
-      
-      boardItems = [];
-      for (let i = 0; i < 25; i++) {
-        if (gridItems[i] !== null) {
-          boardItems.push(gridItems[i]);
-        }
-      }
-      
+  if (fromCellIndex !== toCellIndex && !isNaN(fromCellIndex) && !isNaN(toCellIndex)) {
+    if (boardGrid[fromCellIndex] && !boardGrid[toCellIndex]) {
+      boardGrid[toCellIndex] = boardGrid[fromCellIndex];
+      boardGrid[fromCellIndex] = null;
       renderBoard();
     }
   }
@@ -821,14 +786,16 @@ function handleDrop(e) {
 function updateGeneratedText() {
   if (!generatedTextBlock) return;
   
-  if (boardItems.length === 0) {
+  const filledItems = boardGrid.filter(cell => cell !== null);
+  
+  if (filledItems.length === 0) {
     generatedTextBlock.textContent = 'Доска пуста';
     return;
   }
   
   let text = 'ПРОДАМ:\n';
   
-  boardItems.forEach(boardItem => {
+  filledItems.forEach(boardItem => {
     const item = boardItem.item;
     const count = boardItem.count;
     text += `- ${item.name} — ${count} шт\n`;
@@ -880,15 +847,10 @@ async function downloadBoard(format = 'png') {
   const availableWidth = boardWidth - (2 * BOARD_PADDING) - (4 * BOARD_GAP);
   const cardSize = Math.floor(availableWidth / 5);
   
-  const gridItems = new Array(25).fill(null);
-  boardItems.forEach((boardItem, index) => {
-    gridItems[BOARD_CELL_ORDER[index]] = boardItem;
-  });
-  
   const loadImagePromises = [];
   
   for (let i = 0; i < 25; i++) {
-    const boardItem = gridItems[i];
+    const boardItem = boardGrid[i];
     
     if (boardItem) {
       const card = document.createElement('div');
@@ -987,28 +949,21 @@ async function downloadBoard(format = 'png') {
 }
 
 function updateBoard() {
-  const currentItems = [...boardItems];
+  const currentItems = boardGrid.filter(cell => cell !== null);
   
   if (!stackingCheckbox.checked) {
-    const newBoardItems = [];
+    const newItems = [];
     currentItems.forEach(boardItem => {
       for (let i = 0; i < boardItem.count; i++) {
-        if (newBoardItems.length < MAX_BOARD_ITEMS) {
-          newBoardItems.push({ item: boardItem.item, count: 1 });
+        if (newItems.length < MAX_BOARD_ITEMS) {
+          newItems.push({ item: boardItem.item, count: 1 });
         }
       }
     });
     
-    const gridItems = new Array(25).fill(null);
-    newBoardItems.forEach((boardItem, index) => {
-      gridItems[BOARD_CELL_ORDER[index]] = boardItem;
-    });
-    
-    boardItems = [];
-    for (let i = 0; i < 25; i++) {
-      if (gridItems[i] !== null) {
-        boardItems.push(gridItems[i]);
-      }
+    boardGrid = new Array(25).fill(null);
+    for (let i = 0; i < newItems.length; i++) {
+      boardGrid[BOARD_CELL_ORDER[i]] = newItems[i];
     }
   } else {
     const itemMap = new Map();
@@ -1022,16 +977,9 @@ function updateBoard() {
     });
     
     const stackedItems = Array.from(itemMap.values());
-    const gridItems = new Array(25).fill(null);
-    stackedItems.forEach((boardItem, index) => {
-      gridItems[BOARD_CELL_ORDER[index]] = boardItem;
-    });
-    
-    boardItems = [];
-    for (let i = 0; i < 25; i++) {
-      if (gridItems[i] !== null) {
-        boardItems.push(gridItems[i]);
-      }
+    boardGrid = new Array(25).fill(null);
+    for (let i = 0; i < stackedItems.length; i++) {
+      boardGrid[BOARD_CELL_ORDER[i]] = stackedItems[i];
     }
   }
   
