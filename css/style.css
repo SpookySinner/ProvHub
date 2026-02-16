@@ -180,7 +180,7 @@ body {
 }
 
 .nav-sidebar .nav-link.active {
-  border-left-color: var(--bs-primary);
+  border-left-color: #ffc107;
 }
 
 .nav-sidebar .nav-link.active > span:first-child {
