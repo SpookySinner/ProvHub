@@ -244,7 +244,8 @@ body {
   z-index: 1;
 }
 
-.items-tab-box:hover {
+.items-tab-box:hover,
+.items-tab-box:focus {
   background-color: rgba(var(--bs-emphasis-color-rgb), .035);
 }
 
