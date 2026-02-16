@@ -926,14 +926,14 @@ const itemsDatabase = [
     // 
     // 
     // 
-    {
-        id:               378,
-        badgeImage:       "../icons/wheels/.png",
-        name:             "Диски «»",
-        type:             "",
-        weight:           36,
-        description:      "Неотъемлемая часть транспортного средства."
-    },
+    // {
+    //     id:               378,
+    //     badgeImage:       "../icons/wheels/.png",
+    //     name:             "Диски «»",
+    //     type:             "",
+    //     weight:           36,
+    //     description:      "Неотъемлемая часть транспортного средства."
+    // },
 
 
 
@@ -5881,3 +5881,5 @@ window.itemsDatabase = itemsDatabase;
 // Американская классика
 // Японская классика
 // Советская классика
+// 36 кг
+// Неотъемлемая часть транспортного средства.
