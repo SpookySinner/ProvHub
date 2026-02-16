@@ -318,6 +318,13 @@ function renderItemsGrid(itemsToRender) {
 
     container.appendChild(img);
 
+    if (item.tool === true) {
+      const wrenchIcon = document.createElement('i');
+      wrenchIcon.setAttribute('data-lucide', 'wrench');
+      wrenchIcon.classList.add('item-tool');
+      container.appendChild(wrenchIcon);
+    }
+
     if (item.protected === true) {
       const shieldIcon = document.createElement('i');
       shieldIcon.setAttribute('data-lucide', 'shield');
@@ -697,6 +704,13 @@ function renderBoard() {
       card.appendChild(countSpan);
     }
     
+    if (item.tool === true) {
+      const wrenchIcon = document.createElement('i');
+      wrenchIcon.setAttribute('data-lucide', 'wrench');
+      wrenchIcon.classList.add('item-tool');
+      card.appendChild(wrenchIcon);
+    }
+    
     if (item.protected === true) {
       const shieldIcon = document.createElement('i');
       shieldIcon.setAttribute('data-lucide', 'shield');
@@ -863,6 +877,13 @@ async function downloadBoard(format = 'png') {
       countSpan.className = 'item-count';
       countSpan.textContent = count + ' шт';
       card.appendChild(countSpan);
+    }
+    
+    if (item.tool === true) {
+      const wrenchIcon = document.createElement('i');
+      wrenchIcon.setAttribute('data-lucide', 'wrench');
+      wrenchIcon.className = 'item-tool';
+      card.appendChild(wrenchIcon);
     }
     
     if (item.protected === true) {
