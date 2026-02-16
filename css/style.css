@@ -283,7 +283,8 @@ body {
   transform: scale(4) translateX(-35%);
 }
 
-.items-tab-box:focus img[src*="icons/vinyls/"] {
+.items-tab-box:focus img[src*="icons/vinyls/"],
+.items-tab-box:focus img[src*="icons/wheels/"] {
   transform: scale(2) translateX(-20%);
 }
 
