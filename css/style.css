@@ -249,6 +249,10 @@ body {
   background-color: rgba(var(--bs-emphasis-color-rgb), .035);
 }
 
+.items-tab-box:focus {
+  border: 2px dotted var(--bs-border-color);
+}
+
 .items-tab-box:hover img {
   transform: scale(1.2);
   z-index: 100;
