@@ -660,7 +660,7 @@ const itemsDatabase = [
         weight:           0.1,
         description:      "Пришло время выставить рога напоказ!",
         event:            "Зима 2023"
-    }
+    },
     {
         id:               323,
         name:             "Классическая ушанка",
