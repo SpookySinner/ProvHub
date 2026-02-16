@@ -239,16 +239,52 @@ body {
   justify-content: center;
   padding: 0;
   background-color: rgba(var(--bs-emphasis-color-rgb), .025);
+  position: relative;
+  overflow: visible;
+  z-index: 1;
 }
 
 .items-tab-box:hover {
   background-color: rgba(var(--bs-emphasis-color-rgb), .035);
 }
 
+.items-tab-box:hover img {
+  transform: scale(1.2);
+  z-index: 100;
+  position: relative;
+}
+
 .items-tab-box img {
   width: 60px;
   height: 60px;
   object-fit: contain;
+  transition: transform 0.2s ease;
+  pointer-events: none;
+}
+
+.items-tab-box:focus img {
+  transform: scale(1.2);
+  z-index: 1000;
+  position: relative;
+}
+
+.items-tab-box img[src*="icons/frames/"],
+.items-tab-box img[src*="icons/vinyls/"] {
+  width: 60px;
+  height: 60px;
+}
+
+.items-tab-box:hover img[src*="icons/frames/"],
+.items-tab-box:hover img[src*="icons/vinyls/"] {
+  transform: scale(2);
+}
+
+.items-tab-box:focus img[src*="icons/frames/"] {
+  transform: scale(4) translateX(-35%);
+}
+
+.items-tab-box:focus img[src*="icons/vinyls/"] {
+  transform: scale(2) translateX(-20%);
 }
 
 .item-tooltip {
@@ -266,6 +302,7 @@ body {
   color: #ffc107;
   fill: #ffc107;
   stroke-width: 0;
+  z-index: 2;
 }
 
 .items-tab-box:hover [data-lucide="shield"] {
