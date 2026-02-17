@@ -377,6 +377,7 @@ function showItemPopover(event, item) {
       <hr class="my-1">
   `;
 
+  if (item.type) contentHtml += `<div><span class="fw-semibold">Категория:</span> ${item.type}</div>`;
   if (item.health) contentHtml += `<div><span class="fw-semibold">Здоровье:</span> +${item.health}</div>`;
   if (item.food) contentHtml += `<div><span class="fw-semibold">Еда:</span> +${item.food}</div>`;
   if (item.weight) contentHtml += `<div><span class="fw-semibold">Вес:</span> ${item.weight} кг</div>`;
