@@ -5760,6 +5760,15 @@ const itemsDatabase = [
         event:            "Зима 2025"
     },
     {
+        id:               815,
+        name:             "Дорожная сумка «Brunello Cucinelli»",
+        type:             "Рюкзак",
+        capacity:         "10 слотов",
+        weight:           0.55,
+        description:      "Стильный и практичный выбор для путешествий.",
+        event:            "Зима 2025"
+    },
+    {
         id:               816,
         name:             "Дорожная сумка «Fred Perry»",
         type:             "Рюкзак",
