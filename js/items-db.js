@@ -784,7 +784,7 @@ const itemsDatabase = [
         event:            "Весна 2023"
     },
     {
-        id:               333,
+        id:               335,
         name:             "Рюкзак «Burberry»",
         type:             "Рюкзак",
         capacity:         "10 слотов",
