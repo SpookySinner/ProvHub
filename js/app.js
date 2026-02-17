@@ -133,7 +133,16 @@ function getCategoriesFromItems() {
   const types = itemsData.map(item => item.type);
   const uniqueTypes = [...new Set(types)];
   uniqueTypes.sort();
-  return ['Все предметы', ...uniqueTypes];
+  
+  const result = ['Все предметы', ...uniqueTypes];
+  
+  const hasEmptyCategory = itemsData.some(item => !item.type || item.type.trim() === '');
+  if (hasEmptyCategory && !result.includes('Без категории')) {
+    const allIndex = result.indexOf('Все предметы');
+    result.splice(allIndex + 1, 0, 'Без категории');
+  }
+  
+  return result;
 }
 
 function getEventsFromItems() {
@@ -170,6 +179,8 @@ function buildCategoriesMenu() {
     let itemCount;
     if (category === 'Все предметы') {
       itemCount = itemsData.length;
+    } else if (category === 'Без категории') {
+      itemCount = itemsData.filter(item => !item.type || item.type.trim() === '').length;
     } else {
       itemCount = itemsData.filter(item => item.type === category).length;
     }
@@ -255,7 +266,9 @@ function getFilteredItems() {
 
   let filtered = itemsData;
 
-  if (currentCategory !== 'Все предметы') {
+  if (currentCategory === 'Без категории') {
+    filtered = filtered.filter(item => !item.type || item.type.trim() === '');
+  } else if (currentCategory !== 'Все предметы') {
     filtered = filtered.filter(item => item.type === currentCategory);
   }
 
@@ -348,8 +361,10 @@ function filterAndRenderItems() {
   
   if (placeholderText) {
     let totalInFilters = itemsData.length;
-    if (currentCategory !== 'Все предметы') {
+    if (currentCategory !== 'Все предметы' && currentCategory !== 'Без категории') {
       totalInFilters = itemsData.filter(i => i.type === currentCategory).length;
+    } else if (currentCategory === 'Без категории') {
+      totalInFilters = itemsData.filter(i => !i.type || i.type.trim() === '').length;
     }
     if (currentEvent !== 'Все ивенты') {
       const eventFiltered = itemsData.filter(i => i.event === currentEvent);
@@ -618,7 +633,7 @@ function createSearchResultItem(item) {
     <img src="${iconPath}" alt="${item.name || 'Предмет'}" onerror="this.src='icons/placeholder.png'">
     <div class="item-info">
       <div class="fw-semibold">${item.name}</div>
-      <div class="smaller text-secondary">#${item.id} · ${item.type}</div>
+      <div class="smaller text-secondary">#${item.id} · ${item.type || 'Без категории'}</div>
     </div>
     <div class="item-actions">
       <button class="btn btn-sm btn-outline-primary add-btn" data-item-id="${item.id}">
