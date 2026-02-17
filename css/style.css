@@ -35,6 +35,14 @@ button::-moz-focus-inner {
 	border: 0;
 }
 
+.container:active,
+.container:focus {
+	outline: none;
+}
+.container::-miz-focus-inner {
+	border: 0;
+}
+
 .theme-switch {
   position: relative;
   display: inline-flex;
