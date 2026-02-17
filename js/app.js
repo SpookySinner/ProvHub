@@ -131,7 +131,8 @@ function getCategoriesFromItems() {
   if (!itemsData.length) return ['Все предметы'];
 
   const types = itemsData.map(item => item.type);
-  const uniqueTypes = [...new Set(types)];
+  const nonEmptyTypes = types.filter(type => type && type.trim() !== '');
+  const uniqueTypes = [...new Set(nonEmptyTypes)];
   uniqueTypes.sort();
   
   const result = ['Все предметы', ...uniqueTypes];
