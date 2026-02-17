@@ -1077,8 +1077,8 @@ const itemsDatabase = [
     {
         id:               378,
         badgeImage:       "../icons/wheels/1074.png",
-        name:             "Диски «Work Emotion DH»",
-        type:             "",
+        name:             "Диски «Work Emotion (Euroline) DH»",
+        type:             "Спортивные колеса",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
@@ -1086,7 +1086,7 @@ const itemsDatabase = [
         id:               378,
         badgeImage:       "../icons/wheels/1075.png",
         name:             "Диски «Work Emotion CR 2P»",
-        type:             "",
+        type:             "Спортивные колеса",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
@@ -1102,7 +1102,7 @@ const itemsDatabase = [
         id:               378,
         badgeImage:       "../icons/wheels/1077.png",
         name:             "Диски «Vossen CV4»",
-        type:             "",
+        type:             "Спортивные колеса",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
@@ -1110,7 +1110,7 @@ const itemsDatabase = [
         id:               378,
         badgeImage:       "../icons/wheels/1078.png",
         name:             "Диски «Vossen VPS-312»",
-        type:             "",
+        type:             "Спортивные колеса",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
@@ -1158,7 +1158,7 @@ const itemsDatabase = [
         id:               378,
         badgeImage:       "../icons/wheels/1084.png",
         name:             "Диски «Rotiform BLQ»",
-        type:             "",
+        type:             "Спортивные колеса",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
@@ -1190,7 +1190,7 @@ const itemsDatabase = [
         id:               378,
         badgeImage:       "../icons/wheels/1098.png",
         name:             "Диски «Vossen CV3»",
-        type:             "",
+        type:             "Спортивные колеса",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
@@ -1198,7 +1198,7 @@ const itemsDatabase = [
         id:               378,
         badgeImage:       "../icons/wheels/5000.png",
         name:             "Диски «OZ Racing Superturismo GT»",
-        type:             "",
+        type:             "Спортивные колеса",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
@@ -1206,7 +1206,7 @@ const itemsDatabase = [
         id:               378,
         badgeImage:       "../icons/wheels/5001.png",
         name:             "Диски «OZ Racing Opera 2»",
-        type:             "",
+        type:             "Спортивные колеса",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
@@ -1222,7 +1222,7 @@ const itemsDatabase = [
         id:               378,
         badgeImage:       "../icons/wheels/5003.png",
         name:             "Диски «BBS RS»",
-        type:             "",
+        type:             "Спортивные колеса",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
@@ -1294,7 +1294,7 @@ const itemsDatabase = [
         id:               378,
         badgeImage:       "../icons/wheels/5012.png",
         name:             "Диски «Slik L700»",
-        type:             "",
+        type:             "Стандартные колеса",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
@@ -1302,7 +1302,7 @@ const itemsDatabase = [
         id:               378,
         badgeImage:       "../icons/wheels/5013.png",
         name:             "Диски «Slik L703»",
-        type:             "",
+        type:             "Стандартные колеса",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
@@ -1358,7 +1358,7 @@ const itemsDatabase = [
         id:               378,
         badgeImage:       "../icons/wheels/5020.png",
         name:             "Диски «RS Watanabe Type-R»",
-        type:             "",
+        type:             "Японская классика",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
@@ -1382,7 +1382,7 @@ const itemsDatabase = [
         id:               378,
         badgeImage:       "../icons/wheels/5023.png",
         name:             "Диски «Borbet A»",
-        type:             "",
+        type:             "Стандартные колеса",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
@@ -1406,7 +1406,7 @@ const itemsDatabase = [
         id:               378,
         badgeImage:       "../icons/wheels/5026.png",
         name:             "Диски «ВСМПО Пантера»",
-        type:             "",
+        type:             "Стандартные колеса",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
@@ -1438,7 +1438,7 @@ const itemsDatabase = [
         id:               378,
         badgeImage:       "../icons/wheels/5030.png",
         name:             "Диски «Black Rhino Mojave»",
-        type:             "",
+        type:             "Внедорожные колеса",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
@@ -1446,7 +1446,7 @@ const itemsDatabase = [
         id:               378,
         badgeImage:       "../icons/wheels/5031.png",
         name:             "Диски «Black Rhino Sprocket»",
-        type:             "",
+        type:             "Внедорожные колеса",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
@@ -1454,7 +1454,7 @@ const itemsDatabase = [
         id:               378,
         badgeImage:       "../icons/wheels/5032.png",
         name:             "Диски «Black Rhino Yark»",
-        type:             "",
+        type:             "Внедорожные колеса",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
@@ -1478,7 +1478,7 @@ const itemsDatabase = [
         id:               378,
         badgeImage:       "../icons/wheels/5035.png",
         name:             "Диски «Rotiform BUC 3PC»",
-        type:             "",
+        type:             "Спортивные колеса",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
@@ -1518,7 +1518,7 @@ const itemsDatabase = [
         id:               378,
         badgeImage:       "../icons/wheels/5040.png",
         name:             "Диски «ВСМПО Уран»",
-        type:             "",
+        type:             "Классические колеса",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
@@ -1538,7 +1538,7 @@ const itemsDatabase = [
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
-    // Скорее всего Enkei SC55
+    // 
     // {
     //     id:               378,
     //     badgeImage:       "../icons/wheels/5043.png",
@@ -1559,7 +1559,7 @@ const itemsDatabase = [
         id:               378,
         badgeImage:       "../icons/wheels/5045.png",
         name:             "Диски «SSR Longchamp XR4»",
-        type:             "",
+        type:             "Стандартные колеса",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
@@ -1580,14 +1580,14 @@ const itemsDatabase = [
         description:      "Неотъемлемая часть транспортного средства."
     },
     // 
-    // {
-    //     id:               378,
-    //     badgeImage:       "../icons/wheels/5048.png",
-    //     name:             "Диски «?»",
-    //     type:             "",
-    //     weight:           36,
-    //     description:      "Неотъемлемая часть транспортного средства."
-    // },
+    {
+        id:               378,
+        badgeImage:       "../icons/wheels/5048.png",
+        name:             "Диски «Baby Moon Chrome»",
+        type:             "",
+        weight:           36,
+        description:      "Неотъемлемая часть транспортного средства."
+    },
     {
         id:               378,
         badgeImage:       "../icons/wheels/5049.png",
@@ -1629,23 +1629,23 @@ const itemsDatabase = [
         description:      "Неотъемлемая часть транспортного средства."
     },
     // 
-    // {
-    //     id:               378,
-    //     badgeImage:       "../icons/wheels/5054.png",
-    //     name:             "Диски «?»",
-    //     type:             "",
-    //     weight:           36,
-    //     description:      "Неотъемлемая часть транспортного средства."
-    // },
+    {
+        id:               378,
+        badgeImage:       "../icons/wheels/5054.png",
+        name:             "Диски «Work Equip 03»",
+        type:             "",
+        weight:           36,
+        description:      "Неотъемлемая часть транспортного средства."
+    },
     // 
-    // {
-    //     id:               378,
-    //     badgeImage:       "../icons/wheels/5055.png",
-    //     name:             "Диски «?»",
-    //     type:             "",
-    //     weight:           36,
-    //     description:      "Неотъемлемая часть транспортного средства."
-    // },
+    {
+        id:               378,
+        badgeImage:       "../icons/wheels/5055.png",
+        name:             "Диски «Advan A3A»",
+        type:             "",
+        weight:           36,
+        description:      "Неотъемлемая часть транспортного средства."
+    },
     {
         id:               378,
         badgeImage:       "../icons/wheels/5056.png",
@@ -1655,19 +1655,19 @@ const itemsDatabase = [
         description:      "Неотъемлемая часть транспортного средства."
     },
     // 
-    // {
-    //     id:               378,
-    //     badgeImage:       "../icons/wheels/5057.png",
-    //     name:             "Диски «?»",
-    //     type:             "",
-    //     weight:           36,
-    //     description:      "Неотъемлемая часть транспортного средства."
-    // },
+    {
+        id:               378,
+        badgeImage:       "../icons/wheels/5057.png",
+        name:             "Диски «Square Wheels G33»",
+        type:             "",
+        weight:           36,
+        description:      "Неотъемлемая часть транспортного средства."
+    },
     {
         id:               378,
         badgeImage:       "../icons/wheels/5058.png",
         name:             "Диски «Asanti ABL-3»",
-        type:             "",
+        type:             "Спортивные колеса",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
@@ -1688,14 +1688,14 @@ const itemsDatabase = [
         description:      "Неотъемлемая часть транспортного средства."
     },
     // 
-    // {
-    //     id:               378,
-    //     badgeImage:       "../icons/wheels/5061.png",
-    //     name:             "Диски «?»",
-    //     type:             "",
-    //     weight:           36,
-    //     description:      "Неотъемлемая часть транспортного средства."
-    // },
+    {
+        id:               378,
+        badgeImage:       "../icons/wheels/5061.png",
+        name:             "Диски «Rotiform TBM»",
+        type:             "",
+        weight:           36,
+        description:      "Неотъемлемая часть транспортного средства."
+    },
     {
         id:               378,
         badgeImage:       "../icons/wheels/5062.png",
@@ -1733,7 +1733,7 @@ const itemsDatabase = [
         id:               378,
         badgeImage:       "../icons/wheels/5066.png",
         name:             "Диски «HRE RS200M»",
-        type:             "",
+        type:             "Спортивные колеса",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
@@ -1881,7 +1881,7 @@ const itemsDatabase = [
         id:               378,
         badgeImage:       "../icons/wheels/5161.png",
         name:             "Диски «Work VS-XV»",
-        type:             "",
+        type:             "Спортивные колеса",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства.",
         event:            "",
@@ -1890,7 +1890,7 @@ const itemsDatabase = [
         id:               378,
         badgeImage:       "../icons/wheels/5162.png",
         name:             "Диски «Work Meister L1»",
-        type:             "",
+        type:             "Спортивные колеса",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства.",
         event:            "",
@@ -1917,7 +1917,7 @@ const itemsDatabase = [
         id:               378,
         badgeImage:       "../icons/wheels/5165.png",
         name:             "Диски «Work Meister CR01»",
-        type:             "",
+        type:             "Спортивные колеса",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства.",
         event:            "",
@@ -1986,20 +1986,20 @@ const itemsDatabase = [
         event:            "",
     },
     // 
-    // {
-    //     id:               378,
-    //     badgeImage:       "../icons/wheels/5180.png",
-    //     name:             "Диски «?»",
-    //     type:             "",
-    //     weight:           36,
-    //     description:      "Неотъемлемая часть транспортного средства.",
-    //     event:            "",
-    // },
+    {
+        id:               378,
+        badgeImage:       "../icons/wheels/5180.png",
+        name:             "Диски «Work Seeker FX»",
+        type:             "",
+        weight:           36,
+        description:      "Неотъемлемая часть транспортного средства.",
+        event:            "",
+    },
     {
         id:               378,
         badgeImage:       "../icons/wheels/5181.png",
         name:             "Диски «Asanti Black ABL-40 Tiara»",
-        type:             "",
+        type:             "Спортивные колеса",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства.",
         event:            "",
@@ -2014,35 +2014,35 @@ const itemsDatabase = [
         event:            "",
     },
     // 
-    // {
-    //     id:               378,
-    //     badgeImage:       "../icons/wheels/5183.png",
-    //     name:             "Диски «?»",
-    //     type:             "",
-    //     weight:           36,
-    //     description:      "Неотъемлемая часть транспортного средства.",
-    //     event:            "",
-    // },
+    {
+        id:               378,
+        badgeImage:       "../icons/wheels/5183.png",
+        name:             "Диски «Power Wheels MS03»",
+        type:             "",
+        weight:           36,
+        description:      "Неотъемлемая часть транспортного средства.",
+        event:            "",
+    },
     // 
-    // {
-    //     id:               378,
-    //     badgeImage:       "../icons/wheels/5184.png",
-    //     name:             "Диски «?»",
-    //     type:             "",
-    //     weight:           36,
-    //     description:      "Неотъемлемая часть транспортного средства.",
-    //     event:            "",
-    // },
+    {
+        id:               378,
+        badgeImage:       "../icons/wheels/5184.png",
+        name:             "Диски «Power Wheels MS031»",
+        type:             "",
+        weight:           36,
+        description:      "Неотъемлемая часть транспортного средства.",
+        event:            "",
+    },
     // 
-    // {
-    //     id:               378,
-    //     badgeImage:       "../icons/wheels/5185.png",
-    //     name:             "Диски «?»",
-    //     type:             "",
-    //     weight:           36,
-    //     description:      "Неотъемлемая часть транспортного средства.",
-    //     event:            "",
-    // },
+    {
+        id:               378,
+        badgeImage:       "../icons/wheels/5185.png",
+        name:             "Диски «Power Wheels T04»",
+        type:             "Спортивные колеса",
+        weight:           36,
+        description:      "Неотъемлемая часть транспортного средства.",
+        event:            "",
+    },
     {
         id:               378,
         badgeImage:       "../icons/wheels/5186.png",
