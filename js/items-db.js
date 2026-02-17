@@ -1182,7 +1182,7 @@ const itemsDatabase = [
         id:               378,
         badgeImage:       "../icons/wheels/1097.png",
         name:             "Диски «Vossen CVT»",
-        type:             "",
+        type:             "Спортивные колеса",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
@@ -1624,7 +1624,7 @@ const itemsDatabase = [
         id:               378,
         badgeImage:       "../icons/wheels/5053.png",
         name:             "Диски «Saca Jazz»",
-        type:             "",
+        type:             "Стандартные колеса",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
@@ -2055,7 +2055,7 @@ const itemsDatabase = [
         id:               378,
         badgeImage:       "../icons/wheels/5187.png",
         name:             "Диски «Volk Racing 21C»",
-        type:             "",
+        type:             "Спортивные колеса",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
