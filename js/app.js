@@ -177,10 +177,6 @@ function buildCategoriesMenu() {
       button.classList.add('active');
     }
 
-    if (category === 'Без категории') {
-      button.style.setProperty('color', '#dc3545', 'important');
-    }
-
     let itemCount;
     if (category === 'Все предметы') {
       itemCount = itemsData.length;
@@ -191,7 +187,7 @@ function buildCategoriesMenu() {
     }
 
     button.innerHTML = `
-      <span>${category}</span>
+      <span${category === 'Без категории' ? ' style="color: #dc3545;"' : ''}>${category}</span>
       <span class="ms-auto">${itemCount}</span>
     `;
 
