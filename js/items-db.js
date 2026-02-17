@@ -5679,6 +5679,15 @@ const itemsDatabase = [
         event:            "Зима 2025"
     },
     {
+        id:               805,
+        name:             "Рюкзак «BALMAIN»",
+        type:             "Рюкзак",
+        capacity:         "10 слотов",
+        weight:           0.35,
+        description:      "Функциональный аксессуар для удобной переноски вещей.",
+        event:            "Зима 2025"
+    },
+    {
         id:               806,
         name:             "Рюкзак «BALMAIN»",
         type:             "Рюкзак",
