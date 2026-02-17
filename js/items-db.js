@@ -1125,8 +1125,8 @@ const itemsDatabase = [
     {
         id:               378,
         badgeImage:       "../icons/wheels/1080.png",
-        name:             "Диски «Work Emotion S1 R»",
-        type:             "",
+        name:             "Диски «Work Emotion (Meister) S1 R»",
+        type:             "Спортивные колеса",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
@@ -2028,7 +2028,7 @@ const itemsDatabase = [
         id:               378,
         badgeImage:       "../icons/wheels/5184.png",
         name:             "Диски «Power Wheels MS031»",
-        type:             "",
+        type:             "Спортивные колеса",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства.",
         event:            "",
@@ -4410,6 +4410,15 @@ const itemsDatabase = [
     {
         id:               547,
         name:             "Рюкзак «Alexander McQueen»",
+        type:             "Рюкзак",
+        capacity:         "5 слотов",
+        weight:           0.35,
+        description:      "Функциональный аксессуар для переноски предметов.",
+        event:            "Осень 2023"
+    },
+    {
+        id:               548,
+        name:             "Рюкзак «Balenciaga»",
         type:             "Рюкзак",
         capacity:         "5 слотов",
         weight:           0.35,
