@@ -177,6 +177,10 @@ function buildCategoriesMenu() {
       button.classList.add('active');
     }
 
+    if (category === 'Без категории') {
+      button.style.color = '#dc3545';
+    }
+
     let itemCount;
     if (category === 'Все предметы') {
       itemCount = itemsData.length;
