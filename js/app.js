@@ -178,7 +178,7 @@ function buildCategoriesMenu() {
     }
 
     if (category === 'Без категории') {
-      button.style.color = '#dc3545';
+      button.style.setProperty('color', '#dc3545', 'important');
     }
 
     let itemCount;
