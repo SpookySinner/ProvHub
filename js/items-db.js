@@ -1094,7 +1094,7 @@ const itemsDatabase = [
         id:               378,
         badgeImage:       "../icons/wheels/1076.png",
         name:             "Диски «Vossen VPS-318»",
-        type:             "",
+        type:             "Спортивные колеса",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
@@ -1118,7 +1118,7 @@ const itemsDatabase = [
         id:               378,
         badgeImage:       "../icons/wheels/1079.png",
         name:             "Диски «Work Emotion T7R»",
-        type:             "",
+        type:             "Спортивные колеса",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
@@ -1616,7 +1616,7 @@ const itemsDatabase = [
         id:               378,
         badgeImage:       "../icons/wheels/5052.png",
         name:             "Диски «Ronal Turbo»",
-        type:             "",
+        type:             "Классические колеса",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
@@ -1633,7 +1633,7 @@ const itemsDatabase = [
         id:               378,
         badgeImage:       "../icons/wheels/5054.png",
         name:             "Диски «Work Equip 03»",
-        type:             "",
+        type:             "Японская классика",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
@@ -1650,7 +1650,7 @@ const itemsDatabase = [
         id:               378,
         badgeImage:       "../icons/wheels/5056.png",
         name:             "Диски «BBS RF»",
-        type:             "",
+        type:             "Спортивные колеса",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
@@ -1675,7 +1675,7 @@ const itemsDatabase = [
         id:               378,
         badgeImage:       "../icons/wheels/5059.png",
         name:             "Диски «Enkei RPF1»",
-        type:             "",
+        type:             "Спортивные колеса",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
@@ -1683,7 +1683,7 @@ const itemsDatabase = [
         id:               378,
         badgeImage:       "../icons/wheels/5060.png",
         name:             "Диски «Vorsteiner V-FF 104»",
-        type:             "",
+        type:             "Спортивные колеса",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
