@@ -5788,6 +5788,15 @@ const itemsDatabase = [
         event:            "Зима 2025"
     },
     {
+        id:               820,
+        name:             "Дорожная сумка «PRADA»",
+        type:             "Рюкзак",
+        capacity:         "10 слотов",
+        weight:           0.55,
+        description:      "Стильный и практичный выбор для путешествий.",
+        event:            "Зима 2025"
+    },
+    {
         id:               821,
         name:             "Дорожная сумка «Burberry»",
         type:             "Рюкзак",
