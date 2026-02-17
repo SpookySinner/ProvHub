@@ -27,19 +27,18 @@ body {
   --bs-btn-font-size: 0.9rem;
 }
 
-button:active, button:focus {
-	outline: none;
-}
-
-button::-moz-focus-inner {
-	border: 0;
-}
-
+button:active,
+button:focus,
 .container:active,
-.container:focus {
+.container:focus,
+.row:active,
+.row:focus {
 	outline: none;
 }
-.container::-miz-focus-inner {
+
+button::-moz-focus-inner,
+.container::-miz-focus-inner,
+.row::-miz-focus-inner {
 	border: 0;
 }
 
