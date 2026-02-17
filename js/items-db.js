@@ -5742,6 +5742,15 @@ const itemsDatabase = [
         event:            "Зима 2025"
     },
     {
+        id:               813,
+        name:             "Рюкзак «adidas Originals»",
+        type:             "Рюкзак",
+        capacity:         "10 слотов",
+        weight:           0.35,
+        description:      "Функциональный аксессуар для удобной переноски вещей.",
+        event:            "Зима 2025"
+    },
+    {
         id:               814,
         name:             "Рюкзак «adidas Originals»",
         type:             "Рюкзак",
