@@ -6028,7 +6028,7 @@ const itemsDatabase = [
         event:            "Зима 2025"
     },
     {
-        id:               826,
+        id:               827,
         name:             "Портфель «BOSS»",
         type:             "Рюкзак",
         capacity:         "5 слотов",
