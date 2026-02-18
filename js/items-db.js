@@ -1534,7 +1534,7 @@ const itemsDatabase = [
         id:               378,
         badgeImage:       "../icons/wheels/5042.png",
         name:             "Диски «Melber KBA 41795»",
-        type:             "",
+        type:             "Советская классика",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
@@ -1642,7 +1642,7 @@ const itemsDatabase = [
         id:               378,
         badgeImage:       "../icons/wheels/5055.png",
         name:             "Диски «Advan A3A»",
-        type:             "",
+        type:             "Японская классика",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
