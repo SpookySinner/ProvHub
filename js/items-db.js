@@ -5992,7 +5992,7 @@ const itemsDatabase = [
         event:            "Зима 2025"
     },
     {
-        id:               824,
+        id:               823,
         name:             "Дорожная сумка «Louis Vuitton»",
         type:             "Рюкзак",
         capacity:         "10 слотов",
