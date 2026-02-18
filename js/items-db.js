@@ -5282,7 +5282,7 @@ const itemsDatabase = [
         event:            "Хэллоуин 2024"
     },
     {
-        id:               728,
+        id:               729,
         name:             "Кепка «BOO!»",
         type:             "Головной убор",
         weight:           0.2,
