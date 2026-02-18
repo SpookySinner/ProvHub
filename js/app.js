@@ -135,7 +135,13 @@ function getCategoriesFromItems() {
   const uniqueTypes = [...new Set(nonEmptyTypes)];
   uniqueTypes.sort();
   
-  const result = ['Все предметы', ...uniqueTypes];
+  let result = ['Все предметы', ...uniqueTypes];
+  
+  const wheelCategories = uniqueTypes.filter(type => type.includes('колеса'));
+  if (wheelCategories.length > 0 && !result.includes('Все колеса')) {
+    const allIndex = result.indexOf('Все предметы');
+    result.splice(allIndex + 1, 0, 'Все колеса');
+  }
   
   const hasEmptyCategory = itemsData.some(item => !item.type || item.type.trim() === '');
   if (hasEmptyCategory && !result.includes('Без категории')) {
@@ -180,6 +186,8 @@ function buildCategoriesMenu() {
     let itemCount;
     if (category === 'Все предметы') {
       itemCount = itemsData.length;
+    } else if (category === 'Все колеса') {
+      itemCount = itemsData.filter(item => item.type && item.type.includes('колеса')).length;
     } else if (category === 'Без категории') {
       itemCount = itemsData.filter(item => !item.type || item.type.trim() === '').length;
     } else {
@@ -269,6 +277,8 @@ function getFilteredItems() {
 
   if (currentCategory === 'Без категории') {
     filtered = filtered.filter(item => !item.type || item.type.trim() === '');
+  } else if (currentCategory === 'Все колеса') {
+    filtered = filtered.filter(item => item.type && item.type.includes('колеса'));
   } else if (currentCategory !== 'Все предметы') {
     filtered = filtered.filter(item => item.type === currentCategory);
   }
@@ -280,7 +290,8 @@ function getFilteredItems() {
   if (currentSearchTerm.trim() !== '') {
     const searchLower = currentSearchTerm.toLowerCase();
     filtered = filtered.filter(item => {
-      return (item.name && item.name.toLowerCase().includes(searchLower)) ||
+      return (item.id && item.id.toString().includes(searchLower)) ||
+             (item.name && item.name.toLowerCase().includes(searchLower)) ||
              (item.description && item.description.toLowerCase().includes(searchLower)) ||
              (item.event && item.event.toLowerCase().includes(searchLower));
     });
@@ -362,10 +373,12 @@ function filterAndRenderItems() {
   
   if (placeholderText) {
     let totalInFilters = itemsData.length;
-    if (currentCategory !== 'Все предметы' && currentCategory !== 'Без категории') {
+    if (currentCategory !== 'Все предметы' && currentCategory !== 'Без категории' && currentCategory !== 'Все колеса') {
       totalInFilters = itemsData.filter(i => i.type === currentCategory).length;
     } else if (currentCategory === 'Без категории') {
       totalInFilters = itemsData.filter(i => !i.type || i.type.trim() === '').length;
+    } else if (currentCategory === 'Все колеса') {
+      totalInFilters = itemsData.filter(i => i.type && i.type.includes('колеса')).length;
     }
     if (currentEvent !== 'Все ивенты') {
       const eventFiltered = itemsData.filter(i => i.event === currentEvent);
@@ -654,6 +667,11 @@ function createSearchResultItem(item) {
 
 function addItemToBoard(item) {
   if (!item) return;
+  
+  if (item.tool === true || item.protected === true) {
+    alert('Фракционные и рабочие предметы нельзя добавлять на доску объявлений');
+    return;
+  }
   
   const isStacking = stackingCheckbox.checked;
   
