@@ -1926,10 +1926,9 @@ const itemsDatabase = [
         id:               378,
         badgeImage:       "../icons/wheels/5166.png",
         name:             "Диски «Hayashi Racing Sakura»",
-        type:             "",
+        type:             "Японская классика",
         weight:           36,
-        description:      "Неотъемлемая часть транспортного средства.",
-        event:            "",
+        description:      "Неотъемлемая часть транспортного средства."
     },
     {
         id:               378,
