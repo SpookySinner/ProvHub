@@ -1502,7 +1502,7 @@ const itemsDatabase = [
         id:               378,
         badgeImage:       "../icons/wheels/5038.png",
         name:             "Диски «Vossen VPS-314T»",
-        type:             "",
+        type:             "Спортивные колеса",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
@@ -1551,7 +1551,7 @@ const itemsDatabase = [
         id:               378,
         badgeImage:       "../icons/wheels/5044.png",
         name:             "Диски «Hayashi Street CR 15»",
-        type:             "",
+        type:             "Японская классика",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
@@ -1600,7 +1600,7 @@ const itemsDatabase = [
         id:               378,
         badgeImage:       "../icons/wheels/5050.png",
         name:             "Диски «Melber Turbo»",
-        type:             "",
+        type:             "Классические колеса",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
@@ -1708,7 +1708,7 @@ const itemsDatabase = [
         id:               378,
         badgeImage:       "../icons/wheels/5063.png",
         name:             "Диски «Forgiato Maglia»",
-        type:             "",
+        type:             "Спортивные колеса",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
@@ -2018,7 +2018,7 @@ const itemsDatabase = [
         id:               378,
         badgeImage:       "../icons/wheels/5183.png",
         name:             "Диски «Power Wheels MS03»",
-        type:             "",
+        type:             "Спортивные колеса",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства.",
         event:            "",
