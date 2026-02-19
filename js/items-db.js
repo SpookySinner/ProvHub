@@ -1062,7 +1062,7 @@ const itemsDatabase = [
         id:               378,
         badgeImage:       "../icons/wheels/1025.png",
         name:             "Диски «Rotiform SIX»",
-        type:             "",
+        type:             "Спортивные колеса",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
@@ -1133,8 +1133,8 @@ const itemsDatabase = [
     {
         id:               378,
         badgeImage:       "../icons/wheels/1081.png",
-        name:             "Диски «Work Emotion Type-N»",
-        type:             "",
+        name:             "Диски «Work Emotion (Euroline) Type-N»",
+        type:             "Спортивные колеса",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
@@ -1150,7 +1150,7 @@ const itemsDatabase = [
         id:               378,
         badgeImage:       "../icons/wheels/1083.png",
         name:             "Диски «Vossen VFS1»",
-        type:             "",
+        type:             "Спортивные колеса",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
@@ -1214,7 +1214,7 @@ const itemsDatabase = [
         id:               378,
         badgeImage:       "../icons/wheels/5002.png",
         name:             "Диски «BBS LM»",
-        type:             "",
+        type:             "Спортивные колеса",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
@@ -1246,7 +1246,7 @@ const itemsDatabase = [
         id:               378,
         badgeImage:       "../icons/wheels/5006.png",
         name:             "Диски «BBS Turbofan Custom»",
-        type:             "",
+        type:             "Спортивные колеса",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
@@ -1270,7 +1270,7 @@ const itemsDatabase = [
         id:               378,
         badgeImage:       "../icons/wheels/5009.png",
         name:             "Диски «HRE 505»",
-        type:             "",
+        type:             "Спортивные колеса",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
@@ -1278,7 +1278,7 @@ const itemsDatabase = [
         id:               378,
         badgeImage:       "../icons/wheels/5010.png",
         name:             "Диски «HRE 454»",
-        type:             "",
+        type:             "Спортивные колеса",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
@@ -1286,7 +1286,7 @@ const itemsDatabase = [
         id:               378,
         badgeImage:       "../icons/wheels/5011.png",
         name:             "Диски «OZ Racing Rally»",
-        type:             "",
+        type:             "Стандартные колеса",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
@@ -1310,7 +1310,7 @@ const itemsDatabase = [
         id:               378,
         badgeImage:       "../icons/wheels/5014.png",
         name:             "Диски «Slik L720 DTM»",
-        type:             "",
+        type:             "Стандартные колеса",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
@@ -1366,7 +1366,7 @@ const itemsDatabase = [
         id:               378,
         badgeImage:       "../icons/wheels/5021.png",
         name:             "Диски «ATS Classic»",
-        type:             "",
+        type:             "Классические колеса",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
@@ -1398,7 +1398,7 @@ const itemsDatabase = [
         id:               378,
         badgeImage:       "../icons/wheels/5025.png",
         name:             "Диски «ВСМПО Фортуна»",
-        type:             "",
+        type:             "Классические колеса",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
@@ -1486,7 +1486,7 @@ const itemsDatabase = [
         id:               378,
         badgeImage:       "../icons/wheels/5036.png",
         name:             "Диски «Enkei SC55»",
-        type:             "",
+        type:             "Спортивные колеса",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
@@ -1700,7 +1700,7 @@ const itemsDatabase = [
         id:               378,
         badgeImage:       "../icons/wheels/5062.png",
         name:             "Диски «HRE 935»",
-        type:             "",
+        type:             "Спортивные колеса",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
@@ -1926,7 +1926,7 @@ const itemsDatabase = [
         id:               378,
         badgeImage:       "../icons/wheels/5166.png",
         name:             "Диски «Hayashi Racing Sakura»",
-        type:             "",
+        type:             "Японская классика",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства.",
         event:            "",
@@ -1990,7 +1990,7 @@ const itemsDatabase = [
         id:               378,
         badgeImage:       "../icons/wheels/5180.png",
         name:             "Диски «Work Seeker FX»",
-        type:             "",
+        type:             "Стандартные колеса",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства.",
         event:            "",
@@ -2008,7 +2008,7 @@ const itemsDatabase = [
         id:               378,
         badgeImage:       "../icons/wheels/5182.png",
         name:             "Диски «Forgiato Insetto-ECL»",
-        type:             "",
+        type:             "Спортивные колеса",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства.",
         event:            "",
@@ -2221,6 +2221,13 @@ const itemsDatabase = [
         description:      "Универсальный и состоящий из разных инструментов. Подойдёт для аккуратного среза грибов."
     },
     {
+        id:               402,
+        name:             "Трёхместная палатка",
+        type:             "Предмет в руки",
+        weight:           3,
+        description:      "Прочная и просторная, способная разместить в себе до трёх человек."
+    },
+    {
         id:               403,
         badgeImage:       "../icons/frames/prov_number_hall2024_1.png",
         name:             "Рамка «Halloween 2024»",
@@ -2246,6 +2253,15 @@ const itemsDatabase = [
         weight:           0.25,
         description:      "Фиксирует государственный номер транспортного средства.",
         event:            "Хэллоуин 2024"
+    },
+    {
+        id:               403,
+        badgeImage:       "../icons/frames/frame_radio_0624.png",
+        name:             "Рамка «Полосатый праздник»",
+        type:             "Номерная рамка",
+        weight:           0.25,
+        description:      "Фиксирует государственный номер транспортного средства.",
+        event:            "Розыгрыш «Radio Province 8 лет»"
     },
     // Зима 2025
     // 13 из 13
