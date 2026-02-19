@@ -2820,6 +2820,14 @@ const itemsDatabase = [
         weight:           0.25,
         description:      "Фиксирует государственный номер транспортного средства.",
     },
+    {
+        id:               403,
+        badgeImage:       "../icons/frames/admin_team_2.png",
+        name:             "Рамка «ADMN»",
+        type:             "Номерная рамка",
+        weight:           0.25,
+        description:      "Фиксирует государственный номер транспортного средства.",
+    },
     // Дилеры
     // 6 шт
     {
@@ -3572,6 +3580,14 @@ const itemsDatabase = [
         id:               409,
         badgeImage:       "../icons/vinyls/admin_team_1.png",
         name:             "Винил «Admin Team»",
+        type:             "Винил",
+        weight:           1,
+        description:      "Создаёт привлекающий образ для транспорта. В тюнинг-ателье должны уметь обращаться с такими вещами."
+    },
+    {
+        id:               409,
+        badgeImage:       "../icons/vinyls/ADMN.png",
+        name:             "Винил «ADMN»",
         type:             "Винил",
         weight:           1,
         description:      "Создаёт привлекающий образ для транспорта. В тюнинг-ателье должны уметь обращаться с такими вещами."
