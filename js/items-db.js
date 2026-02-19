@@ -3586,7 +3586,7 @@ const itemsDatabase = [
     },
     {
         id:               409,
-        badgeImage:       "../icons/vinyls/ADMN.png",
+        badgeImage:       "../icons/vinyls/admin_team_2.png",
         name:             "Винил «ADMN»",
         type:             "Винил",
         weight:           1,
