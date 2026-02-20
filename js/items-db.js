@@ -1342,7 +1342,7 @@ const itemsDatabase = [
         id:               378,
         badgeImage:       "../icons/wheels/5018.png",
         name:             "Разварки Тип-1",
-        type:             "",
+        type:             "Стандартные колеса",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
@@ -1414,7 +1414,7 @@ const itemsDatabase = [
         id:               378,
         badgeImage:       "../icons/wheels/5027.png",
         name:             "Диски «ВСМПО Дельта»",
-        type:             "",
+        type:             "Стандартные колеса",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
@@ -1526,7 +1526,7 @@ const itemsDatabase = [
         id:               378,
         badgeImage:       "../icons/wheels/5041.png",
         name:             "Диски «Штампованные диски Тип-1»",
-        type:             "",
+        type:             "Стандартные колеса",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
@@ -2079,7 +2079,7 @@ const itemsDatabase = [
         id:               378,
         badgeImage:       "../icons/wheels/5190.png",
         name:             "Диски «ВСМПО Мечта»",
-        type:             "",
+        type:             "Стандартные колеса",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
@@ -2087,7 +2087,7 @@ const itemsDatabase = [
         id:               378,
         badgeImage:       "../icons/wheels/5191.png",
         name:             "Диски «СМЗ Фреза»",
-        type:             "",
+        type:             "Стандартные колеса",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
@@ -2095,7 +2095,7 @@ const itemsDatabase = [
         id:               378,
         badgeImage:       "../icons/wheels/5192.png",
         name:             "Диски «ТЗСК Звёзды»",
-        type:             "",
+        type:             "Стандартные колеса",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
