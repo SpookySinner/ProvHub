@@ -283,6 +283,10 @@ button::-moz-focus-inner,
   pointer-events: none;
 }
 
+.items-tab-box img::selection {
+	background-color: transparent;
+}
+
 .items-tab-box:focus img {
   transform: scale(1.2);
   z-index: 1000;
