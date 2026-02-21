@@ -591,8 +591,23 @@ button::-moz-focus-inner,
   padding: 0.25rem 0.5rem;
 }
 
-@media (min-width: 576px) {
+.mobile-filters {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
 
+.mobile-filters .dropdown-menu {
+  min-width: 300px;
+}
+
+#mobileEventsMenu {
+  --bs-position: end !important;
+}
+
+.mobile-filters .dropdown-item {
+  flex-wrap: wrap;
 }
 
 @media (min-width: 768px) {
@@ -605,12 +620,8 @@ button::-moz-focus-inner,
   .sidebar {
     display: block;
   }
-}
 
-@media (min-width: 1200px) {
-  
-}
-
-@media (min-width: 1400px) {
-  
+  .mobile-filters {
+    display: none;
+  }
 }
