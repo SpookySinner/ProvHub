@@ -1575,7 +1575,7 @@ const itemsDatabase = [
         id:               378,
         badgeImage:       "../icons/wheels/5046.png",
         name:             "Диски «Штампы Тип-2»",
-        type:             "",
+        type:             "Стандартные колеса",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
@@ -1583,7 +1583,7 @@ const itemsDatabase = [
         id:               378,
         badgeImage:       "../icons/wheels/5047.png",
         name:             "Диски «Штампы с колпаком»",
-        type:             "",
+        type:             "Стандартные колеса",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
@@ -1600,7 +1600,7 @@ const itemsDatabase = [
         id:               378,
         badgeImage:       "../icons/wheels/5049.png",
         name:             "Диски «Lenso Maglite»",
-        type:             "",
+        type:             "Стандартные колеса",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
@@ -2111,7 +2111,7 @@ const itemsDatabase = [
         id:               378,
         badgeImage:       "../icons/wheels/5193.png",
         name:             "Диски «Cragar 390»",
-        type:             "",
+        type:             "Американская классика",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
