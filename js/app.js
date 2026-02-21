@@ -367,6 +367,104 @@ function renderItemsGrid(itemsToRender) {
   }
 }
 
+function updateMobileCategoryButtonText() {
+  const mobileCategoryBtn = document.getElementById('mobileCategoryDropdown');
+  if (mobileCategoryBtn) {
+    mobileCategoryBtn.textContent = `Категория: ${currentCategory}`;
+  }
+}
+
+function updateMobileEventButtonText() {
+  const mobileEventBtn = document.getElementById('mobileEventDropdown');
+  if (mobileEventBtn) {
+    mobileEventBtn.textContent = `Ивент: ${currentEvent}`;
+  }
+}
+
+function buildMobileCategoriesMenu() {
+  const mobileCategoriesMenu = document.getElementById('mobileCategoriesMenu');
+  if (!mobileCategoriesMenu || !itemsData.length) return;
+
+  const categories = getCategoriesFromItems();
+  mobileCategoriesMenu.innerHTML = '';
+
+  categories.forEach(category => {
+    const button = document.createElement('li');
+    const itemLink = document.createElement('button');
+    itemLink.className = 'dropdown-item';
+    if (category === currentCategory) {
+      itemLink.classList.add('active');
+    }
+
+    let itemCount;
+    if (category === 'Все предметы') {
+      itemCount = itemsData.length;
+    } else if (category === 'Все колеса') {
+      itemCount = itemsData.filter(item => item.type && item.type.includes('колеса')).length;
+    } else if (category === 'Без категории') {
+      itemCount = itemsData.filter(item => !item.type || item.type.trim() === '').length;
+    } else {
+      itemCount = itemsData.filter(item => item.type === category).length;
+    }
+
+    itemLink.innerHTML = `
+      <span${category === 'Без категории' ? ' style="color: #dc3545;"' : ''}>${category}</span>
+      <span class="ms-auto">${itemCount}</span>
+    `;
+
+    itemLink.addEventListener('click', () => {
+      document.querySelectorAll('#mobileCategoriesMenu .dropdown-item').forEach(btn => btn.classList.remove('active'));
+      itemLink.classList.add('active');
+      currentCategory = category;
+      filterAndRenderItems();
+      closeAllPopovers();
+    });
+
+    button.appendChild(itemLink);
+    mobileCategoriesMenu.appendChild(button);
+  });
+}
+
+function buildMobileEventsMenu() {
+  const mobileEventsMenu = document.getElementById('mobileEventsMenu');
+  if (!mobileEventsMenu || !itemsData.length) return;
+
+  const events = getEventsFromItems();
+  mobileEventsMenu.innerHTML = '';
+
+  events.forEach(event => {
+    const button = document.createElement('li');
+    const itemLink = document.createElement('button');
+    itemLink.className = 'dropdown-item';
+    if (event === currentEvent) {
+      itemLink.classList.add('active');
+    }
+
+    let itemCount;
+    if (event === 'Все ивенты') {
+      itemCount = itemsData.length;
+    } else {
+      itemCount = itemsData.filter(item => item.event === event).length;
+    }
+
+    itemLink.innerHTML = `
+      <span>${event}</span>
+      <span class="ms-auto">${itemCount}</span>
+    `;
+
+    itemLink.addEventListener('click', () => {
+      document.querySelectorAll('#mobileEventsMenu .dropdown-item').forEach(btn => btn.classList.remove('active'));
+      itemLink.classList.add('active');
+      currentEvent = event;
+      filterAndRenderItems();
+      closeAllPopovers();
+    });
+
+    button.appendChild(itemLink);
+    mobileEventsMenu.appendChild(button);
+  });
+}
+
 function filterAndRenderItems() {
   const filteredItems = getFilteredItems();
   renderItemsGrid(filteredItems);
@@ -386,6 +484,9 @@ function filterAndRenderItems() {
     }
     placeholderText.placeholder = `Поиск ${filteredItems.length} из ${totalInFilters} предметов...`;
   }
+
+  updateMobileCategoryButtonText();
+  updateMobileEventButtonText();
 }
 
 function showItemPopover(event, item) {
@@ -449,6 +550,13 @@ document.addEventListener('click', function(e) {
   }
 });
 
+function updateMobileFilters() {
+  updateMobileCategoryButtonText();
+  updateMobileEventButtonText();
+  buildMobileCategoriesMenu();
+  buildMobileEventsMenu();
+}
+
 function initApp() {
   if (!itemsData.length) {
     console.error('Нет данных для отображения');
@@ -473,6 +581,8 @@ function initApp() {
   if (tooltipTriggerList.length > 0) {
     [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
   }
+
+  updateMobileFilters();
 }
 
 if (document.readyState === 'loading') {
