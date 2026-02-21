@@ -208,6 +208,7 @@ button::-moz-focus-inner,
 
 .nav-sidebar .nav-link > span:first-child {
   color: rgba(var(--bs-emphasis-color-rgb), 0.55);
+  text-align: center;
 }
 
 .nav-sidebar .nav-link > span:last-child {
