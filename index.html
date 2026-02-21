@@ -16,7 +16,6 @@
     <nav class="navbar navbar-expand-lg border-bottom fixed-top bg-body-tertiary">
       <div class="container">
         <a class="navbar-brand" href="/ProvHub">
-          <!-- <i data-lucide="boxes" class="me-3"></i> -->
           <div class="navbar-brand-text">
             <h5 class="mb-0">ProvHub</h5>
             <span class="small">MTA Province App</span>
@@ -60,6 +59,20 @@
             <nav class="nav nav-sidebar flex-column" id="eventsNav"></nav>
           </div>
           <div class="col py-4">
+            <div class="mobile-filters mb-3">
+              <div class="dropdown me-auto">
+                <button class="btn btn-outline-secondary dropdown-toggle w-100 text-start" type="button" id="mobileCategoryDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                  Категория: Все предметы
+                </button>
+                <ul class="dropdown-menu w-100" id="mobileCategoriesMenu" aria-labelledby="mobileCategoryDropdown"></ul>
+              </div>
+              <div class="dropdown">
+                <button class="btn btn-outline-secondary dropdown-toggle w-100 text-start" type="button" id="mobileEventDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                  Ивент: Все ивенты
+                </button>
+                <ul class="dropdown-menu w-100" id="mobileEventsMenu" aria-labelledby="mobileEventDropdown"></ul>
+              </div>
+            </div>
             <div class="ph-search mb-4">
               <input type="text" class="form-control ph-placeholder" placeholder="Поиск предметов...">
               <i data-lucide="package-search"></i>
@@ -149,4 +162,3 @@
     <script src="js/app.js"></script>
   </body>
 </html>
-
