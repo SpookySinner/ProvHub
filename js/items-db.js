@@ -1412,24 +1412,24 @@ const itemsDatabase = [
     {
         id:               378,
         badgeImage:       "../icons/wheels/5015.png",
-        name:             "Диски «Cragat 342»",
-        type:             "",
+        name:             "Диски «Cragar 342»",
+        type:             "Американская классика",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
     {
         id:               378,
         badgeImage:       "../icons/wheels/5016.png",
-        name:             "Диски «Cragat 61 Super Sport»",
-        type:             "",
+        name:             "Диски «Cragar 61 Super Sport»",
+        type:             "Американская классика",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
     {
         id:               378,
         badgeImage:       "../icons/wheels/5017.png",
-        name:             "Диски «Cragat 330 Super Spake»",
-        type:             "",
+        name:             "Диски «Cragar 330 Super Spake»",
+        type:             "Американская классика",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
@@ -1703,7 +1703,7 @@ const itemsDatabase = [
         id:               378,
         badgeImage:       "../icons/wheels/5051.png",
         name:             "Диски «Cragar 320 Quick Trick»",
-        type:             "",
+        type:             "Американская классика",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
@@ -1754,7 +1754,7 @@ const itemsDatabase = [
         id:               378,
         badgeImage:       "../icons/wheels/5057.png",
         name:             "Диски «Square Wheels G33»",
-        type:             "",
+        type:             "Спортивные колеса",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
@@ -1787,7 +1787,7 @@ const itemsDatabase = [
         id:               378,
         badgeImage:       "../icons/wheels/5061.png",
         name:             "Диски «Rotiform TBM»",
-        type:             "",
+        type:             "Спортивные колеса",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
@@ -2206,7 +2206,7 @@ const itemsDatabase = [
         id:               378,
         badgeImage:       "../icons/wheels/5194.png",
         name:             "Диски «Enkei RT6»",
-        type:             "",
+        type:             "Внедорожные колеса",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
@@ -6463,7 +6463,7 @@ const itemsDatabase = [
         capacity:         "10 слотов",
         weight:           0.55,
         description:      "Стильный и практичный выбор для путешествий.",
-        event:            "Зима 2025"
+        event:            "23 февраля 2025"
     },
     {
         id:               823,
