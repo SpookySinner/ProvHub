@@ -603,7 +603,7 @@ button::-moz-focus-inner,
 }
 
 #mobileEventsMenu {
-  --bs-position: end !important;
+  --bs-position: start !important;
 }
 
 .mobile-filters .dropdown-item {
@@ -616,6 +616,10 @@ button::-moz-focus-inner,
   }
 }
 
+@media (min-width: 576px) {
+
+}
+
 @media (min-width: 992px) {
   .sidebar {
     display: block;
@@ -623,5 +627,9 @@ button::-moz-focus-inner,
 
   .mobile-filters {
     display: none;
+  }
+
+  #mobileEventsMenu {
+    --bs-position: end !important;
   }
 }
