@@ -880,6 +880,15 @@ const itemsDatabase = [
         event:            "Весна 2023"
     },
     {
+        id:               350,
+        name:             "Наспинная сумка «Dsquared2»",
+        type:             "Рюкзак",
+        capacity:         "3 слота",
+        weight:           0.1,
+        description:      "Альтернативное решение рюкзаку. Правда всяких замков маловато.",
+        event:            "Весна 2023"
+    },
+    {
         id:               352,
         name:             "Кепка «Hugo Boss»",
         type:             "Головной убор",
@@ -2930,6 +2939,14 @@ const itemsDatabase = [
     },
     {
         id:               403,
+        badgeImage:       "../icons/frames/prov_numberframe_87.png",
+        name:             "Рамка «ОПЕРСКИЕ»",
+        type:             "Номерная рамка",
+        weight:           0.25,
+        description:      "Фиксирует государственный номер транспортного средства.",
+    },
+    {
+        id:               403,
         badgeImage:       "../icons/frames/prov_numberframe_6.png",
         name:             "Рамка «Боевая классика»",
         type:             "Номерная рамка",
@@ -4421,6 +4438,24 @@ const itemsDatabase = [
         event:            "Осень 2023"
     },
     {
+        id:               541,
+        name:             "Рюкзак «Burberry»",
+        type:             "Рюкзак",
+        capacity:         "5 слотов",
+        weight:           0.35,
+        description:      "Помогает выглядеть богатым и успешным, даже если ты живёшь в подвале у родителей.",
+        event:            "Осень 2023"
+    },
+    {
+        id:               542,
+        name:             "Рюкзак «Off-White»",
+        type:             "Рюкзак",
+        capacity:         "5 слотов",
+        weight:           0.35,
+        description:      "Функциональный аксессуар для переноски предметов.",
+        event:            "Осень 2023"
+    },
+    {
         id:               543,
         name:             "Рюкзак «Eastpak»",
         type:             "Рюкзак",
@@ -4477,6 +4512,24 @@ const itemsDatabase = [
     {
         id:               549,
         name:             "Рюкзак «Versace»",
+        type:             "Рюкзак",
+        capacity:         "5 слотов",
+        weight:           0.35,
+        description:      "Функциональный аксессуар для переноски предметов.",
+        event:            "Осень 2023"
+    },
+    {
+        id:               550,
+        name:             "Рюкзак «Lacoste»",
+        type:             "Рюкзак",
+        capacity:         "5 слотов",
+        weight:           0.35,
+        description:      "Функциональный аксессуар для переноски предметов.",
+        event:            "Осень 2023"
+    },
+    {
+        id:               551,
+        name:             "Рюкзак «Palm Angels»",
         type:             "Рюкзак",
         capacity:         "5 слотов",
         weight:           0.35,
