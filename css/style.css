@@ -241,6 +241,7 @@ button::-moz-focus-inner,
 .items-tab-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, 96px);
+  justify-content: space-between;
   gap: 16px;
   width: 100%;
 }
@@ -600,7 +601,9 @@ button::-moz-focus-inner,
 }
 
 @media (min-width: 992px) {
-  
+  .sidebar {
+    display: block;
+  }
 }
 
 @media (min-width: 1200px) {
@@ -608,5 +611,5 @@ button::-moz-focus-inner,
 }
 
 @media (min-width: 1400px) {
-  
+
 }
