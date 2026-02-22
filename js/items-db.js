@@ -8883,11 +8883,12 @@ const itemsDatabase = [
         event:            "Частота 9.0"
     },
     {
+        protected:        true,
         id:               960,
-        name:             "?",
-        type:             "",
-        // weight:           0.1,
-        // description:      ""
+        name:             "Большой ящик с патронами «7H21»",
+        type:             "Предмет в руки",
+        weight:           7.41,
+        description:      "Боеприпасы для пистолета MP-433 «Грач»"
     },
     {
         id:               961,
