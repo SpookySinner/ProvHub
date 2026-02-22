@@ -262,6 +262,16 @@ button::-moz-focus-inner,
   z-index: 1;
 }
 
+.items-tab-box.uncategorized {
+  background-color: rgba(220, 53, 69, 0.1);
+}
+
+.items-tab-box.uncategorized:hover,
+.items-tab-box.uncategorized:focus {
+  background-color: rgba(220, 53, 69, 0.15);
+  border-color: rgba(220, 53, 69, 0.5);
+}
+
 .items-tab-box:hover,
 .items-tab-box:focus {
   background-color: rgba(var(--bs-emphasis-color-rgb), .035);
@@ -608,6 +618,11 @@ button::-moz-focus-inner,
 
 .mobile-filters .dropdown-item {
   flex-wrap: wrap;
+}
+
+.navbar-toggler .lucide {
+  width: 24px;
+  height: 24px;
 }
 
 @media (min-width: 768px) {
