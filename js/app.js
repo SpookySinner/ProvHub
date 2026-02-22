@@ -313,6 +313,11 @@ function renderItemsGrid(itemsToRender) {
   itemsToRender.forEach((item) => {
     const itemButton = document.createElement('button');
     itemButton.className = 'items-tab-box';
+    
+    if (!item.type || item.type.trim() === '') {
+      itemButton.classList.add('uncategorized');
+    }
+    
     itemButton.dataset.itemId = item.id;
     if (item.badgeImage) {
       itemButton.dataset.badgeImage = item.badgeImage;
