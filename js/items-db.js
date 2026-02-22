@@ -5705,101 +5705,115 @@ const itemsDatabase = [
     },
     {
         id:               559,
-        name:             "?",
-        type:             "",
-        // weight:           0.1,
-        // description:      ""
+        name:             "Хоккейная маска",
+        type:             "Маска",
+        weight:           0.65,
+        description:      "Вселяй ужас и страх каждому встречному.",
+        event:            "Судная ночь"
     },
     {
         id:               560,
-        name:             "?",
-        type:             "",
-        // weight:           0.1,
-        // description:      ""
+        name:             "Хоккейная маска",
+        type:             "Маска",
+        weight:           0.65,
+        description:      "Вселяй ужас и страх каждому встречному.",
+        event:            "Судная ночь"
     },
     {
         id:               561,
-        name:             "?",
-        type:             "",
-        // weight:           0.1,
-        // description:      ""
+        name:             "Хоккейная маска",
+        type:             "Маска",
+        weight:           0.65,
+        description:      "Вселяй ужас и страх каждому встречному.",
+        event:            "Судная ночь"
     },
     {
         id:               562,
-        name:             "?",
-        type:             "",
-        // weight:           0.1,
-        // description:      ""
+        name:             "Хоккейная маска",
+        type:             "Маска",
+        weight:           0.65,
+        description:      "Вселяй ужас и страх каждому встречному.",
+        event:            "Судная ночь"
     },
     {
         id:               563,
-        name:             "?",
-        type:             "",
-        // weight:           0.1,
-        // description:      ""
+        name:             "Хоккейная маска",
+        type:             "Маска",
+        weight:           0.65,
+        description:      "Вселяй ужас и страх каждому встречному.",
+        event:            "Судная ночь"
     },
     {
         id:               564,
-        name:             "?",
-        type:             "",
-        // weight:           0.1,
-        // description:      ""
+        name:             "Хоккейная маска",
+        type:             "Маска",
+        weight:           0.65,
+        description:      "Вселяй ужас и страх каждому встречному.",
+        event:            "Судная ночь"
     },
     {
         id:               565,
-        name:             "?",
-        type:             "",
-        // weight:           0.1,
-        // description:      ""
+        name:             "Хоккейная маска",
+        type:             "Маска",
+        weight:           0.65,
+        description:      "Вселяй ужас и страх каждому встречному.",
+        event:            "Судная ночь"
     },
     {
         id:               566,
-        name:             "?",
-        type:             "",
-        // weight:           0.1,
-        // description:      ""
+        name:             "Хоккейная маска",
+        type:             "Маска",
+        weight:           0.65,
+        description:      "Вселяй ужас и страх каждому встречному.",
+        event:            "Судная ночь"
     },
     {
         id:               567,
-        name:             "?",
-        type:             "",
-        // weight:           0.1,
-        // description:      ""
+        name:             "Хоккейная маска",
+        type:             "Маска",
+        weight:           1.3,
+        description:      "Вселяй ужас и страх каждому встречному.",
+        event:            "Судная ночь"
     },
     {
         id:               568,
-        name:             "?",
-        type:             "",
-        // weight:           0.1,
-        // description:      ""
+        name:             "Хоккейная маска",
+        type:             "Маска",
+        weight:           1.3,
+        description:      "Вселяй ужас и страх каждому встречному.",
+        event:            "Судная ночь"
     },
     {
         id:               569,
-        name:             "?",
-        type:             "",
-        // weight:           0.1,
-        // description:      ""
+        name:             "Хоккейная маска",
+        type:             "Маска",
+        weight:           1.3,
+        description:      "Вселяй ужас и страх каждому встречному.",
+        event:            "Судная ночь"
     },
     {
         id:               570,
-        name:             "?",
-        type:             "",
-        // weight:           0.1,
-        // description:      ""
+        name:             "Хоккейная маска",
+        type:             "Маска",
+        weight:           1.3,
+        description:      "Вселяй ужас и страх каждому встречному.",
+        event:            "Судная ночь"
     },
     {
         id:               571,
-        name:             "?",
-        type:             "",
-        // weight:           0.1,
-        // description:      ""
+        name:             "Хоккейная маска",
+        type:             "Маска",
+        weight:           1.3,
+        description:      "Вселяй ужас и страх каждому встречному.",
+        event:            "Судная ночь"
     },
     {
         id:               572,
-        name:             "?",
-        type:             "",
-        // weight:           0.1,
-        // description:      ""
+        name:             "Хоккейная маска",
+        type:             "Маска",
+        weight:           1.3,
+        description:      "Мяу или мяу? А может быть мяу-муя-яум?",
+        event:            "Судная ночь"
     },
     {
         id:               573,
