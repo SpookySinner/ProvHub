@@ -1239,23 +1239,6 @@ const itemsDatabase = [
         weight:           0.1,
         description:      "Портативное устройство для обмена звонками и сообщениями."
     },
-
-    // 
-    // 
-    // 
-    // 
-    // 
-    // {
-    //     id:               378,
-    //     badgeImage:       "../icons/wheels/.png",
-    //     name:             "Диски «»",
-    //     type:             "",
-    //     weight:           36,
-    //     description:      "Неотъемлемая часть транспортного средства."
-    // },
-
-
-
     {
         id:               378,
         badgeImage:       "../icons/wheels/1025.png",
@@ -1736,15 +1719,15 @@ const itemsDatabase = [
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
-    // 
-    // {
-    //     id:               378,
-    //     badgeImage:       "../icons/wheels/5043.png",
-    //     name:             "Диски «?»",
-    //     type:             "",
-    //     weight:           36,
-    //     description:      "Неотъемлемая часть транспортного средства."
-    // },
+    
+    {
+        id:               378,
+        badgeImage:       "../icons/wheels/5043.png",
+        name:             "Диски «?»",
+        type:             "",
+        weight:           36,
+        description:      "Неотъемлемая часть транспортного средства."
+    },
     {
         id:               378,
         badgeImage:       "../icons/wheels/5044.png",
@@ -1918,15 +1901,15 @@ const itemsDatabase = [
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
-    // 
-    // {
-    //     id:               378,
-    //     badgeImage:       "../icons/wheels/5065.png",
-    //     name:             "Диски «?»",
-    //     type:             "",
-    //     weight:           36,
-    //     description:      "Неотъемлемая часть транспортного средства."
-    // },
+    
+    {
+        id:               378,
+        badgeImage:       "../icons/wheels/5065.png",
+        name:             "Диски «?»",
+        type:             "",
+        weight:           36,
+        description:      "Неотъемлемая часть транспортного средства."
+    },
     {
         id:               378,
         badgeImage:       "../icons/wheels/5066.png",
@@ -1935,15 +1918,15 @@ const itemsDatabase = [
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
-    // 
-    // {
-    //     id:               378,
-    //     badgeImage:       "../icons/wheels/5067.png",
-    //     name:             "Диски «?»",
-    //     type:             "",
-    //     weight:           36,
-    //     description:      "Неотъемлемая часть транспортного средства."
-    // },
+    
+    {
+        id:               378,
+        badgeImage:       "../icons/wheels/5067.png",
+        name:             "Диски «?»",
+        type:             "",
+        weight:           36,
+        description:      "Неотъемлемая часть транспортного средства."
+    },
     {
         id:               378,
         badgeImage:       "../icons/wheels/5068.png",
@@ -2065,16 +2048,16 @@ const itemsDatabase = [
         description:      "Неотъемлемая часть транспортного средства.",
         event:            "",
     },
-    // 
-    // {
-    //     id:               378,
-    //     badgeImage:       "../icons/wheels/5144.png",
-    //     name:             "Диски «?»",
-    //     type:             "",
-    //     weight:           36,
-    //     description:      "Неотъемлемая часть транспортного средства.",
-    //     event:            "",
-    // },
+    
+    {
+        id:               378,
+        badgeImage:       "../icons/wheels/5144.png",
+        name:             "Диски «?»",
+        type:             "",
+        weight:           36,
+        description:      "Неотъемлемая часть транспортного средства.",
+        event:            "",
+    },
     {
         id:               378,
         badgeImage:       "../icons/wheels/5161.png",
@@ -7904,13 +7887,3 @@ const itemsDatabase = [
 ];
 
 window.itemsDatabase = itemsDatabase;
-
-// Стандартные колеса
-// Спортивные колеса
-// Внедорожные колеса
-// Евроштамповка
-// Американская классика
-// Японская классика
-// Советская классика
-// 36 кг
-// Неотъемлемая часть транспортного средства.
