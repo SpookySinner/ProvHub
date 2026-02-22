@@ -508,11 +508,10 @@ const itemsDatabase = [
     },
     {
         id:               202,
-        name:             "?",
-        type:             "",
-        // health:           6,
-        // weight:           0.1,
-        // description:      "Медицинское изделие с долго сохраняющейся липкой поверхностью."
+        name:             "Лопата",
+        type:             "Предмет в руки",
+        weight:           2,
+        description:      "Простая и надёжная для земляных работ."
     },
     {
         id:               203,
@@ -1224,20 +1223,20 @@ const itemsDatabase = [
         description:      "Предназначен для регулировки движения."
     },
     {
+        protected:        true,
         id:               292,
-        name:             "?",
-        type:             "",
-        // health:           6,
-        // weight:           0.1,
-        // description:      "Медицинское изделие с долго сохраняющейся липкой поверхностью."
+        name:             "Медицинская каталка",
+        type:             "Предмет в руки",
+        weight:           0,
+        description:      "Манёвренные, предназначены для транспортировки пациента."
     },
     {
+        protected:        true,
         id:               293,
-        name:             "?",
-        type:             "",
-        // health:           6,
-        // weight:           0.1,
-        // description:      "Медицинское изделие с долго сохраняющейся липкой поверхностью."
+        name:             "Защитная медицинская маска",
+        type:             "Маска",
+        weight:           0.1,
+        description:      "Необходимый атрибут для любого медицинского работника."
     },
     {
         id:               294,
@@ -2269,8 +2268,8 @@ const itemsDatabase = [
     {
         id:               378,
         badgeImage:       "../icons/wheels/5043.png",
-        name:             "Диски «?»",
-        type:             "",
+        name:             "Диски «American Racing VN500»",
+        type:             "Американская классика",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
@@ -2451,8 +2450,8 @@ const itemsDatabase = [
     {
         id:               378,
         badgeImage:       "../icons/wheels/5065.png",
-        name:             "Диски «?»",
-        type:             "",
+        name:             "Диски «HRE RS204M»",
+        type:             "Спортивные колеса",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
@@ -2468,8 +2467,8 @@ const itemsDatabase = [
     {
         id:               378,
         badgeImage:       "../icons/wheels/5067.png",
-        name:             "Диски «?»",
-        type:             "",
+        name:             "Диски «HRE RS205M»",
+        type:             "Спортивные колеса",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства."
     },
@@ -2598,8 +2597,8 @@ const itemsDatabase = [
     {
         id:               378,
         badgeImage:       "../icons/wheels/5144.png",
-        name:             "Диски «?»",
-        type:             "",
+        name:             "Диски «BMW 167 Style»",
+        type:             "Стандартные колеса",
         weight:           36,
         description:      "Неотъемлемая часть транспортного средства.",
         event:            "",
@@ -5456,13 +5455,6 @@ const itemsDatabase = [
         weight:           0.4,
         description:      "Защитит тебя от дождя, солнца или ослепительных фотоснимков, которые делают твои вымышленные поклонники.",
         event:            "Осень 2023"
-    },
-    {
-        id:               529,
-        name:             "?",
-        type:             "",
-        // weight:           0.1,
-        // description:      ""
     },
     {
         id:               529,
