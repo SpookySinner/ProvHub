@@ -42,7 +42,7 @@ if (typeof itemsDatabase === 'undefined') {
   console.log(`База данных загружена. Всего предметов: ${itemsDatabase.length}`);
 }
 
-const TOTAL_ITEMS_IN_GAME = 817+50+174+127;
+const TOTAL_ITEMS_IN_GAME = 803+50+174+127;
 
 let currentCategory = 'Все предметы';
 let currentEvent = 'Все ивенты';
