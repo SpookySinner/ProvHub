@@ -1861,8 +1861,6 @@ async function downloadVehicleBoard(format = 'png') {
     infoCol.innerHTML = `
         <div class="vehicle-board-info-item"><span class="vehicle-board-info-item-start">Пробег</span><span class="vehicle-board-info-item-end">${boardMileage.textContent}</span></div>
         <div class="vehicle-board-info-item"><span class="vehicle-board-info-item-start">Цвет</span><span class="vehicle-board-info-item-end">${boardColor.textContent}</span></div>
-        <div class="vehicle-board-info-item"><span class="vehicle-board-info-item-start">Привод</span><span class="vehicle-board-info-item-end">${boardDrive.textContent}</span></div>
-        <div class="vehicle-board-info-item"><span class="vehicle-board-info-item-start">Руль</span><span class="vehicle-board-info-item-end">${boardSteering.textContent}</span></div>
         <div class="vehicle-board-info-item"><span class="vehicle-board-info-item-start">Состояние</span><span class="vehicle-board-info-item-end">${boardCondition.textContent}</span></div>
         <div class="vehicle-board-info-item"><span class="vehicle-board-info-item-start">Владельцы</span><span class="vehicle-board-info-item-end">${boardOwners.textContent}</span></div>
         <div class="vehicle-board-info-item"><span class="vehicle-board-info-item-start">Владение</span><span class="vehicle-board-info-item-end">${boardOwnership.textContent}</span></div>
