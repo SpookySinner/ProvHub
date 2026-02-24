@@ -1815,27 +1815,37 @@ async function downloadVehicleBoard(format = 'png') {
         const mainImageContainer = document.createElement('div');
         mainImageContainer.style.width = '100%';
         mainImageContainer.style.height = '100%';
+        mainImageContainer.style.aspectRatio = '1/1';
         mainImageContainer.style.backgroundImage = `url('${mainImageSrc}')`;
         mainImageContainer.style.backgroundSize = 'cover';
         mainImageContainer.style.backgroundPosition = 'center';
         mainImageContainer.style.backgroundRepeat = 'no-repeat';
+        mainImageContainer.style.borderRadius = '12px';
         mainImage.parentNode.replaceChild(mainImageContainer, mainImage);
         mainImageContainer.id = 'boardMainImage';
     }
     
-    const thumbnails = exportBoard.querySelectorAll('#boardThumbnailsBox img');
-    thumbnails.forEach((thumb, index) => {
-        const thumbSrc = thumb.src;
-        const thumbContainer = document.createElement('div');
-        thumbContainer.style.width = '100%';
-        thumbContainer.style.height = '100%';
-        thumbContainer.style.backgroundImage = `url('${thumbSrc}')`;
-        thumbContainer.style.backgroundSize = 'cover';
-        thumbContainer.style.backgroundPosition = 'center';
-        thumbContainer.style.backgroundRepeat = 'no-repeat';
-        thumb.parentNode.replaceChild(thumbContainer, thumb);
-        thumbContainer.dataset.index = index;
-    });
+    const thumbnailsBox = exportBoard.querySelector('#boardThumbnailsBox');
+    if (thumbnailsBox) {
+        if (uploadedImages.length === 4) {
+            thumbnailsBox.style.display = 'grid';
+            thumbnailsBox.innerHTML = '';
+            
+            for (let i = 1; i < 4; i++) {
+                const thumbContainer = document.createElement('div');
+                thumbContainer.style.width = '100%';
+                thumbContainer.style.aspectRatio = '16/9';
+                thumbContainer.style.backgroundImage = `url('${uploadedImages[i]}')`;
+                thumbContainer.style.backgroundSize = 'cover';
+                thumbContainer.style.backgroundPosition = 'center';
+                thumbContainer.style.backgroundRepeat = 'no-repeat';
+                thumbContainer.style.borderRadius = '8px';
+                thumbnailsBox.appendChild(thumbContainer);
+            }
+        } else {
+            thumbnailsBox.style.display = 'none';
+        }
+    }
     
     exportBoard.style.position = 'absolute';
     exportBoard.style.left = '-9999px';
