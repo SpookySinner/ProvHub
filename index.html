@@ -34,7 +34,7 @@
                 Генератор объявлений
               </a>
               <ul class="dropdown-menu">
-                <li><button class="dropdown-item" data-bs-toggle="tab" role="tab" id="vehicle-generator-tab" data-bs-target="#vehicle-generator-tab-pane" aria-controls="vehicle-generator-tab-pane" aria-expanded="false" disabled><i data-lucide="car-front" class="me-3"></i>Продажа транспорта</button></li>
+                <li><button class="dropdown-item" data-bs-toggle="tab" role="tab" id="vehicle-generator-tab" data-bs-target="#vehicle-generator-tab-pane" aria-controls="vehicle-generator-tab-pane" aria-expanded="false"><i data-lucide="car-front" class="me-3"></i>Продажа транспорта</button></li>
                 <li><button class="dropdown-item" data-bs-toggle="tab" role="tab" id="items-generator-tab" data-bs-target="#items-generator-tab-pane" aria-controls="items-generator-tab-pane" aria-expanded="false"><i data-lucide="package" class="me-3"></i>Доска предметов</button></li>
               </ul>
             </li>
@@ -81,8 +81,280 @@
           </div>
         </div>
       </div>
-      <div class="container tab-pane fade" id="vehicle-generator-tab-pane" role="tabpanel" aria-labelledby="vehicle-generator-tab" tabindex="0"></div>
-      <div class="container tab-pane fade" id="items-generator-tab-pane" role="tabpanel" aria-labelledby="items-generator-tab" tabindex="0">
+
+      <!-- Генератор объявлений ТС -->
+      <div class="container tab-pane fade" id="vehicle-generator-tab-pane" role="tabpanel" aria-labelledby="vehicle-generator-tab" tabindex="0">
+        <div class="row">
+          <div class="col-auto py-4">
+            <div class="vehicle-board" id="vehicleBoard" data-board-theme="light">
+              <div class="vehicle-board-header">
+                <h4 class="vehicle-board-title" id="boardVehicleName">BMW 535i (E34)</h4>
+                <h4 class="vehicle-board-cost" id="boardVehiclePrice">1 250 000 ₽</h4>
+                <span class="vehicle-board-badge" id="boardVehicleBadge">Справедливая цена</span>
+              </div>
+              <div class="vehicle-board-author">
+                <div class="vehicle-board-author-start">
+                  <span class="vehicle-board-author-nickname" id="boardAuthorNickname">Gabriel_Leroy</span>
+                  <span class="vehicle-board-author-location" id="boardAuthorLocation">Приволжск, Вокзал</span>
+                </div>
+                <div class="vehicle-board-author-end" id="boardContactBlock">
+                  <span class="vehicle-board-author-number" id="boardPhoneNumber">+8 978 197-28-24</span>
+                  <span class="vehicle-board-author-period" id="boardTimePeriod">с 08:00 до 22:00 МСК</span>
+                </div>
+              </div>
+              <div class="row vehicle-board-main">
+                <div class="col vehicle-board-info-box" style="max-width: 320px;">
+                  <div class="vehicle-board-info-item">
+                    <span class="vehicle-board-info-item-start">Пробег</span>
+                    <span class="vehicle-board-info-item-end" id="boardMileage">3 603 км</span>
+                  </div>
+                  <div class="vehicle-board-info-item">
+                    <span class="vehicle-board-info-item-start">Цвет</span>
+                    <span class="vehicle-board-info-item-end" id="boardColor">Чёрный</span>
+                  </div>
+                  <!-- <div class="vehicle-board-info-item">
+                    <span class="vehicle-board-info-item-start">Привод</span>
+                    <span class="vehicle-board-info-item-end" id="boardDrive">Задний</span>
+                  </div>
+                  <div class="vehicle-board-info-item">
+                    <span class="vehicle-board-info-item-start">Руль</span>
+                    <span class="vehicle-board-info-item-end" id="boardSteering">Левый</span>
+                  </div> -->
+                  <div class="vehicle-board-info-item">
+                    <span class="vehicle-board-info-item-start">Состояние</span>
+                    <span class="vehicle-board-info-item-end" id="boardCondition">Не требует ремонта</span>
+                  </div>
+                  <div class="vehicle-board-info-item">
+                    <span class="vehicle-board-info-item-start">Владельцы</span>
+                    <span class="vehicle-board-info-item-end" id="boardOwners">10 владельцев</span>
+                  </div>
+                  <div class="vehicle-board-info-item">
+                    <span class="vehicle-board-info-item-start">Владение</span>
+                    <span class="vehicle-board-info-item-end" id="boardOwnership">7 дней</span>
+                  </div>
+                  <div class="vehicle-board-info-item">
+                    <span class="vehicle-board-info-item-start">Номер</span>
+                    <span class="vehicle-board-info-item-end" id="boardPlate">Без номера</span>
+                  </div>
+                  <div class="vehicle-board-info-item">
+                    <span class="vehicle-board-info-item-start">Прошивка</span>
+                    <span class="vehicle-board-info-item-end" id="boardTuningChip">База • Скорость • Скорость • Скорость</span>
+                  </div>
+                  <div class="vehicle-board-info-item">
+                    <span class="vehicle-board-info-item-start">Тюнинг</span>
+                    <span class="vehicle-board-info-item-end" id="boardTuning">Чёрный салон</span>
+                  </div>
+                  <div class="vehicle-board-info-item">
+                    <span class="vehicle-board-info-item-start">Винил</span>
+                    <span class="vehicle-board-info-item-end" id="boardVinyl">Без винила</span>
+                  </div>
+                  <div class="vehicle-board-info-item">
+                    <span class="vehicle-board-info-item-start">Рамка</span>
+                    <span class="vehicle-board-info-item-end" id="boardFrame">Стандартная</span>
+                  </div>
+                </div>
+                <div class="col" id="boardImagesColumn">
+                  <img src="img/1.jpg" class="vehicle-board-main-img" id="boardMainImage">
+                  <div class="vehicle-board-img-box" id="boardThumbnailsBox">
+                    <img src="img/2.jpg">
+                    <img src="img/3.jpg">
+                    <img src="img/4.jpg">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col py-4">
+            <div class="card">
+              <div class="card-header">
+                <i data-lucide="car-front" class="me-3"></i>
+                <span>Параметры объявления</span>
+              </div>
+              <div class="card-body">
+                <form id="vehicleForm">
+                  <div class="mb-3">
+                    <label class="form-label fw-semibold">Транспортное средство <span class="text-danger">*</span></label>
+                    <div class="custom-select" id="vehicleCustomSelect">
+                      <div class="position-relative">
+                        <input type="text" class="form-control" id="vehicleSearchInput" placeholder="Поиск ТС..." autocomplete="off">
+                        <input type="hidden" id="vehicleSelectedId">
+                        <input type="hidden" id="vehicleSelectedName">
+                        <i data-lucide="chevron-down" class="position-absolute top-50 end-0 translate-middle-y me-3" style="pointer-events: none; width: 18px; height: 18px;"></i>
+                      </div>
+                      <div class="custom-select-dropdown dropdown-menu w-100" id="vehicleDropdown" style="max-height: 300px; overflow-y: auto;"></div>
+                    </div>
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label fw-semibold">Стоимость <span class="text-danger">*</span></label>
+                    <div class="input-group">
+                      <input type="text" class="form-control" id="vehiclePrice" placeholder="1 250 000" value="">
+                      <span class="input-group-text">₽</span>
+                    </div>
+                    <div class="form-text">Цифры разделяются пробелом</div>
+                  </div>
+
+                  <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="showPriceBadge" checked>
+                    <label class="form-check-label" for="showPriceBadge">Показывать бейдж "Справедливая цена"</label>
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label fw-semibold">Никнейм продавца <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="sellerNickname" value="" placeholder="Spooky Sinner" required>
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label fw-semibold">Местоположение</label>
+                    <div class="custom-select" id="locationCustomSelect">
+                      <div class="position-relative">
+                        <input type="text" class="form-control" id="locationSearchInput" placeholder="Поиск локации..." autocomplete="off">
+                        <input type="hidden" id="locationSelectedValue">
+                        <input type="hidden" id="locationSelectedText">
+                        <i data-lucide="chevron-down" class="position-absolute top-50 end-0 translate-middle-y me-3" style="pointer-events: none; width: 18px; height: 18px;"></i>
+                      </div>
+                      <div class="custom-select-dropdown dropdown-menu w-100" id="locationDropdown" style="max-height: 300px; overflow-y: auto;"></div>
+                    </div>
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label fw-semibold">Номер телефона</label>
+                    <input type="text" class="form-control" id="phoneNumber" placeholder="+8 000 000-00-00" value="">
+                  </div>
+
+                  <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="showTimePeriod" checked>
+                    <label class="form-check-label" for="showTimePeriod">Показывать время связи (с 08:00 до 22:00 МСК)</label>
+                  </div>
+
+                  <hr class="my-4">
+
+                  <div class="mb-3">
+                    <label class="form-label fw-semibold">Пробег (км)</label>
+                    <input type="text" class="form-control" id="mileage" placeholder="Например: 3 603">
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label fw-semibold">Цвет</label>
+                    <input type="text" class="form-control" id="color" placeholder="Например: Чёрный">
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label fw-semibold">Количество владельцев <span class="text-danger">*</span></label>
+                    <input type="number" class="form-control" id="owners" min="1" placeholder="Например: 10" required>
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label fw-semibold">Владение (дней)</label>
+                    <input type="number" class="form-control" id="ownership" min="1" placeholder="Например: 7">
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label fw-semibold">Госномер</label>
+                    <input type="text" class="form-control" id="plate" placeholder="А123ВВ 777">
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label fw-semibold">Прошивка (слоты заполняются по порядку)</label>
+                    
+                    <div class="mb-3">
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="chipBase" checked>
+                        <label class="form-check-label" for="chipBase">База (Слот 1)</label>
+                      </div>
+                    </div>
+                    
+                    <div class="row g-3 mb-2">
+                      <div class="col-md-4">
+                        <label class="form-label fw-medium">Слот 2</label>
+                        <select class="form-select" id="chipSlot2">
+                          <option value="">— не выбрано —</option>
+                          <option value="speed">Скорость</option>
+                          <option value="balance">Баланс</option>
+                          <option value="handling">Управление</option>
+                        </select>
+                      </div>
+                      <div class="col-md-4">
+                        <label class="form-label fw-medium">Слот 3</label>
+                        <select class="form-select" id="chipSlot3">
+                          <option value="">— не выбрано —</option>
+                          <option value="speed">Скорость</option>
+                          <option value="balance">Баланс</option>
+                          <option value="handling">Управление</option>
+                        </select>
+                      </div>
+                      <div class="col-md-4">
+                        <label class="form-label fw-medium">Слот 4</label>
+                        <select class="form-select" id="chipSlot4">
+                          <option value="">— не выбрано —</option>
+                          <option value="speed">Скорость</option>
+                          <option value="balance">Баланс</option>
+                          <option value="handling">Управление</option>
+                        </select>
+                      </div>
+                    </div>
+                    
+                    <div class="form-text">
+                      Слот 1: ${chipBase.checked ? 'База' : 'пусто'}<br>
+                      Слоты 2-4 заполняются по порядку. Нельзя выбрать слот 3, если не выбран слот 2, и т.д.
+                    </div>
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label fw-semibold">Тюнинг (описание)</label>
+                    <input type="text" class="form-control" id="tuning" placeholder="Например: Чёрный салон">
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label fw-semibold">Винил</label>
+                    <select class="form-select" id="vinylSelect">
+                      <option value="">Без винила</option>
+                    </select>
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label fw-semibold">Номерная рамка</label>
+                    <select class="form-select" id="frameSelect">
+                      <option value="">Стандартная</option>
+                    </select>
+                  </div>
+
+                  <div class="mb-4">
+                    <label class="form-label fw-semibold">Фотографии (1 или 4 шт)</label>
+                    <input type="file" class="form-control" id="imageUpload" accept="image/*" multiple>
+                    <div class="form-text">Выберите 1 или 4 изображения. Первое будет главным.</div>
+                    <div class="mt-2 small" id="imageCountMessage"></div>
+                  </div>
+
+                  <hr class="my-4">
+
+                  <div class="d-flex gap-2">
+                    <div class="btn-group dropup me-3">
+                      <button type="button" class="btn btn-primary" id="downloadVehicleBtn">Скачать PNG</button>
+                      <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                        <span class="visually-hidden">Toggle Dropdown</span>
+                      </button>
+                      <ul class="dropdown-menu dropdown-menu-end w-100" id="downloadVehicleDropdown">
+                        <li><a class="dropdown-item" href="#" data-format="png">Скачать .PNG</a></li>
+                        <li><a class="dropdown-item" href="#" data-format="jpeg">Скачать .JPEG</a></li>
+                        <li><a class="dropdown-item" href="#" data-format="webp">Скачать .WebP</a></li>
+                      </ul>
+                    </div>
+                    <button type="button" class="btn btn-outline-secondary" id="toggleVehicleBoardTheme">
+                      <i data-lucide="palette" class="me-2" style="width: 20px; height: 20px;"></i>
+                      Сменить тему доски
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Генератор объявлений предметов -->
+      <div class="container tab-pane fade overflow-hidden" id="items-generator-tab-pane" role="tabpanel" aria-labelledby="items-generator-tab" tabindex="0">
         <div class="row">
           <div class="col-auto py-4">
             <div class="board-wrapper" id="boardWrapper">
@@ -155,10 +427,9 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <script>
       lucide.createIcons();
-      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
     </script>
     <script src="js/items-db.js"></script>
+    <script src="js/vehicles-db.js"></script>
     <script src="js/app.js"></script>
   </body>
 </html>
