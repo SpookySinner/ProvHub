@@ -1824,6 +1824,8 @@ async function downloadVehicleBoard(format = 'png') {
         mainImage.style.border = 'none';
         mainImage.style.outline = 'none';
         mainImage.style.borderRadius = '0';
+        mainImage.style.objectFit = 'contain';
+        mainImage.style.backgroundColor = vehicleBoardTheme === 'light' ? '#f8f9fa' : '#0D0D0D';
     }
     
     const thumbnails = exportBoard.querySelectorAll('#boardThumbnailsBox img');
@@ -1831,6 +1833,8 @@ async function downloadVehicleBoard(format = 'png') {
         thumb.style.border = 'none';
         thumb.style.outline = 'none';
         thumb.style.borderRadius = '0';
+        thumb.style.objectFit = 'contain';
+        thumb.style.backgroundColor = vehicleBoardTheme === 'light' ? '#f8f9fa' : '#0D0D0D';
     });
     
     document.body.appendChild(exportBoard);
@@ -1872,6 +1876,16 @@ async function downloadVehicleBoard(format = 'png') {
             useCORS: true,
             logging: false,
             windowWidth: originalWidth,
+            onclone: function(clonedDoc, element) {
+                const clonedMainImage = element.querySelector('#boardMainImage');
+                if (clonedMainImage) {
+                    clonedMainImage.style.objectFit = 'contain';
+                }
+                const clonedThumbnails = element.querySelectorAll('#boardThumbnailsBox img');
+                clonedThumbnails.forEach(thumb => {
+                    thumb.style.objectFit = 'contain';
+                });
+            }
         });
         
         const link = document.createElement('a');
