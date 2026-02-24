@@ -1815,6 +1815,7 @@ async function downloadVehicleBoard(format = 'png') {
     const originalMainImageBorder = boardMainImage.style.border;
     const originalMainImageOutline = boardMainImage.style.outline;
     const originalMainImageBorderRadius = boardMainImage.style.borderRadius;
+    const originalMainImageObjectFit = boardMainImage.style.objectFit;
     
     const thumbnails = boardThumbnailsBox.querySelectorAll('img');
     const originalThumbnailsStyles = [];
@@ -1822,7 +1823,8 @@ async function downloadVehicleBoard(format = 'png') {
         originalThumbnailsStyles.push({
             border: thumb.style.border,
             outline: thumb.style.outline,
-            borderRadius: thumb.style.borderRadius
+            borderRadius: thumb.style.borderRadius,
+            objectFit: thumb.style.objectFit
         });
     });
     
@@ -1833,11 +1835,15 @@ async function downloadVehicleBoard(format = 'png') {
     boardMainImage.style.border = 'none';
     boardMainImage.style.outline = 'none';
     boardMainImage.style.borderRadius = '0';
+    boardMainImage.style.objectFit = 'contain';
+    boardMainImage.style.backgroundColor = vehicleBoardTheme === 'light' ? '#f8f9fa' : '#0D0D0D';
     
     thumbnails.forEach(thumb => {
         thumb.style.border = 'none';
         thumb.style.outline = 'none';
         thumb.style.borderRadius = '0';
+        thumb.style.objectFit = 'contain';
+        thumb.style.backgroundColor = vehicleBoardTheme === 'light' ? '#f8f9fa' : '#0D0D0D';
     });
     
     await new Promise(resolve => setTimeout(resolve, 100));
@@ -1857,12 +1863,16 @@ async function downloadVehicleBoard(format = 'png') {
                     clonedMainImage.style.border = 'none';
                     clonedMainImage.style.outline = 'none';
                     clonedMainImage.style.borderRadius = '0';
+                    clonedMainImage.style.objectFit = 'contain';
+                    clonedMainImage.style.backgroundColor = vehicleBoardTheme === 'light' ? '#f8f9fa' : '#0D0D0D';
                 }
                 const clonedThumbnails = element.querySelectorAll('#boardThumbnailsBox img');
                 clonedThumbnails.forEach(thumb => {
                     thumb.style.border = 'none';
                     thumb.style.outline = 'none';
                     thumb.style.borderRadius = '0';
+                    thumb.style.objectFit = 'contain';
+                    thumb.style.backgroundColor = vehicleBoardTheme === 'light' ? '#f8f9fa' : '#0D0D0D';
                 });
             }
         });
@@ -1893,11 +1903,13 @@ async function downloadVehicleBoard(format = 'png') {
         boardMainImage.style.border = originalMainImageBorder;
         boardMainImage.style.outline = originalMainImageOutline;
         boardMainImage.style.borderRadius = originalMainImageBorderRadius;
+        boardMainImage.style.objectFit = originalMainImageObjectFit;
         
         thumbnails.forEach((thumb, index) => {
             thumb.style.border = originalThumbnailsStyles[index].border;
             thumb.style.outline = originalThumbnailsStyles[index].outline;
             thumb.style.borderRadius = originalThumbnailsStyles[index].borderRadius;
+            thumb.style.objectFit = originalThumbnailsStyles[index].objectFit;
         });
     }
 }
