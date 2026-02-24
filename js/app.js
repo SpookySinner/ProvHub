@@ -1807,147 +1807,80 @@ async function downloadVehicleBoard(format = 'png') {
     const scaleFactor = 2;
     const originalWidth = 960;
     
-    const exportBoard = document.createElement('div');
-    exportBoard.className = 'vehicle-board';
-    exportBoard.setAttribute('data-board-theme', vehicleBoardTheme);
-    exportBoard.style.width = originalWidth + 'px';
-    exportBoard.style.padding = '2rem';
-    exportBoard.style.position = 'absolute';
-    exportBoard.style.left = '-9999px';
-    exportBoard.style.top = '-9999px';
-    exportBoard.style.backgroundColor = vehicleBoardTheme === 'light' ? '#f8f9fa' : '#0D0D0D';
-    exportBoard.style.border = 'none';
-    exportBoard.style.outline = 'none';
-    exportBoard.style.boxShadow = 'none';
+    const originalDisplay = vehicleBoard.style.display;
+    const originalBorder = vehicleBoard.style.border;
+    const originalOutline = vehicleBoard.style.outline;
+    const originalBoxShadow = vehicleBoard.style.boxShadow;
+    const originalMainImageStyles = {
+        border: boardMainImage.style.border,
+        outline: boardMainImage.style.outline,
+        borderRadius: boardMainImage.style.borderRadius,
+        objectFit: boardMainImage.style.objectFit
+    };
     
-    const header = document.createElement('div');
-    header.className = 'vehicle-board-header';
-    header.innerHTML = `
-        <h4 class="vehicle-board-title">${boardVehicleName.textContent}</h4>
-        <h4 class="vehicle-board-cost">${boardVehiclePrice.textContent}</h4>
-        ${boardVehicleBadge.style.display !== 'none' ? '<span class="vehicle-board-badge">Справедливая цена</span>' : ''}
-    `;
-    exportBoard.appendChild(header);
-    
-    const author = document.createElement('div');
-    author.className = 'vehicle-board-author';
-    
-    const authorStart = document.createElement('div');
-    authorStart.className = 'vehicle-board-author-start';
-    authorStart.innerHTML = `
-        <span class="vehicle-board-author-nickname">${boardAuthorNickname.textContent}</span>
-        <span class="vehicle-board-author-location">${boardAuthorLocation.textContent}</span>
-    `;
-    author.appendChild(authorStart);
-    
-    if (boardContactBlock.style.display !== 'none') {
-        const authorEnd = document.createElement('div');
-        authorEnd.className = 'vehicle-board-author-end';
-        authorEnd.innerHTML = `
-            <span class="vehicle-board-author-number">${boardPhoneNumber.textContent}</span>
-            ${boardTimePeriod.style.display !== 'none' ? '<span class="vehicle-board-author-period">с 08:00 до 22:00 МСК</span>' : ''}
-        `;
-        author.appendChild(authorEnd);
-    }
-    
-    exportBoard.appendChild(author);
-    
-    const main = document.createElement('div');
-    main.className = 'row vehicle-board-main';
-    
-    const infoCol = document.createElement('div');
-    infoCol.className = 'col vehicle-board-info-box';
-    infoCol.style.maxWidth = '320px';
-    infoCol.innerHTML = `
-        <div class="vehicle-board-info-item"><span class="vehicle-board-info-item-start">Пробег</span><span class="vehicle-board-info-item-end">${boardMileage.textContent}</span></div>
-        <div class="vehicle-board-info-item"><span class="vehicle-board-info-item-start">Цвет</span><span class="vehicle-board-info-item-end">${boardColor.textContent}</span></div>
-        <div class="vehicle-board-info-item"><span class="vehicle-board-info-item-start">Состояние</span><span class="vehicle-board-info-item-end">${boardCondition.textContent}</span></div>
-        <div class="vehicle-board-info-item"><span class="vehicle-board-info-item-start">Владельцы</span><span class="vehicle-board-info-item-end">${boardOwners.textContent}</span></div>
-        <div class="vehicle-board-info-item"><span class="vehicle-board-info-item-start">Владение</span><span class="vehicle-board-info-item-end">${boardOwnership.textContent}</span></div>
-        <div class="vehicle-board-info-item"><span class="vehicle-board-info-item-start">Номер</span><span class="vehicle-board-info-item-end">${boardPlate.textContent}</span></div>
-        <div class="vehicle-board-info-item"><span class="vehicle-board-info-item-start">Прошивка</span><span class="vehicle-board-info-item-end">${boardTuningChip.textContent}</span></div>
-        <div class="vehicle-board-info-item"><span class="vehicle-board-info-item-start">Тюнинг</span><span class="vehicle-board-info-item-end">${boardTuning.textContent}</span></div>
-        <div class="vehicle-board-info-item"><span class="vehicle-board-info-item-start">Винил</span><span class="vehicle-board-info-item-end">${boardVinyl.textContent}</span></div>
-        <div class="vehicle-board-info-item"><span class="vehicle-board-info-item-start">Рамка</span><span class="vehicle-board-info-item-end">${boardFrame.textContent}</span></div>
-    `;
-    main.appendChild(infoCol);
-    
-    const imagesCol = document.createElement('div');
-    imagesCol.className = 'col';
-    
-    const mainImageContainer = document.createElement('div');
-    mainImageContainer.style.width = '100%';
-    mainImageContainer.style.aspectRatio = '1/1';
-    mainImageContainer.style.overflow = 'hidden';
-    mainImageContainer.style.backgroundColor = vehicleBoardTheme === 'light' ? '#f8f9fa' : '#0D0D0D';
-    
-    const mainImg = document.createElement('img');
-    mainImg.src = boardMainImage.src;
-    mainImg.style.width = '100%';
-    mainImg.style.height = '100%';
-    mainImg.style.objectFit = 'contain';
-    mainImageContainer.appendChild(mainImg);
-    imagesCol.appendChild(mainImageContainer);
-    
-    if (boardThumbnailsBox.style.display !== 'none' && uploadedImages.length === 4) {
-        const thumbnailsContainer = document.createElement('div');
-        thumbnailsContainer.style.display = 'grid';
-        thumbnailsContainer.style.gridTemplateColumns = 'repeat(3, 1fr)';
-        thumbnailsContainer.style.gap = '0.5rem';
-        thumbnailsContainer.style.marginTop = '0.5rem';
-        
-        const thumbnails = boardThumbnailsBox.querySelectorAll('img');
-        thumbnails.forEach(thumb => {
-            const thumbContainer = document.createElement('div');
-            thumbContainer.style.width = '100%';
-            thumbContainer.style.aspectRatio = '16/9';
-            thumbContainer.style.overflow = 'hidden';
-            thumbContainer.style.backgroundColor = vehicleBoardTheme === 'light' ? '#f8f9fa' : '#0D0D0D';
-            
-            const thumbImg = document.createElement('img');
-            thumbImg.src = thumb.src;
-            thumbImg.style.width = '100%';
-            thumbImg.style.height = '100%';
-            thumbImg.style.objectFit = 'contain';
-            thumbContainer.appendChild(thumbImg);
-            thumbnailsContainer.appendChild(thumbContainer);
+    const thumbnails = boardThumbnailsBox.querySelectorAll('img');
+    const originalThumbnailsStyles = [];
+    thumbnails.forEach(thumb => {
+        originalThumbnailsStyles.push({
+            border: thumb.style.border,
+            outline: thumb.style.outline,
+            borderRadius: thumb.style.borderRadius,
+            objectFit: thumb.style.objectFit
         });
-        
-        imagesCol.appendChild(thumbnailsContainer);
-    }
-    
-    main.appendChild(imagesCol);
-    exportBoard.appendChild(main);
-    
-    document.body.appendChild(exportBoard);
-    
-    const loadImagePromises = [];
-    
-    const allImages = exportBoard.querySelectorAll('img');
-    allImages.forEach(img => {
-        if (img.src) {
-            const imgPromise = new Promise((resolve) => {
-                const image = new Image();
-                image.crossOrigin = 'anonymous';
-                image.src = img.src;
-                image.onload = () => resolve();
-                image.onerror = () => resolve();
-            });
-            loadImagePromises.push(imgPromise);
-        }
     });
     
-    await Promise.all(loadImagePromises);
-    await new Promise(resolve => setTimeout(resolve, 500));
+    vehicleBoard.style.border = 'none';
+    vehicleBoard.style.outline = 'none';
+    vehicleBoard.style.boxShadow = 'none';
+    
+    boardMainImage.style.border = 'none';
+    boardMainImage.style.outline = 'none';
+    boardMainImage.style.borderRadius = '0';
+    boardMainImage.style.objectFit = 'cover';
+    
+    thumbnails.forEach(thumb => {
+        thumb.style.border = 'none';
+        thumb.style.outline = 'none';
+        thumb.style.borderRadius = '0';
+        thumb.style.objectFit = 'cover';
+    });
+    
+    await new Promise(resolve => setTimeout(resolve, 200));
     
     try {
-        const canvas = await html2canvas(exportBoard, {
+        const canvas = await html2canvas(vehicleBoard, {
             scale: scaleFactor,
             backgroundColor: vehicleBoardTheme === 'light' ? '#f8f9fa' : '#0D0D0D',
             allowTaint: false,
             useCORS: true,
-            logging: false,
+            logging: true,
             windowWidth: originalWidth,
+            windowHeight: vehicleBoard.scrollHeight,
+            onclone: function(clonedDoc, element) {
+                const clonedMainImage = element.querySelector('#boardMainImage');
+                if (clonedMainImage) {
+                    clonedMainImage.style.border = 'none';
+                    clonedMainImage.style.outline = 'none';
+                    clonedMainImage.style.borderRadius = '0';
+                    clonedMainImage.style.objectFit = 'cover';
+                    clonedMainImage.style.width = '100%';
+                    clonedMainImage.style.height = '100%';
+                }
+                const clonedThumbnails = element.querySelectorAll('#boardThumbnailsBox img');
+                clonedThumbnails.forEach(thumb => {
+                    thumb.style.border = 'none';
+                    thumb.style.outline = 'none';
+                    thumb.style.borderRadius = '0';
+                    thumb.style.objectFit = 'cover';
+                    thumb.style.width = '100%';
+                    thumb.style.height = '100%';
+                });
+                
+                const clonedThumbnailsBox = element.querySelector('#boardThumbnailsBox');
+                if (clonedThumbnailsBox && uploadedImages.length === 1) {
+                    clonedThumbnailsBox.style.display = 'none';
+                }
+            }
         });
         
         const link = document.createElement('a');
@@ -1969,7 +1902,22 @@ async function downloadVehicleBoard(format = 'png') {
         console.error('Ошибка при создании изображения:', error);
         alert('Не удалось создать изображение. Попробуй другой формат или обнови страницу.');
     } finally {
-        document.body.removeChild(exportBoard);
+        vehicleBoard.style.display = originalDisplay;
+        vehicleBoard.style.border = originalBorder;
+        vehicleBoard.style.outline = originalOutline;
+        vehicleBoard.style.boxShadow = originalBoxShadow;
+        
+        boardMainImage.style.border = originalMainImageStyles.border;
+        boardMainImage.style.outline = originalMainImageStyles.outline;
+        boardMainImage.style.borderRadius = originalMainImageStyles.borderRadius;
+        boardMainImage.style.objectFit = originalMainImageStyles.objectFit;
+        
+        thumbnails.forEach((thumb, index) => {
+            thumb.style.border = originalThumbnailsStyles[index].border;
+            thumb.style.outline = originalThumbnailsStyles[index].outline;
+            thumb.style.borderRadius = originalThumbnailsStyles[index].borderRadius;
+            thumb.style.objectFit = originalThumbnailsStyles[index].objectFit;
+        });
     }
 }
 
