@@ -1804,8 +1804,9 @@ async function downloadVehicleBoard(format = 'png') {
         return;
     }
     
-    const scaleFactor = 2;
+    const scaleFactor = 4;
     const originalWidth = 960;
+    const canvasWidth = originalWidth * scaleFactor;
     
     const exportBoard = vehicleBoard.cloneNode(true);
     
@@ -1857,6 +1858,11 @@ async function downloadVehicleBoard(format = 'png') {
         }
     }
     
+    const infoItems = exportBoard.querySelectorAll('.vehicle-board-info-item-end');
+    infoItems.forEach(item => {
+        item.style.fontSize = '1rem';
+    });
+    
     exportBoard.style.position = 'absolute';
     exportBoard.style.left = '-9999px';
     exportBoard.style.top = '-9999px';
@@ -1864,9 +1870,38 @@ async function downloadVehicleBoard(format = 'png') {
     exportBoard.style.border = 'none';
     exportBoard.style.outline = 'none';
     exportBoard.style.boxShadow = 'none';
+    exportBoard.style.transform = 'none';
+    exportBoard.style.fontSize = '16px';
     
     document.body.appendChild(exportBoard);
     
+    const loadImagePromises = [];
+    const backgroundElements = exportBoard.querySelectorAll('[style*="background-image"]');
+    
+    backgroundElements.forEach(el => {
+        const style = el.style.backgroundImage;
+        const match = style.match(/url\(['"]?(.*?)['"]?\)/);
+        if (match && match[1]) {
+            const imgPromise = new Promise((resolve) => {
+                const img = new Image();
+                img.crossOrigin = 'anonymous';
+                img.src = match[1];
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+                    canvas.width = img.width * 2;
+                    canvas.height = img.height * 2;
+                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                    el.style.backgroundImage = `url('${canvas.toDataURL('image/png', 1.0)}')`;
+                    resolve();
+                };
+                img.onerror = () => resolve();
+            });
+            loadImagePromises.push(imgPromise);
+        }
+    });
+    
+    await Promise.all(loadImagePromises);
     await new Promise(resolve => setTimeout(resolve, 500));
     
     try {
@@ -1877,18 +1912,31 @@ async function downloadVehicleBoard(format = 'png') {
             useCORS: true,
             logging: false,
             windowWidth: originalWidth,
+            imageTimeout: 0,
+            onclone: function(clonedDoc, element) {
+                const images = element.querySelectorAll('[style*="background-image"]');
+                images.forEach(img => {
+                    img.style.transform = 'none';
+                });
+            }
         });
+        
+        const finalCanvas = document.createElement('canvas');
+        finalCanvas.width = canvasWidth;
+        finalCanvas.height = canvas.height * scaleFactor;
+        const finalCtx = finalCanvas.getContext('2d');
+        finalCtx.drawImage(canvas, 0, 0, canvasWidth, canvas.height * scaleFactor);
         
         const link = document.createElement('a');
         link.download = `vehicle.${format}`;
         
         let imageData;
         if (format === 'jpeg') {
-            imageData = canvas.toDataURL('image/jpeg', 0.95);
+            imageData = finalCanvas.toDataURL('image/jpeg', 1.0);
         } else if (format === 'webp') {
-            imageData = canvas.toDataURL('image/webp', 0.95);
+            imageData = finalCanvas.toDataURL('image/webp', 1.0);
         } else {
-            imageData = canvas.toDataURL('image/png');
+            imageData = finalCanvas.toDataURL('image/png');
         }
         
         link.href = imageData;
