@@ -1824,8 +1824,10 @@ async function downloadVehicleBoard(format = 'png') {
         mainImage.style.border = 'none';
         mainImage.style.outline = 'none';
         mainImage.style.borderRadius = '0';
-        mainImage.style.objectFit = 'contain';
-        mainImage.style.backgroundColor = vehicleBoardTheme === 'light' ? '#f8f9fa' : '#0D0D0D';
+        mainImage.style.objectFit = 'cover';
+        mainImage.style.width = '100%';
+        mainImage.style.height = '100%';
+        mainImage.style.aspectRatio = '1/1';
     }
     
     const thumbnails = exportBoard.querySelectorAll('#boardThumbnailsBox img');
@@ -1833,9 +1835,16 @@ async function downloadVehicleBoard(format = 'png') {
         thumb.style.border = 'none';
         thumb.style.outline = 'none';
         thumb.style.borderRadius = '0';
-        thumb.style.objectFit = 'contain';
-        thumb.style.backgroundColor = vehicleBoardTheme === 'light' ? '#f8f9fa' : '#0D0D0D';
+        thumb.style.objectFit = 'cover';
+        thumb.style.width = '100%';
+        thumb.style.height = '100%';
+        thumb.style.aspectRatio = '16/9';
     });
+    
+    const thumbnailsBox = exportBoard.querySelector('#boardThumbnailsBox');
+    if (thumbnailsBox && uploadedImages.length === 1) {
+        thumbnailsBox.style.display = 'none';
+    }
     
     document.body.appendChild(exportBoard);
     
@@ -1866,7 +1875,7 @@ async function downloadVehicleBoard(format = 'png') {
     });
     
     await Promise.all(loadImagePromises);
-    await new Promise(resolve => setTimeout(resolve, 200));
+    await new Promise(resolve => setTimeout(resolve, 500));
     
     try {
         const canvas = await html2canvas(exportBoard, {
@@ -1879,12 +1888,22 @@ async function downloadVehicleBoard(format = 'png') {
             onclone: function(clonedDoc, element) {
                 const clonedMainImage = element.querySelector('#boardMainImage');
                 if (clonedMainImage) {
-                    clonedMainImage.style.objectFit = 'contain';
+                    clonedMainImage.style.objectFit = 'cover';
+                    clonedMainImage.style.width = '100%';
+                    clonedMainImage.style.height = '100%';
+                    clonedMainImage.style.aspectRatio = '1/1';
                 }
                 const clonedThumbnails = element.querySelectorAll('#boardThumbnailsBox img');
                 clonedThumbnails.forEach(thumb => {
-                    thumb.style.objectFit = 'contain';
+                    thumb.style.objectFit = 'cover';
+                    thumb.style.width = '100%';
+                    thumb.style.height = '100%';
+                    thumb.style.aspectRatio = '16/9';
                 });
+                const clonedThumbnailsBox = element.querySelector('#boardThumbnailsBox');
+                if (clonedThumbnailsBox && uploadedImages.length === 1) {
+                    clonedThumbnailsBox.style.display = 'none';
+                }
             }
         });
         
