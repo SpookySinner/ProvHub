@@ -1599,6 +1599,7 @@ function handleImageUpload(e) {
 function displayImages(images) {
     if (images.length === 1) {
         boardMainImage.src = images[0];
+        boardMainImage.style.objectFit = 'cover';
         boardMainImage.setAttribute('draggable', 'true');
         boardMainImage.dataset.index = '0';
         boardMainImage.addEventListener('dragstart', handleImageDragStart);
@@ -1607,6 +1608,7 @@ function displayImages(images) {
         boardThumbnailsBox.style.display = 'none';
     } else {
         boardMainImage.src = images[0];
+        boardMainImage.style.objectFit = 'cover';
         boardMainImage.setAttribute('draggable', 'true');
         boardMainImage.dataset.index = '0';
         boardMainImage.addEventListener('dragstart', handleImageDragStart);
@@ -1618,6 +1620,7 @@ function displayImages(images) {
         for (let i = 0; i < 3; i++) {
             if (images[i + 1]) {
                 thumbnails[i].src = images[i + 1];
+                thumbnails[i].style.objectFit = 'cover';
                 thumbnails[i].setAttribute('draggable', 'true');
                 thumbnails[i].dataset.index = (i + 1).toString();
                 thumbnails[i].addEventListener('dragstart', handleImageDragStart);
@@ -1659,12 +1662,12 @@ function updateVehicleBoard() {
     
     if (selectedVehicle) {
         boardVehicleName.textContent = selectedVehicle.name;
-        // boardDrive.textContent = selectedVehicle.drive;
-        // boardSteering.textContent = selectedVehicle.steering;
+        boardDrive.textContent = selectedVehicle.drive;
+        boardSteering.textContent = selectedVehicle.steering;
     } else {
         boardVehicleName.textContent = 'ТС не выбрано';
-        // boardDrive.textContent = 'Не указан';
-        // boardSteering.textContent = 'Не указан';
+        boardDrive.textContent = 'Не указан';
+        boardSteering.textContent = 'Не указан';
     }
     
     const priceValue = vehiclePrice.value.replace(/\s/g, '');
@@ -1803,8 +1806,6 @@ async function downloadVehicleBoard(format = 'png') {
     
     const scaleFactor = 2;
     const originalWidth = 960;
-    const previewWidth = vehicleBoard.offsetWidth;
-    const scale = originalWidth / previewWidth;
     
     const exportBoard = vehicleBoard.cloneNode(true);
     exportBoard.style.position = 'absolute';
@@ -1814,13 +1815,28 @@ async function downloadVehicleBoard(format = 'png') {
     exportBoard.style.height = 'auto';
     exportBoard.style.minHeight = '830px';
     exportBoard.style.transform = 'none';
-    exportBoard.style.fontSize = (14 * scale) + 'px';
+    exportBoard.style.border = 'none';
+    exportBoard.style.outline = 'none';
+    exportBoard.style.boxShadow = 'none';
+    
+    const mainImage = exportBoard.querySelector('#boardMainImage');
+    if (mainImage) {
+        mainImage.style.border = 'none';
+        mainImage.style.outline = 'none';
+        mainImage.style.borderRadius = '0';
+    }
+    
+    const thumbnails = exportBoard.querySelectorAll('#boardThumbnailsBox img');
+    thumbnails.forEach(thumb => {
+        thumb.style.border = 'none';
+        thumb.style.outline = 'none';
+        thumb.style.borderRadius = '0';
+    });
     
     document.body.appendChild(exportBoard);
     
     const loadImagePromises = [];
     
-    const mainImage = exportBoard.querySelector('#boardMainImage');
     if (mainImage && mainImage.src) {
         const imgPromise = new Promise((resolve) => {
             const img = new Image();
@@ -1832,7 +1848,6 @@ async function downloadVehicleBoard(format = 'png') {
         loadImagePromises.push(imgPromise);
     }
     
-    const thumbnails = exportBoard.querySelectorAll('#boardThumbnailsBox img');
     thumbnails.forEach(thumb => {
         if (thumb && thumb.src) {
             const imgPromise = new Promise((resolve) => {
