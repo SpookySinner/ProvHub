@@ -1807,80 +1807,56 @@ async function downloadVehicleBoard(format = 'png') {
     const scaleFactor = 2;
     const originalWidth = 960;
     
-    const originalDisplay = vehicleBoard.style.display;
-    const originalBorder = vehicleBoard.style.border;
-    const originalOutline = vehicleBoard.style.outline;
-    const originalBoxShadow = vehicleBoard.style.boxShadow;
-    const originalMainImageStyles = {
-        border: boardMainImage.style.border,
-        outline: boardMainImage.style.outline,
-        borderRadius: boardMainImage.style.borderRadius,
-        objectFit: boardMainImage.style.objectFit
-    };
+    const exportBoard = vehicleBoard.cloneNode(true);
     
-    const thumbnails = boardThumbnailsBox.querySelectorAll('img');
-    const originalThumbnailsStyles = [];
-    thumbnails.forEach(thumb => {
-        originalThumbnailsStyles.push({
-            border: thumb.style.border,
-            outline: thumb.style.outline,
-            borderRadius: thumb.style.borderRadius,
-            objectFit: thumb.style.objectFit
-        });
+    const mainImage = exportBoard.querySelector('#boardMainImage');
+    if (mainImage) {
+        const mainImageSrc = mainImage.src;
+        const mainImageContainer = document.createElement('div');
+        mainImageContainer.style.width = '100%';
+        mainImageContainer.style.height = '100%';
+        mainImageContainer.style.backgroundImage = `url('${mainImageSrc}')`;
+        mainImageContainer.style.backgroundSize = 'cover';
+        mainImageContainer.style.backgroundPosition = 'center';
+        mainImageContainer.style.backgroundRepeat = 'no-repeat';
+        mainImage.parentNode.replaceChild(mainImageContainer, mainImage);
+        mainImageContainer.id = 'boardMainImage';
+    }
+    
+    const thumbnails = exportBoard.querySelectorAll('#boardThumbnailsBox img');
+    thumbnails.forEach((thumb, index) => {
+        const thumbSrc = thumb.src;
+        const thumbContainer = document.createElement('div');
+        thumbContainer.style.width = '100%';
+        thumbContainer.style.height = '100%';
+        thumbContainer.style.backgroundImage = `url('${thumbSrc}')`;
+        thumbContainer.style.backgroundSize = 'cover';
+        thumbContainer.style.backgroundPosition = 'center';
+        thumbContainer.style.backgroundRepeat = 'no-repeat';
+        thumb.parentNode.replaceChild(thumbContainer, thumb);
+        thumbContainer.dataset.index = index;
     });
     
-    vehicleBoard.style.border = 'none';
-    vehicleBoard.style.outline = 'none';
-    vehicleBoard.style.boxShadow = 'none';
+    exportBoard.style.position = 'absolute';
+    exportBoard.style.left = '-9999px';
+    exportBoard.style.top = '-9999px';
+    exportBoard.style.width = originalWidth + 'px';
+    exportBoard.style.border = 'none';
+    exportBoard.style.outline = 'none';
+    exportBoard.style.boxShadow = 'none';
     
-    boardMainImage.style.border = 'none';
-    boardMainImage.style.outline = 'none';
-    boardMainImage.style.borderRadius = '0';
-    boardMainImage.style.objectFit = 'cover';
+    document.body.appendChild(exportBoard);
     
-    thumbnails.forEach(thumb => {
-        thumb.style.border = 'none';
-        thumb.style.outline = 'none';
-        thumb.style.borderRadius = '0';
-        thumb.style.objectFit = 'cover';
-    });
-    
-    await new Promise(resolve => setTimeout(resolve, 200));
+    await new Promise(resolve => setTimeout(resolve, 500));
     
     try {
-        const canvas = await html2canvas(vehicleBoard, {
+        const canvas = await html2canvas(exportBoard, {
             scale: scaleFactor,
             backgroundColor: vehicleBoardTheme === 'light' ? '#f8f9fa' : '#0D0D0D',
             allowTaint: false,
             useCORS: true,
-            logging: true,
+            logging: false,
             windowWidth: originalWidth,
-            windowHeight: vehicleBoard.scrollHeight,
-            onclone: function(clonedDoc, element) {
-                const clonedMainImage = element.querySelector('#boardMainImage');
-                if (clonedMainImage) {
-                    clonedMainImage.style.border = 'none';
-                    clonedMainImage.style.outline = 'none';
-                    clonedMainImage.style.borderRadius = '0';
-                    clonedMainImage.style.objectFit = 'cover';
-                    clonedMainImage.style.width = '100%';
-                    clonedMainImage.style.height = '100%';
-                }
-                const clonedThumbnails = element.querySelectorAll('#boardThumbnailsBox img');
-                clonedThumbnails.forEach(thumb => {
-                    thumb.style.border = 'none';
-                    thumb.style.outline = 'none';
-                    thumb.style.borderRadius = '0';
-                    thumb.style.objectFit = 'cover';
-                    thumb.style.width = '100%';
-                    thumb.style.height = '100%';
-                });
-                
-                const clonedThumbnailsBox = element.querySelector('#boardThumbnailsBox');
-                if (clonedThumbnailsBox && uploadedImages.length === 1) {
-                    clonedThumbnailsBox.style.display = 'none';
-                }
-            }
         });
         
         const link = document.createElement('a');
@@ -1902,22 +1878,7 @@ async function downloadVehicleBoard(format = 'png') {
         console.error('Ошибка при создании изображения:', error);
         alert('Не удалось создать изображение. Попробуй другой формат или обнови страницу.');
     } finally {
-        vehicleBoard.style.display = originalDisplay;
-        vehicleBoard.style.border = originalBorder;
-        vehicleBoard.style.outline = originalOutline;
-        vehicleBoard.style.boxShadow = originalBoxShadow;
-        
-        boardMainImage.style.border = originalMainImageStyles.border;
-        boardMainImage.style.outline = originalMainImageStyles.outline;
-        boardMainImage.style.borderRadius = originalMainImageStyles.borderRadius;
-        boardMainImage.style.objectFit = originalMainImageStyles.objectFit;
-        
-        thumbnails.forEach((thumb, index) => {
-            thumb.style.border = originalThumbnailsStyles[index].border;
-            thumb.style.outline = originalThumbnailsStyles[index].outline;
-            thumb.style.borderRadius = originalThumbnailsStyles[index].borderRadius;
-            thumb.style.objectFit = originalThumbnailsStyles[index].objectFit;
-        });
+        document.body.removeChild(exportBoard);
     }
 }
 
