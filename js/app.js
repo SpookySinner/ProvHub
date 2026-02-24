@@ -1809,12 +1809,18 @@ async function downloadVehicleBoard(format = 'png') {
     
     const exportBoard = vehicleBoard.cloneNode(true);
     
+    const imagesColumn = exportBoard.querySelector('.col:last-child');
+    if (imagesColumn) {
+        imagesColumn.style.flex = '1';
+        imagesColumn.style.maxWidth = 'calc(100% - 320px)';
+        imagesColumn.style.paddingLeft = '1rem';
+    }
+    
     const mainImage = exportBoard.querySelector('#boardMainImage');
     if (mainImage) {
         const mainImageSrc = mainImage.src;
         const mainImageContainer = document.createElement('div');
         mainImageContainer.style.width = '100%';
-        mainImageContainer.style.height = '100%';
         mainImageContainer.style.aspectRatio = '1/1';
         mainImageContainer.style.backgroundImage = `url('${mainImageSrc}')`;
         mainImageContainer.style.backgroundSize = 'cover';
@@ -1827,8 +1833,12 @@ async function downloadVehicleBoard(format = 'png') {
     
     const thumbnailsBox = exportBoard.querySelector('#boardThumbnailsBox');
     if (thumbnailsBox) {
+        thumbnailsBox.style.marginTop = '0.5rem';
+        
         if (uploadedImages.length === 4) {
             thumbnailsBox.style.display = 'grid';
+            thumbnailsBox.style.gridTemplateColumns = 'repeat(3, 1fr)';
+            thumbnailsBox.style.gap = '0.5rem';
             thumbnailsBox.innerHTML = '';
             
             for (let i = 1; i < 4; i++) {
