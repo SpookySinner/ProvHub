@@ -827,10 +827,9 @@ button::-moz-focus-inner,
     margin-top: 4px;
 }
 
-/* Для результатов поиска предметов */
 #searchResults {
-    display: block !important;  /* Переопределяем */
-    position: static !important; /* Убираем absolute */
+    display: block !important;  
+    position: static !important; 
     max-height: 350px;
     overflow-y: auto;
     border: 1px solid var(--bs-border-color);
