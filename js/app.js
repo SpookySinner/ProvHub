@@ -723,8 +723,10 @@ function debounce(func, wait) {
 
 function updateSearchResults(query) {
   console.log('updateSearchResults called with query:', query);
+  
+  const searchResults = document.querySelector('.custom-select-dropdown');
   if (!searchResults) {
-    console.error('searchResults element not found');
+    console.error('custom-select-dropdown element not found');
     return;
   }
   
@@ -737,15 +739,13 @@ function updateSearchResults(query) {
              (item.id && item.id.toString().includes(searchLower)) ||
              (item.type && item.type.toLowerCase().includes(searchLower));
     });
-  } else {
-    searchResults.innerHTML = '';
-    return;
   }
   
   const results = filtered.slice(0, 10);
   console.log('Found results:', results.length);
   
   searchResults.innerHTML = '';
+  searchResults.style.display = query.trim() !== '' ? 'block' : 'none';
   
   if (results.length === 0) {
     searchResults.innerHTML = '<div class="text-center text-secondary p-3">Ничего не найдено</div>';
@@ -760,6 +760,57 @@ function updateSearchResults(query) {
   if (typeof lucide !== 'undefined') {
     lucide.createIcons();
   }
+}
+
+// И в initBoard нужно обновить ссылку
+function initBoard() {
+  console.log('initBoard called');
+  if (!itemBoard || !itemSearchInput) {
+    console.error('itemBoard or itemSearchInput not found');
+    return;
+  }
+  
+  if (totalItemsCount) {
+    totalItemsCount.textContent = itemsData.length;
+  }
+  
+  syncBoardThemeWithPageTheme();
+  
+  const savedBoardTheme = localStorage.getItem('boardTheme');
+  if (savedBoardTheme && (savedBoardTheme === 'light' || savedBoardTheme === 'dark')) {
+    boardTheme = savedBoardTheme;
+    if (itemBoard) {
+      itemBoard.setAttribute('data-board-theme', boardTheme);
+    }
+    updateBoardThemeButtonIcon();
+  }
+  
+  const searchResults = document.querySelector('.custom-select-dropdown');
+  if (searchResults) {
+    searchResults.style.display = 'none';
+  }
+  
+  itemSearchInput.addEventListener('input', debounce((e) => {
+    console.log('Search input:', e.target.value);
+    updateSearchResults(e.target.value);
+  }, 300));
+  
+  stackingCheckbox.addEventListener('change', updateBoard);
+  
+  copyTextBtn.addEventListener('click', copyGeneratedText);
+  
+  downloadBtn.addEventListener('click', () => downloadBoard('png'));
+  
+  downloadDropdown.addEventListener('click', (e) => {
+    const format = e.target.dataset.format;
+    if (format) {
+      downloadBoard(format);
+    }
+  });
+  
+  toggleBoardTheme.addEventListener('click', toggleBoardThemeHandler);
+  
+  renderBoard();
 }
 
 function createSearchResultItem(item) {
