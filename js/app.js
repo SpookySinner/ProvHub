@@ -663,11 +663,7 @@ function toggleBoardThemeHandler() {
 }
 
 function initBoard() {
-  console.log('initBoard called');
-  if (!itemBoard || !itemSearchInput) {
-    console.error('itemBoard or itemSearchInput not found');
-    return;
-  }
+  if (!itemBoard || !itemSearchInput) return;
   
   if (totalItemsCount) {
     totalItemsCount.textContent = itemsData.length;
@@ -687,7 +683,6 @@ function initBoard() {
   updateSearchResults('');
   
   itemSearchInput.addEventListener('input', debounce((e) => {
-    console.log('Search input:', e.target.value);
     updateSearchResults(e.target.value);
   }, 300));
   
@@ -752,48 +747,6 @@ function updateSearchResults(query) {
   if (typeof lucide !== 'undefined') {
     lucide.createIcons();
   }
-}
-
-function initBoard() {
-  if (!itemBoard || !itemSearchInput) return;
-  
-  if (totalItemsCount) {
-    totalItemsCount.textContent = itemsData.length;
-  }
-  
-  syncBoardThemeWithPageTheme();
-  
-  const savedBoardTheme = localStorage.getItem('boardTheme');
-  if (savedBoardTheme && (savedBoardTheme === 'light' || savedBoardTheme === 'dark')) {
-    boardTheme = savedBoardTheme;
-    if (itemBoard) {
-      itemBoard.setAttribute('data-board-theme', boardTheme);
-    }
-    updateBoardThemeButtonIcon();
-  }
-  
-  updateSearchResults('');
-  
-  itemSearchInput.addEventListener('input', debounce((e) => {
-    updateSearchResults(e.target.value);
-  }, 300));
-  
-  stackingCheckbox.addEventListener('change', updateBoard);
-  
-  copyTextBtn.addEventListener('click', copyGeneratedText);
-  
-  downloadBtn.addEventListener('click', () => downloadBoard('png'));
-  
-  downloadDropdown.addEventListener('click', (e) => {
-    const format = e.target.dataset.format;
-    if (format) {
-      downloadBoard(format);
-    }
-  });
-  
-  toggleBoardTheme.addEventListener('click', toggleBoardThemeHandler);
-  
-  renderBoard();
 }
 
 function createSearchResultItem(item) {
@@ -1713,8 +1666,12 @@ function updateVehicleBoard() {
     
     if (selectedVehicle) {
         boardVehicleName.textContent = selectedVehicle.name;
+        boardDrive.textContent = selectedVehicle.drive;
+        boardSteering.textContent = selectedVehicle.steering;
     } else {
         boardVehicleName.textContent = 'ТС не выбрано';
+        boardDrive.textContent = 'Не указан';
+        boardSteering.textContent = 'Не указан';
     }
     
     const priceValue = vehiclePrice.value.replace(/\s/g, '');
@@ -2103,7 +2060,6 @@ function initVehicleGenerator() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('DOM полностью загружен');
     if (!itemsData || itemsData.length === 0) {
         console.error('Нет данных для отображения');
         return;
