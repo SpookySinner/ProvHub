@@ -1666,12 +1666,8 @@ function updateVehicleBoard() {
     
     if (selectedVehicle) {
         boardVehicleName.textContent = selectedVehicle.name;
-        boardDrive.textContent = selectedVehicle.drive;
-        boardSteering.textContent = selectedVehicle.steering;
     } else {
         boardVehicleName.textContent = 'ТС не выбрано';
-        boardDrive.textContent = 'Не указан';
-        boardSteering.textContent = 'Не указан';
     }
     
     const priceValue = vehiclePrice.value.replace(/\s/g, '');
