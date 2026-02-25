@@ -722,13 +722,7 @@ function debounce(func, wait) {
 }
 
 function updateSearchResults(query) {
-  console.log('updateSearchResults called with query:', query);
-  
-  const searchResults = document.querySelector('.custom-select-dropdown');
-  if (!searchResults) {
-    console.error('custom-select-dropdown element not found');
-    return;
-  }
+  if (!searchResults) return;
   
   let filtered = itemsData;
   
@@ -742,10 +736,8 @@ function updateSearchResults(query) {
   }
   
   const results = filtered.slice(0, 10);
-  console.log('Found results:', results.length);
   
   searchResults.innerHTML = '';
-  searchResults.style.display = query.trim() !== '' ? 'block' : 'none';
   
   if (results.length === 0) {
     searchResults.innerHTML = '<div class="text-center text-secondary p-3">Ничего не найдено</div>';
@@ -760,6 +752,48 @@ function updateSearchResults(query) {
   if (typeof lucide !== 'undefined') {
     lucide.createIcons();
   }
+}
+
+function initBoard() {
+  if (!itemBoard || !itemSearchInput) return;
+  
+  if (totalItemsCount) {
+    totalItemsCount.textContent = itemsData.length;
+  }
+  
+  syncBoardThemeWithPageTheme();
+  
+  const savedBoardTheme = localStorage.getItem('boardTheme');
+  if (savedBoardTheme && (savedBoardTheme === 'light' || savedBoardTheme === 'dark')) {
+    boardTheme = savedBoardTheme;
+    if (itemBoard) {
+      itemBoard.setAttribute('data-board-theme', boardTheme);
+    }
+    updateBoardThemeButtonIcon();
+  }
+  
+  updateSearchResults('');
+  
+  itemSearchInput.addEventListener('input', debounce((e) => {
+    updateSearchResults(e.target.value);
+  }, 300));
+  
+  stackingCheckbox.addEventListener('change', updateBoard);
+  
+  copyTextBtn.addEventListener('click', copyGeneratedText);
+  
+  downloadBtn.addEventListener('click', () => downloadBoard('png'));
+  
+  downloadDropdown.addEventListener('click', (e) => {
+    const format = e.target.dataset.format;
+    if (format) {
+      downloadBoard(format);
+    }
+  });
+  
+  toggleBoardTheme.addEventListener('click', toggleBoardThemeHandler);
+  
+  renderBoard();
 }
 
 // И в initBoard нужно обновить ссылку
