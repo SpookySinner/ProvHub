@@ -596,6 +596,8 @@ if (document.readyState === 'loading') {
   initApp();
 }
 
+// ========== ГЕНЕРАТОР ДОСКИ ПРЕДМЕТОВ ==========
+
 const itemBoard = document.getElementById('itemBoard');
 const boardWrapper = document.getElementById('boardWrapper');
 const itemSearchInput = document.getElementById('itemSearchInput');
@@ -661,7 +663,11 @@ function toggleBoardThemeHandler() {
 }
 
 function initBoard() {
-  if (!itemBoard || !itemSearchInput) return;
+  console.log('initBoard called');
+  if (!itemBoard || !itemSearchInput) {
+    console.error('itemBoard or itemSearchInput not found');
+    return;
+  }
   
   if (totalItemsCount) {
     totalItemsCount.textContent = itemsData.length;
@@ -681,6 +687,7 @@ function initBoard() {
   updateSearchResults('');
   
   itemSearchInput.addEventListener('input', debounce((e) => {
+    console.log('Search input:', e.target.value);
     updateSearchResults(e.target.value);
   }, 300));
   
@@ -715,7 +722,11 @@ function debounce(func, wait) {
 }
 
 function updateSearchResults(query) {
-  if (!searchResults) return;
+  console.log('updateSearchResults called with query:', query);
+  if (!searchResults) {
+    console.error('searchResults element not found');
+    return;
+  }
   
   let filtered = itemsData;
   
@@ -729,6 +740,7 @@ function updateSearchResults(query) {
   }
   
   const results = filtered.slice(0, 10);
+  console.log('Found results:', results.length);
   
   searchResults.innerHTML = '';
   
@@ -1106,6 +1118,8 @@ function updateBoard() {
   renderBoard();
   updateGeneratedText();
 }
+
+// ========== ГЕНЕРАТОР ТС ==========
 
 let vehicleBoardTheme = 'light';
 const vehicleBoard = document.getElementById('vehicleBoard');
@@ -2056,6 +2070,7 @@ function initVehicleGenerator() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOM полностью загружен');
     if (!itemsData || itemsData.length === 0) {
         console.error('Нет данных для отображения');
         return;
