@@ -821,10 +821,22 @@ button::-moz-focus-inner,
 }
 
 .custom-select-dropdown {
-  display: none;
-  position: absolute;
-  z-index: 1000;
-  margin-top: 4px;
+    display: none;
+    position: absolute;
+    z-index: 1000;
+    margin-top: 4px;
+}
+
+/* Для результатов поиска предметов */
+#searchResults {
+    display: block !important;  /* Переопределяем */
+    position: static !important; /* Убираем absolute */
+    max-height: 350px;
+    overflow-y: auto;
+    border: 1px solid var(--bs-border-color);
+    border-radius: var(--bs-border-radius);
+    background-color: var(--bs-body-bg);
+    margin-top: 4px;
 }
 
 .custom-select-dropdown.show {
