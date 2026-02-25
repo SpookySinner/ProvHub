@@ -737,6 +737,9 @@ function updateSearchResults(query) {
              (item.id && item.id.toString().includes(searchLower)) ||
              (item.type && item.type.toLowerCase().includes(searchLower));
     });
+  } else {
+    searchResults.innerHTML = '';
+    return;
   }
   
   const results = filtered.slice(0, 10);
