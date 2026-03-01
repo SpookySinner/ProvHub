@@ -188,7 +188,7 @@ button::-moz-focus-inner,
 }
 
 .nav-sidebar .nav-link {
-  --bs-nav-link-padding-y: 0.2rem;
+  --bs-nav-link-padding-y: 0.075rem;
   font-size: 0.915rem;
   display: flex;
   align-items: center;
