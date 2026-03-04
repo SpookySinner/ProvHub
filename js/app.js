@@ -928,7 +928,7 @@ function updateGeneratedText() {
     return;
   }
   
-  let text = 'ПРОДАМ:\n';
+  let text = 'Продам:\n';
   
   boardItems.forEach(boardItem => {
     const item = boardItem.item;
