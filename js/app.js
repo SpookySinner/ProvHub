@@ -1128,6 +1128,7 @@ const locationSearchInput = document.getElementById('locationSearchInput');
 const locationDropdown = document.getElementById('locationDropdown');
 const locationSelectedValue = document.getElementById('locationSelectedValue');
 const vehicleGovPrice = document.getElementById('vehicleGovPrice');
+const boardGovPrice = document.getElementById('boardGovPrice');
 
 const vehiclePrice = document.getElementById('vehiclePrice');
 const showPriceBadge = document.getElementById('showPriceBadge');
@@ -1724,10 +1725,10 @@ function updateVehicleBoard() {
 
     if (vehicleGovPrice && boardGovPrice) {
       const govPriceValue = vehicleGovPrice.value.replace(/\s/g, '');
-      if (govPriceValue && !isNaN(govPriceValue)) {
-        boardGovPrice.textContent = `Гос. стоимость: ${formatNumberWithSpaces(parseInt(govPriceValue, 10))} ₽`;
+      if (govPriceValue && !isNaN(govPriceValue) && govPriceValue !== '') {
+        boardGovPrice.textContent = `${formatNumberWithSpaces(parseInt(govPriceValue, 10))} ₽`;
       } else {
-        boardGovPrice.textContent = '';
+        boardGovPrice.textContent = 'Не указана';
       }
     }
     
@@ -1959,6 +1960,8 @@ function initVehicleGenerator() {
         if (!isNaN(value) && value !== '') {
           value = parseInt(value, 10);
           e.target.value = formatNumberWithSpaces(value);
+        } else {
+          e.target.value = '';
         }
         updateVehicleBoard();
       });
