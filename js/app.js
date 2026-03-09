@@ -788,7 +788,7 @@ function addItemToBoard(item) {
   const isStacking = stackingCheckbox.checked;
   
   if (isStacking) {
-    const existingIndex = boardItems.findIndex(bi => bi.item.id === item.id);
+    const existingIndex = boardItems.findIndex(bi => bi.item.id === item.id && bi.item.name === item.name);
     
     if (existingIndex !== -1) {
       boardItems[existingIndex].count++;
@@ -1095,7 +1095,7 @@ function updateBoard() {
   } else {
     const itemMap = new Map();
     boardItems.forEach(boardItem => {
-      const key = boardItem.item.id;
+      const key = `${boardItem.item.id}_${boardItem.item.name}`;
       if (itemMap.has(key)) {
         itemMap.get(key).count += boardItem.count;
       } else {
