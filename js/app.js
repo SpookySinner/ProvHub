@@ -1128,7 +1128,6 @@ const locationSearchInput = document.getElementById('locationSearchInput');
 const locationDropdown = document.getElementById('locationDropdown');
 const locationSelectedValue = document.getElementById('locationSelectedValue');
 const vehicleGovPrice = document.getElementById('vehicleGovPrice');
-const boardGovPrice = document.getElementById('boardGovPrice');
 
 const vehiclePrice = document.getElementById('vehiclePrice');
 const showPriceBadge = document.getElementById('showPriceBadge');
