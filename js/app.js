@@ -1127,6 +1127,7 @@ const locationCustomSelect = document.getElementById('locationCustomSelect');
 const locationSearchInput = document.getElementById('locationSearchInput');
 const locationDropdown = document.getElementById('locationDropdown');
 const locationSelectedValue = document.getElementById('locationSelectedValue');
+const vehicleGovPrice = document.getElementById('vehicleGovPrice');
 
 const vehiclePrice = document.getElementById('vehiclePrice');
 const showPriceBadge = document.getElementById('showPriceBadge');
@@ -1147,6 +1148,7 @@ const vinylSelect = document.getElementById('vinylSelect');
 const frameSelect = document.getElementById('frameSelect');
 const imageUpload = document.getElementById('imageUpload');
 const imageCountMessage = document.getElementById('imageCountMessage');
+const boardGovPrice = document.getElementById('boardGovPrice');
 
 const boardVehicleName = document.getElementById('boardVehicleName');
 const boardVehiclePrice = document.getElementById('boardVehiclePrice');
@@ -1719,6 +1721,15 @@ function updateVehicleBoard() {
     } else {
         boardOwners.textContent = 'Не указано';
     }
+
+    if (vehicleGovPrice && boardGovPrice) {
+      const govPriceValue = vehicleGovPrice.value.replace(/\s/g, '');
+      if (govPriceValue && !isNaN(govPriceValue)) {
+        boardGovPrice.textContent = `Гос. стоимость: ${formatNumberWithSpaces(parseInt(govPriceValue, 10))} ₽`;
+      } else {
+        boardGovPrice.textContent = '';
+      }
+    }
     
     const daysCount = ownership.value;
     if (daysCount) {
@@ -1940,6 +1951,17 @@ function initVehicleGenerator() {
             vehicleBoard.setAttribute('data-board-theme', vehicleBoardTheme);
         }
         updateVehicleBoardThemeButtonIcon();
+    }
+
+    if (vehicleGovPrice) {
+      vehicleGovPrice.addEventListener('input', function(e) {
+        let value = e.target.value.replace(/\s/g, '');
+        if (!isNaN(value) && value !== '') {
+          value = parseInt(value, 10);
+          e.target.value = formatNumberWithSpaces(value);
+        }
+        updateVehicleBoard();
+      });
     }
     
     setPlaceholderImages();
